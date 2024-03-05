@@ -13,3 +13,4 @@
 <body>
     <div class="d-flex">
         <?php include('sidebar.php'); ?>
+    </div>
