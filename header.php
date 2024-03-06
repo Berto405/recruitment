@@ -33,10 +33,11 @@ session_start();
         <ul class="navbar-nav">
             <?php
             if (isset($_SESSION["user_id"])) {
-                $user_id = $_SESSION["user_id"];
+                $user = $_SESSION["user_name"];
                 echo '
                     <div class="col-md-3 text-end">
-                            <a href="logout.php" type="submit" class="btn btn-outline-dark me-2 text-white border-color-white">Logout</a>
+                        <span>' . $user . '</span>
+                        <a href="/recruitment/logout.php" type="submit" class="btn btn-outline-dark me-2 text-white border-color-white">Logout</a>
                         
                     </div>
                 ';
