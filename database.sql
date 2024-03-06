@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 05, 2024 at 10:17 AM
+-- Generation Time: Mar 06, 2024 at 09:25 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,7 +52,8 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`) VALUES
 (10, 'Roberto Advincula', 'bertw@gmail.com', '$2y$10$HK/OprvVQsTEj/TrbO8aCONil78/LDgClFMvEmPIbxD18hpRiUtui', 'user'),
 (11, 'shesh sheesh', 'shes@gmail.com', '$2y$10$cNCoPKIdMxh0X8J4uQKf6uFytN3/JInhNynq0K.e/QS2IEzXHXaUC', 'user'),
 (12, 'jj hh', 'h@gmail.com', '$2y$10$xOS/MUG00N9VSxhgbbRZlO7pAZfk8zDAFa.AhU7.9vlS7bscs7GWa', 'user'),
-(13, 'asd asd', 'as@gmail.com', '$2y$10$TchRc7BVw8YrTtLbsbJ7QeNhuePr7r.qnZEY.I8fwHrQqX6N.5OTi', 'user');
+(13, 'asd asd', 'as@gmail.com', '$2y$10$TchRc7BVw8YrTtLbsbJ7QeNhuePr7r.qnZEY.I8fwHrQqX6N.5OTi', 'user'),
+(14, 'berto berto', 'berto1@gmail.com', '$2y$10$he1Vtqu2XIRlMv6N.TjJcOaDlrYJ5seZ1jUio/yErCZKAtK1ixmH6', 'user');
 
 --
 -- Indexes for dumped tables
@@ -72,7 +73,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
