@@ -1,5 +1,15 @@
-<?php include('header.php'); ?>
-<?php include('dbconn.php'); ?>
+<?php
+include('header.php');
+include('dbconn.php');
+
+//User wont be able to access register page when logged in
+// Check if user is not logged in
+if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
+    // Redirect users who are not logged in to the login page
+    header("Location: /recruitment/index.php");
+    exit();
+}
+?>
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="border-0 shadow bg-white" style="width: 30em;">

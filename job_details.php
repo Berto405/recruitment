@@ -37,7 +37,7 @@ if (isset($_GET["id"])) {
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-md-6 mx-1">
-                <a href="/recruitment"><i class="bi bi-backspace-fill"></i></a>
+                <a href="/recruitment" class="text-muted"><i class="bi bi-backspace-fill"></i></a>
                 <h1>
                     <?php echo $row['job_name']; ?>
                 </h1>

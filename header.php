@@ -35,11 +35,9 @@ session_start();
             if (isset($_SESSION["user_id"])) {
                 $user = $_SESSION["user_name"];
                 echo '
-                    <div class="col-md-3 text-end">
-                        <span>' . $user . '</span>
-                        <a href="/recruitment/logout.php" type="submit" class="btn btn-outline-dark me-2 text-white border-color-white">Logout</a>
-                        
-                    </div>
+                    <li class="nav-item mt-1"><a href="#" class="text-white me-2 text-decoration-none"> ' . $user . ' </a></li>
+                    <li class="nav-item"><a href="/recruitment/logout.php" type="submit" class="btn btn-outline-dark me-2 text-white border-color-white">Logout</a></li>
+                       
                 ';
             } else {
                 echo '
