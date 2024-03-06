@@ -36,13 +36,13 @@ session_start();
                 $user = $_SESSION["user_name"];
                 echo '
                     <li class="nav-item mt-1"><a href="#" class="text-white me-2 text-decoration-none"> ' . $user . ' </a></li>
-                    <li class="nav-item"><a href="/recruitment/logout.php" type="submit" class="btn btn-outline-dark me-2 text-white border-color-white">Logout</a></li>
+                    <li class="nav-item"><a href="/recruitment/logout.php" type="submit" class="btn btn-outline-secondary me-2 text-white border-color-white">Logout</a></li>
                        
                 ';
             } else {
                 echo '
-                    <li class="nav-item"><a href="login.php" class="nav-link text-white">Sign in</a></li>
-                    <li class="nav-item"><a href="register.php" class="nav-link text-white">Sign up</a></li>
+                    <li class="nav-item"><a href="login.php" type="submit" class="btn btn-outline-success me-2 text-white border-color-white">Sign in</a></li>
+                    <li class="nav-item"><a href="register.php" class="btn btn-success me-2 text-white">Sign up</a></li>
                     ';
             }
             ?>
