@@ -1,6 +1,4 @@
 <?php
-
-include("../check_session.php");
 include('../header.php');
 include('../dbconn.php');
 ?>

@@ -52,11 +52,13 @@
                         </p>
                     <?php } ?>
                     <div class="mb-1 d-flex justify-content-center mt-3">
-                        <button class="btn btn-fluid rounded-1 w-100 btn-primary text-light"
-                            type="submit">Register</button>
+                        <button class="btn btn-fluid rounded-1 w-100 text-light"
+                            style="background-color: #8b0000; border-color: #8b0000;" type="submit">
+                            Register
+                        </button>
                     </div>
                     <div class="text-start my-2 ms-1">
-                        <small>Have an account? <a href="index.php" class="text-decoration-none">Sign in</a></small>
+                        <small>Have an account? <a href="login.php" class="text-decoration-none">Sign in</a></small>
                     </div>
                 </form>
             </div>

@@ -1,42 +1,81 @@
-<?php include('header.php'); ?>
-<?php include('dbconn.php'); ?>
+<?php
+include("dbconn.php");
 
-<div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-    <div class="border-0 shadow bg-white" style="width: 30em;">
-        <div class="card border-0 bg-transparent card_login">
-            <div class="text-center mt-4">
-                <h2>LOGIN</h2>
-            </div>
-            <div class="card-body">
-                <form action="login.php" method="POST">
-                    <div class="col w-100">
-                        <div class="mb-2">
-                            <label for="email" class="form-label mt-3">Email</label>
-                            <input type="email" class="form-control" placeholder="Email" name="email" required>
+$query = "SELECT * FROM jobs";
+$result = mysqli_query($conn, $query);
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment</title>
+</head>
+
+<body>
+    <?php
+    include("header.php");
+    ?>
+
+    <div class="container">
+        <div class="row mt-5 justify-content-center">
+            <div class="col-md-6 mx-1">
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    ?>
+                    <div class="card shadow mb-3">
+                        <div class="card-body">
+                            <a href="job_details.php?id=<?php echo $row['id'] ?>" class="text-decoration-none">
+                                <!-- Job Name -->
+                                <h4 class="text-black mt-3">
+                                    <?php echo $row['job_name']; ?>
+                                </h4>
+                            </a>
+
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Location -->
+                                    <i class="bi bi-geo-alt-fill"></i><span>
+                                        <?php echo $row['location']; ?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <!-- Job Type -->
+                                    <span
+                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
+                                        <?php echo $row['job_type']; ?>
+                                    </span>
+                                    <!-- Shift & Schedule -->
+                                    <span
+                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
+                                        <?php echo $row['shift_and_schedule']; ?>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col d-flex justify-content-end">
+                                    <!-- <span class="mt-4 text-secondary small">
+                                </span> -->
+                                    <a href="job_details.php?id=<?php echo $row['id'] ?>" class="btn btn-primary ">
+                                        See Details
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group mb-1 border rounded">
-                        <input type="password" id="password" class="form-control bg-transparent border-0"
-                            placeholder="Password" name="password" required>
-                    </div>
-                    <!-- Error message -->
-                    <?php if (isset($_GET['error'])) { ?>
-                        <p class="text-danger">
-                            <?php echo $_GET['error']; ?>
-                        </p>
-                    <?php } ?>
-                    <div class="mb-1 d-flex justify-content-center mt-3">
-                        <button class="btn btn-fluid rounded-1 w-100 btn-primary text-light"
-                            type="submit">Login</button>
-                    </div>
-                    <div class="text-center">
-                        <small>Don't have account? <a href="register.php">Sign up</a></small>
-                    </div>
-                </form>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>
-</div>
 
-<?php include('footer.php'); ?>
+
+</body>
+
+</html>
