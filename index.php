@@ -23,7 +23,7 @@ $result = mysqli_query($conn, $query);
 
 </head>
 
-<body>
+<body style="background-color: #F4F4F4; ">
     <?php
     if (isset($_GET['message'])) {
         $message = $_GET['message'];
