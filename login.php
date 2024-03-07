@@ -1,6 +1,6 @@
 <?php
 include('dbconn.php');
-
+include('header.php');
 //User wont be able to access login page when logged in
 // Check if user is not logged in
 if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
@@ -20,7 +20,6 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
 </head>
 
 <body>
-    <?php include('header.php'); ?>
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="border-0 shadow bg-white" style="width: 30em;">
             <div class="card border-0 bg-transparent card_login">

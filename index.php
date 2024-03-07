@@ -1,6 +1,5 @@
 <?php
 include("dbconn.php");
-
 $query = "SELECT * FROM jobs";
 $result = mysqli_query($conn, $query);
 ?>
@@ -10,14 +9,13 @@ $result = mysqli_query($conn, $query);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recruitment</title>
+    <title>Jobs</title>
 </head>
 
 <body>
     <?php
     include("header.php");
     ?>
-
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-md-6 mx-1">
