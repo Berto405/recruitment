@@ -19,7 +19,7 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
     <title>Login</title>
 </head>
 
-<body>
+<body style="background-color: #F4F4F4; ">
     <div class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
         <div class="border-0 shadow bg-white" style="width: 30em;">
             <div class="card border-0 bg-transparent card_login">
