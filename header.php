@@ -18,6 +18,8 @@ session_start();
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
 
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,7 +27,7 @@ session_start();
 <body>
 
 
-    <header class="p-3 " style="background-color: #8b0000; border-color: #8b0000;">
+    <header class="p-3 shadow" style="background-color: #8b0000; border-color: #8b0000;">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/recruitment"
@@ -66,7 +68,11 @@ session_start();
                     if (isset($_SESSION['user_id'])) {
                         echo '
                         <li><a href="#" class="nav-link px-2 text-secondary">My Jobs</a></li>
-                            
+                        <li>
+                            <a href="/recruitment/upload_resume.php" class="nav-link px-2 ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload)resume.php/' ? 'text-white' : 'text-secondary') . '">
+                                Upload Resume
+                            </a>
+                        </li>
                         ';
                     }
                     ?>
