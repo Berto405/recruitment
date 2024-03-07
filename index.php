@@ -41,10 +41,8 @@ $result = mysqli_query($conn, $query);
     }
     ?>
     <div class="container">
-        <div class="card shadow mb-3 mt-5">
-            <div class="card-body">
-                <h4 class=" mt-1 mb-1">Available Job Openings</h4>
-            </div>
+        <div class="container-fluid bg-white shadow mb-3 mt-5">
+            <h4 class=" mt-1 mb-1">Available Job Openings</h4>
         </div>
         <div class="row">
             <div class="col-md-6">
