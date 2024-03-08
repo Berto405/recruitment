@@ -18,6 +18,14 @@ $result = mysqli_query($conn, $query);
             var jobDetails = document.getElementById("details_" + jobID).innerHTML;
             var cardBody = document.getElementById("job_details");
             cardBody.innerHTML = jobDetails;
+
+            document.getElementById("hiddenContent").style.display = "block";
+
+            //Scroll down to hiddentContent when screen is less than or equal to 780.
+            if (window.innerWidth <= 780) {
+                var hiddenContentTop = document.getElementById("hiddenContent").offsetTop;
+                window.scrollTo({ top: hiddenContentTop, behavior: "smooth" });
+            }
         }
     </script>
 
@@ -45,7 +53,7 @@ $result = mysqli_query($conn, $query);
             <h4 class=" mt-1 mb-1">Available Job Openings</h4>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6 ">
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     ?>
@@ -174,7 +182,7 @@ $result = mysqli_query($conn, $query);
             </div>
 
 
-            <div class="col-md-6">
+            <div class="col-sm-12 col-md-6" id="hiddenContent" style="display: none;">
                 <div class="card shadow mb-3 d-flex">
                     <div class="card-body" id="job_details">
 
