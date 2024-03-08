@@ -1,8 +1,20 @@
 <?php
 include("dbconn.php");
 include("header.php");
+//For Showing the Jobs
 $query = "SELECT * FROM jobs";
 $result = mysqli_query($conn, $query);
+
+if (isset($_SESSION['user_id'])) {
+    //Getting the currently logged in user's resume to know if its empty
+    $userId = $_SESSION['user_id'];
+
+    $query2 = "SELECT resume FROM user WHERE id='$userId'";
+    $result2 = mysqli_query($conn, $query2);
+    $row = mysqli_fetch_assoc($result2);
+    $resume = $row['resume'];
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -27,6 +39,7 @@ $result = mysqli_query($conn, $query);
                 window.scrollTo({ top: hiddenContentTop, behavior: "smooth" });
             }
         }
+
     </script>
 
 </head>
@@ -46,19 +59,32 @@ $result = mysqli_query($conn, $query);
         </script>
 
         <?php
+    } else if (isset($_GET['error'])) {
+        $error = $_GET['error'];
+        ?>
+            <script>
+                swal({
+                    title: "Oops!",
+                    icon: "error",
+                    text: "<?php echo $error; ?>"
+
+                });
+            </script>
+
+        <?php
     }
     ?>
     <div class="container">
         <div class="container-fluid bg-white shadow mb-3 mt-5">
-            <h4 class=" mt-1 mb-1">Available Job Openings</h4>
+            <h4 class=" mt-1 mb-1 fw-bold">Available Job Openings</h4>
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-6 ">
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     ?>
-                    <div class="card shadow mb-3">
-                        <div class="card-body">
+                    <div class="card shadow mb-3 ">
+                        <div class="card-body rounded-1 border-2 border-top border-danger">
                             <a href="javascript:void(0)" onclick="showDetails(<?php echo $row['id'] ?>)"
                                 class="text-decoration-none">
                                 <!-- Job Name -->
@@ -94,7 +120,7 @@ $result = mysqli_query($conn, $query);
                             <div class="row">
                                 <div class="col d-flex justify-content-end">
                                     <!-- <span class="mt-4 text-secondary small"></span> -->
-                                    <button class="btn btn-primary" onclick="showDetails(<?php echo $row['id'] ?>)">
+                                    <button class="btn btn-outline-dark" onclick="showDetails(<?php echo $row['id'] ?>)">
                                         See Details
                                     </button>
                                 </div>
@@ -111,20 +137,32 @@ $result = mysqli_query($conn, $query);
                                 <?php
                                 if (!isset($_SESSION['user_id'])) {
                                     echo '
-                                    <a href="login.php" class="btn btn-primary">
-                                        Apply now
-                                    </a>
+                                        <a href="login.php" class="btn btn-primary">
+                                            Apply now
+                                        </a>
                                     ';
                                 } else {
+                                    if (empty($resume)) {
 
-                                    echo '
-                                    <form action="" method="post">
-                                        <button type="submit" class="btn btn-primary">Apply now</button>
-                                    </form>
+                                        echo '
+                                            <a href="upload_resume.php" class="btn btn-primary">
+                                                Apply now
+                                            </a>
+                                        ';
+                                    } else {
+                                        echo '
+                                            <form action="apply_job_process.php" method="post">
+                                                <input type="hidden" name="job_id" value="' . $row['id'] . '">
+                                                <button type="submit" class="btn btn-primary">Apply now</button>
+                                            </form>
+        
+                                        ';
+                                    }
 
-                                    ';
+
                                 }
                                 ?>
+
 
 
 

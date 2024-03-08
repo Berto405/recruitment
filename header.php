@@ -26,6 +26,7 @@ session_start();
 
 <body>
 
+
     <nav class="navbar navbar-expand-lg shadow" style="background-color: #8b0000; border-color: #8b0000;">
         <div class="container">
             <a href="/recruitment" class="navbar-brand text-white">
@@ -41,7 +42,7 @@ session_start();
                 <ul class="navbar-nav me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li class="nav-item">
                         <a href="/recruitment"
-                            class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment' || $_SERVER['REQUEST_URI'] == '/recruitment/' || $_SERVER['REQUEST_URI'] == '/recruitment/index.php') ? 'text-white' : 'text-secondary'; ?>">
+                            class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment' || $_SERVER['REQUEST_URI'] == '/recruitment/' || $_SERVER['REQUEST_URI'] == '/recruitment/index.php') ? 'text-white fw-bold' : 'text-secondary'; ?>">
                             Home
                         </a>
                     </li>
@@ -50,7 +51,7 @@ session_start();
                     if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
                         $adminDashboardUrl = "/recruitment/admin/home.php";
                         $href = $adminDashboardUrl;
-                        $isActive = ($_SERVER['REQUEST_URI'] == $adminDashboardUrl || $_SERVER['REQUEST_URI'] == $adminDashboardUrl . '/') ? ' text-white' : ' text-secondary';
+                        $isActive = ($_SERVER['REQUEST_URI'] == $adminDashboardUrl || $_SERVER['REQUEST_URI'] == $adminDashboardUrl . '/') ? ' text-white fw-bold' : ' text-secondary';
                         echo '
                         <li class="nav-item">
                             <a href="' . $href . '" class="nav-link' . $isActive . '">
@@ -61,9 +62,17 @@ session_start();
                     }
                     if (isset($_SESSION['user_id'])) {
                         echo '
-                        <li class="nav-item"><a href="#" class="nav-link text-secondary">My Jobs</a></li>
                         <li class="nav-item">
-                            <a href="/recruitment/upload_resume.php" class="nav-link ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload)resume.php/' ? 'text-white' : 'text-secondary') . '">
+                            <a href="my_jobs.php?status=Pending" class="nav-link  '
+                            . ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending/' ||
+                                $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed/' ||
+                                $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview/' ||
+                                $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result/' ? 'text-white fw-bold' : 'text-secondary') . '">
+                                My Jobs
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/recruitment/upload_resume.php" class="nav-link ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php/' ? 'text-white fw-bold' : 'text-secondary') . '">
                                 Upload Resume
                             </a>
                         </li>

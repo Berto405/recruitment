@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
 
     } else {
-        $hashedPassword = password_hash($pass, PASSWORD_DEFAULT);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $role = "user";
         $name = $first_name . ' ' . $last_name;
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             unset($_SESSION['last_name']);
             unset($_SESSION['email']);
             unset($_SESSION['error']);
-            header("Location: index.php");
+            header("Location: login.php");
             exit();
         } else {
             header("Location: register.php?error=Invalid email or password");

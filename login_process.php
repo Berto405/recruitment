@@ -17,6 +17,7 @@ if (mysqli_num_rows($result) == 1) {
         $_SESSION['user_name'] = $row['name'];
         $_SESSION['user_email'] = $row['email'];
         $_SESSION['user_role'] = $row['role'];
+        $_SESSION['user_resume'] = $row['resume'];
 
         // Redirect based on user role
         if ($_SESSION['user_role'] === 'admin') {
@@ -27,7 +28,7 @@ if (mysqli_num_rows($result) == 1) {
             exit();
         }
     } else {
-        header("Location: login.php?error=Wrong email or password");
+        header("Location: login.php?error=Wrong email or passworsd");
         exit();
     }
 } else {

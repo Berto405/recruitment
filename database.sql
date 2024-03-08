@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 07, 2024 at 10:12 AM
+-- Generation Time: Mar 08, 2024 at 10:30 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,55 @@ SET time_zone = "+00:00";
 --
 -- Database: `recruitment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `jobs`
+--
+
+CREATE TABLE `jobs` (
+  `id` int(12) NOT NULL,
+  `job_name` varchar(255) NOT NULL,
+  `salary` int(12) NOT NULL,
+  `job_type` varchar(255) NOT NULL,
+  `shift_and_schedule` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `job_description` text NOT NULL,
+  `benefits` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`id`, `job_name`, `salary`, `job_type`, `shift_and_schedule`, `location`, `job_description`, `benefits`) VALUES
+(1, 'Tech Support', 20, 'Part time', '8 hours shift', 'Makati City', 'Ready to join Accenture’s team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\n\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\n\nPurple is Women. Purple is Accenture.\n\n#AccentureWomen #InternationalWomensMonth\n\nWhat you’ll do:\n\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\n\nGeneral Accounting\nControlling\nProduct Costing\nAsset Accounting & Project Systems\nFinancial Supply Chain Management\nTreasury & Banking\nBusiness Planning & Consolidation\nKey Responsibilities\n\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\nHere’s what you’ll need:\n\nMinimum Requirements:\n\nMust possess at least a Bachelor\'s/College Degree\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\nAbility to demonstrate understanding of end-to-end business process of record to report\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\nTechnology consulting expertise, and ability to drive workshops and training sessions\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\nWilling to travel for possible onshore requirements\nKey Skills\n\nGood interpersonal skills, including strong verbal and written communication.\nAble to work under pressure without any supervision, and a good team player.', 'Free lunch'),
+(2, 'Human Resource', 50, 'Full time', '8 hours shift', 'Makati City', 'Ready to join Accenture’s team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Wala'),
+(3, 'IT Specialist', 90, 'Full time', '10 hours shift', 'Makati City', 'Sheesh', 'Wala'),
+(4, 'Accountant', 23, 'Full time', '12 hours shift', 'Pasay City', 'SHEEESSSSHHHHHHH', 'Wala');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `job_applicants`
+--
+
+CREATE TABLE `job_applicants` (
+  `id` int(12) NOT NULL,
+  `user_id` int(12) NOT NULL,
+  `job_id` int(12) NOT NULL,
+  `application_status` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `job_applicants`
+--
+
+INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`) VALUES
+(1, 9, 1, 'Selected'),
+(2, 9, 3, 'Not Selected'),
+(3, 9, 2, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -42,11 +91,24 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `role`, `resume`) VALUES
 (2, 'berto', 'berto@gmail.com', '$2y$10$lMvqJWsXFRrbmf8eoOgWP.RsBDTQ4PRt8914ZQzWGN2yWAbX/LUXO', 'admin', ''),
-(9, 'Roberto Advincula', 'nm@gmail.com', '$2y$10$6dagzluc30XKlbhU7ox5Wu.ORQ4OgMopFKCKsaWfClr5OzV0.kt62', 'user', '01_Handout_3.pdf');
+(9, 'Roberto Advincula', 'nm@gmail.com', '$2y$10$6dagzluc30XKlbhU7ox5Wu.ORQ4OgMopFKCKsaWfClr5OzV0.kt62', 'user', '65ea86aa7c0b9_01_Handout_1.pdf'),
+(18, 'sa sa', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `jobs`
+--
+ALTER TABLE `jobs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `job_applicants`
+--
+ALTER TABLE `job_applicants`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `user`
@@ -59,10 +121,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `jobs`
+--
+ALTER TABLE `jobs`
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `job_applicants`
+--
+ALTER TABLE `job_applicants`
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
