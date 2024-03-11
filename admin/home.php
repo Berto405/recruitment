@@ -27,9 +27,15 @@ if ($_SESSION['user_role'] !== 'admin') {
 </head>
 
 <body>
-    <h1>Welcome,
-        <?php echo $_SESSION['user_name']; ?> admin
-    </h1>
+    <div class="container-fluid">
+        <div class="row h-100">
+            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
+                <?php include("../admin/admin_sidebar.php"); ?>
+            </div>
+
+            adada
+        </div>
+    </div>
 </body>
 
 </html>

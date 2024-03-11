@@ -2,19 +2,28 @@
 include("dbconn.php");
 include("header.php");
 //For Showing the Jobs
-$query = "SELECT * FROM jobs";
-$result = mysqli_query($conn, $query);
 
 if (isset($_SESSION['user_id'])) {
-    //Getting the currently logged in user's resume to know if its empty
+    //Showing only the jobs that the currently logged in user has not applied
     $userId = $_SESSION['user_id'];
+    $query =
+        "SELECT jobs.* 
+        FROM jobs
+        LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
+        WHERE job_applicants.user_id is NULL
+        ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+    $result = mysqli_query($conn, $query);
 
+    //Getting the currently logged in user's resume to know if its empty
     $query2 = "SELECT resume FROM user WHERE id='$userId'";
     $result2 = mysqli_query($conn, $query2);
     $row = mysqli_fetch_assoc($result2);
     $resume = $row['resume'];
+} else {
+    //Showing all jobs for not logged in user
+    $query = "SELECT * FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+    $result = mysqli_query($conn, $query);
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -85,6 +94,16 @@ if (isset($_SESSION['user_id'])) {
                     ?>
                     <div class="card shadow mb-3 ">
                         <div class="card-body rounded-1 border-2 border-top border-danger">
+                            <!-- Priority - Urgent or Not -->
+                            <?php
+                            if ($row['priority'] == 'Urgent Hiring') {
+                                ?>
+                                <span class="badge bg-danger">Urgent Hiring!</span>
+                                <?php
+
+                            }
+                            ?>
+
                             <a href="javascript:void(0)" onclick="showDetails(<?php echo $row['id'] ?>)"
                                 class="text-decoration-none">
                                 <!-- Job Name -->

@@ -124,8 +124,8 @@ if (!isset($_SESSION['user_id'])) {
                         </div>
 
                         <div class="mb-1 d-flex justify-content-center mt-3">
-                            <button class="btn btn-danger btn-fluid rounded-1 w-100 text-light"
-                                style="background-color: #8b0000; border-color: #8b0000;" type="submit" name="submit">
+                            <button class="btn btn-danger btn-fluid rounded-1 w-100 text-light" type="submit"
+                                name="submit">
                                 Submit
                             </button>
                         </div>

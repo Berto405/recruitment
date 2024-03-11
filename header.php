@@ -93,7 +93,7 @@ session_start();
                                         ' . $user . '
                                     </a>
                                     <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                                        <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i> Profile</a></li>
+                                        <li><a class="dropdown-item" href="/recruitment/profile.php"><i class="bi bi-person-circle"></i> Profile</a></li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
