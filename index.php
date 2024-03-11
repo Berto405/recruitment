@@ -120,7 +120,7 @@ if (isset($_SESSION['user_id'])) {
                             <div class="row">
                                 <div class="col d-flex justify-content-end">
                                     <!-- <span class="mt-4 text-secondary small"></span> -->
-                                    <button class="btn btn-outline-dark" onclick="showDetails(<?php echo $row['id'] ?>)">
+                                    <button class="btn btn-outline-danger" onclick="showDetails(<?php echo $row['id'] ?>)">
                                         See Details
                                     </button>
                                 </div>
@@ -137,7 +137,7 @@ if (isset($_SESSION['user_id'])) {
                                 <?php
                                 if (!isset($_SESSION['user_id'])) {
                                     echo '
-                                        <a href="login.php" class="btn btn-primary">
+                                        <a href="login.php" class="btn btn-danger">
                                             Apply now
                                         </a>
                                     ';
@@ -145,7 +145,7 @@ if (isset($_SESSION['user_id'])) {
                                     if (empty($resume)) {
 
                                         echo '
-                                            <a href="upload_resume.php" class="btn btn-primary">
+                                            <a href="upload_resume.php" class="btn btn-danger">
                                                 Apply now
                                             </a>
                                         ';
@@ -153,7 +153,7 @@ if (isset($_SESSION['user_id'])) {
                                         echo '
                                             <form action="apply_job_process.php" method="post">
                                                 <input type="hidden" name="job_id" value="' . $row['id'] . '">
-                                                <button type="submit" class="btn btn-primary">Apply now</button>
+                                                <button type="submit" class="btn btn-danger">Apply now</button>
                                             </form>
         
                                         ';
