@@ -23,7 +23,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Manage Users</title>
 </head>
 
 <body style="background-color: #F4F4F4; ">
@@ -33,7 +33,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                 <?php include("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
-                <h4 class=" mt-1 mb-5 ">Dashboard</h4>
+                <h4 class=" mt-1 mb-5 ">Manage Users</h4>
             </div>
         </div>
     </div>
