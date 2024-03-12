@@ -155,3 +155,4 @@ if (isset($_GET['status'])) {
 </body>
 
 </html>
+<?php include('footer.php'); ?>
