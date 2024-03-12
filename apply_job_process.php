@@ -20,10 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $result = mysqli_query($conn, $query);
 
             if ($result) {
-                header("Location: index.php?message=Application Submitted");
+
+                $_SESSION["success_message"] = "Application Submitted";
+                header("Location: index.php");
                 exit();
             } else {
-                header("Location: index.php?error=Application Failed. Try Again");
+
+                $_SESSION["error_message"] = "Application Failed. Try Again";
+                header("Location: index.php");
                 exit();
             }
         }

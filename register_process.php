@@ -4,8 +4,8 @@ include("dbconn.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $first_name = $_POST['fName'];
-    $last_name = $_POST['lName'];
+    $fName = $_POST['fName'];
+    $lName = $_POST['lName'];
     $email = $_POST["email"];
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPassword'];
@@ -20,8 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $role = "user";
-        $name = $first_name . ' ' . $last_name;
-        $query = "INSERT INTO user (name, email, password, role) VALUES ('$name', '$email', '$hashedPassword', '$role')";
+        $query = "INSERT INTO user (first_name, last_name, email, password, role) VALUES ('$fName', '$lName', '$email', '$hashedPassword', '$role')";
         $result = mysqli_query($conn, $query);
 
         if ($result) {

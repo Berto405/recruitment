@@ -54,35 +54,7 @@ if (isset($_SESSION['user_id'])) {
 </head>
 
 <body style="background-color: #F4F4F4; ">
-    <?php
-    if (isset($_GET['message'])) {
-        $message = $_GET['message'];
-        ?>
-        <script>
-            swal({
-                title: "Success!",
-                icon: "success",
-                text: "<?php echo $message; ?>"
 
-            });
-        </script>
-
-        <?php
-    } else if (isset($_GET['error'])) {
-        $error = $_GET['error'];
-        ?>
-            <script>
-                swal({
-                    title: "Oops!",
-                    icon: "error",
-                    text: "<?php echo $error; ?>"
-
-                });
-            </script>
-
-        <?php
-    }
-    ?>
     <div class="container">
         <div class="container-fluid bg-white shadow mb-3 mt-5">
             <h4 class=" mt-1 mb-1 fw-bold">Available Job Openings</h4>
@@ -139,7 +111,8 @@ if (isset($_SESSION['user_id'])) {
                             <div class="row">
                                 <div class="col d-flex justify-content-end">
                                     <!-- <span class="mt-4 text-secondary small"></span> -->
-                                    <button class="btn btn-outline-danger" onclick="showDetails(<?php echo $row['id'] ?>)">
+                                    <button class="btn btn-outline-danger" onclick="showDetails(<?php echo $row['id'] ?>)"
+                                        style="border-radius: 0;">
                                         See Details
                                     </button>
                                 </div>
@@ -164,7 +137,7 @@ if (isset($_SESSION['user_id'])) {
                                     if (empty($resume)) {
 
                                         echo '
-                                            <a href="upload_resume.php" class="btn btn-danger">
+                                            <a href="upload_resume.php" class="btn btn-danger" style="border-radius: 0;">
                                                 Apply now
                                             </a>
                                         ';
@@ -172,7 +145,7 @@ if (isset($_SESSION['user_id'])) {
                                         echo '
                                             <form action="apply_job_process.php" method="post">
                                                 <input type="hidden" name="job_id" value="' . $row['id'] . '">
-                                                <button type="submit" class="btn btn-danger">Apply now</button>
+                                                <button type="submit" class="btn btn-danger" style="border-radius: 0;">Apply now</button>
                                             </form>
         
                                         ';

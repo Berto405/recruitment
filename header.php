@@ -23,12 +23,42 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
         integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 
-
-
 </head>
 
 <body>
+    <?php
+    if (isset($_SESSION['success_message'])) {
+        $message = $_SESSION['success_message'];
+        ?>
+        <script>
+            swal({
+                title: "Success!",
+                icon: "success",
+                text: "<?php echo $message; ?>"
 
+            });
+        </script>
+
+        <?php
+        //Unset session of success message so that it wont appear again
+        unset($_SESSION['success_message']);
+    } else if (isset($_SESSION['error_message'])) {
+        $error = $_SESSION['error_message'];
+        ?>
+            <script>
+                swal({
+                    title: "Oops!",
+                    icon: "error",
+                    text: "<?php echo $error; ?>"
+
+                });
+            </script>
+
+            <?php
+            //Unset session of error message so that it wont appear again
+            unset($_SESSION['error_message']);
+    }
+    ?>
 
     <nav class="navbar navbar-expand-lg shadow bg-white">
         <div class="container">
@@ -108,8 +138,8 @@ session_start();
 
                     } else {
                         echo '
-                            <a href="login.php" class="btn btn-outline-danger me-2">Login</a>
-                            <a href="register.php" class="btn btn-danger">Sign-up</a>
+                            <a href="login.php" class="btn btn-outline-danger me-2" style="border-radius: 0;">Login</a>
+                            <a href="register.php" class="btn btn-danger" style="border-radius: 0;">Sign-up</a>
                                 
                         ';
                     }

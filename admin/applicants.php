@@ -18,7 +18,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 
 //Fetching job applicants
 $query =
-    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.name, user.resume
+    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
@@ -94,7 +94,7 @@ $result = mysqli_query($conn, $query);
 
                                 <tr>
                                     <th>
-                                        <?php echo $row['name']; ?>
+                                        <?php echo $row['first_name'] . ' ' . $row['first_name']; ?>
                                     </th>
                                     <td>
                                         <?php echo $row['job_name']; ?>

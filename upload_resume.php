@@ -57,13 +57,19 @@ if (!isset($_SESSION['user_id'])) {
                     $query = "UPDATE `user` SET `resume`='$unique_file_name' WHERE `id`='$userId'";
                     $result = mysqli_query($conn, $query);
 
-                    header("Location: /recruitment/index.php?message=Resume Uploaded.");
+                    $_SESSION['success_message'] = "Resume Uploaded";
+                    header("Location: /recruitment/index.php");
                     exit();
+
                 } else {
-                    echo '<div class="alert alert-danger">Error uploading the file. Please try again.</div>';
+                    $_SESSION['error_message'] = "Resume Not Uploaded";
+                    header("Location: /recruitment/index.php");
+                    exit();
                 }
             } else {
-                echo '<div class="alert alert-danger">File must be uploaded in PDF format and should not exceed 5MB.</div>';
+                $_SESSION['error_message'] = "File must be uploaded in PDF format and should not exceed 5MB.";
+                header("Location: /recruitment/index.php");
+                exit();
             }
         } else {
             // If no file is selected
