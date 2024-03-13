@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2024 at 03:57 AM
+-- Generation Time: Mar 13, 2024 at 10:50 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,8 +78,8 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (1, 9, 1, 'Selected', NULL),
 (2, 9, 3, 'Not Selected', NULL),
 (3, 9, 2, 'Interview', '2024-03-15 11:49:00'),
-(5, 9, 4, 'Pending', NULL),
-(6, 19, 1, 'Pending', NULL);
+(5, 9, 4, 'Interview', '2024-03-15 14:11:00'),
+(6, 19, 1, 'Reviewed', NULL);
 
 -- --------------------------------------------------------
 
