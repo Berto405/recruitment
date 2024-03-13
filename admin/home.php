@@ -27,6 +27,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 </head>
 
 <body style="background-color: #F4F4F4; ">
+
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">

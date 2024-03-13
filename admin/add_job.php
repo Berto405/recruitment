@@ -38,62 +38,62 @@ if ($_SESSION['user_role'] !== 'admin') {
                 <h4 class=" mt-1 mb-5 ">Add Job</h4>
 
                 <div class="container-fluid bg-white rounded">
+                    <form action="../admin/add_job_process.php" method="post">
+                        <div class="row   d-flex align-items-center justify-content-center m-0"
+                            style="padding-top:3em; padding-bottom:1.9em">
 
-                    <div class="row   d-flex align-items-center justify-content-center m-0"
-                        style="padding-top:3em; padding-bottom:1.9em">
+                            <div class="col-12 col-lg-5 col-xl-4 align-items-center ">
+                                <div class="card border-0  bg-transparent  ">
+                                    <div class="card-body m-0 p-0">
 
-                        <div class="col-12 col-lg-5 col-xl-4 align-items-center ">
-                            <div class="card border-0  bg-transparent  ">
-                                <div class="card-body m-0 p-0">
-
-                                    <div class="col w-100">
-                                        <div class="mb-2">
-                                            <label for="jobName" class="form-label fw-bold">Position</label>
-                                            <input type="text" class="form-control" id="jobName"
-                                                placeholder="Ex. Tech Support" name="jobName">
-                                            <div id="" class="form-text">
-                                                <!-- TEXT HERE -->
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col w-100">
-                                        <div class="mb-2">
-                                            <label for="salary" class="form-label fw-bold">Salary</label>
-                                            <div class="input-group mb-2">
-                                                <div class="input-group-prepend">
-                                                    <div class="input-group-text">Php</div>
+                                        <div class="col w-100">
+                                            <div class="mb-2">
+                                                <label for="jobName" class="form-label fw-bold">Position</label>
+                                                <input type="text" class="form-control" id="jobName"
+                                                    placeholder="Ex. Tech Support" name="jobName">
+                                                <div id="" class="form-text">
+                                                    <!-- TEXT HERE -->
                                                 </div>
-                                                <input type="text" class="form-control" id="salary"
-                                                    placeholder="Ex. 15000" name="salary">
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col w-100">
-                                        <div class="mb-2">
-                                            <label for="shift" class="form-label fw-bold">Shift & Schedule</label>
-                                            <input type="text" class="form-control" id="shift"
-                                                placeholder="Ex. 8 hours shift" name="shift">
-                                            <div id="" class="form-text">
-                                                <!-- TEXT HERE -->
+                                        <div class="col w-100">
+                                            <div class="mb-2">
+                                                <label for="salary" class="form-label fw-bold">Salary</label>
+                                                <div class="input-group mb-2">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">Php</div>
+                                                    </div>
+                                                    <input type="text" class="form-control" id="salary"
+                                                        placeholder="Ex. 15000" name="salary">
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col w-100">
-                                        <div class="mb-2">
-                                            <label for="location" class="form-label fw-bold">Location</label>
-                                            <input type="text" class="form-control" id="location"
-                                                placeholder="Ex. Makati City" name="location">
-                                            <div id="" class="form-text">
-                                                <!-- TEXT HERE -->
+
+                                        <div class="col w-100">
+                                            <div class="mb-2">
+                                                <label for="shift" class="form-label fw-bold">Shift & Schedule</label>
+                                                <input type="text" class="form-control" id="shift"
+                                                    placeholder="Ex. 8 hours shift" name="shift">
+                                                <div id="" class="form-text">
+                                                    <!-- TEXT HERE -->
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="col w-100">
+                                            <div class="mb-2">
+                                                <label for="location" class="form-label fw-bold">Location</label>
+                                                <input type="text" class="form-control" id="location"
+                                                    placeholder="Ex. Makati City" name="location">
+                                                <div id="" class="form-text">
+                                                    <!-- TEXT HERE -->
+                                                </div>
+                                            </div>
+                                        </div>
 
 
 
-                                    <!-- <div class="row d-flex align-items-center justify-content-center mb-3 ">
+                                        <!-- <div class="row d-flex align-items-center justify-content-center mb-3 ">
                                         <div class="col">
 
                                             <label for="" class="form-label "></label>
@@ -105,60 +105,66 @@ if ($_SESSION['user_role'] !== 'admin') {
                                         </div>
                                     </div> -->
 
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-5 col-xl-4 align-items-center mb-4 rounded-1  ">
+                                <div class="col-12 p-0 mb-2">
+                                    <label for="priority" class="form-label fw-bold">Priority</label>
+                                    <select class="form-select" name="priority" id="priority">
+                                        <option value="Non-urgent Hiring">Non-urgent Hiring</option>
+                                        <option value="Urgent Hiring">Urgent Hiring</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12 p-0 mb-2">
+                                    <label for="jobType" class="form-label fw-bold">Job Type</label>
+                                    <select class="form-select" name="jobType" id="jobType">
+                                        <option value="Full-time">Full-time</option>
+                                        <option value="Part-time">Part-time</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-12 p-0 mb-2 ">
+                                    <label for="department" class="form-label fw-bold">Department</label>
+                                    <select class="form-select" name="department" id="department">
+                                        <option value="IT">IT</option>
+                                        <option value="Human Resource">Human Resource</option>
+                                        <option value="Legal">Legal</option>
+                                        <option value="Operations">Operations</option>
+                                        <option value="">Add more here</option>
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6 mb-2">
+                                    <label for="jobDescription" class="form-label fw-bold">Job Description</label>
+                                    <textarea class="form-control summernote" id="jobDescription"
+                                        name="jobDescription"></textarea>
+                                </div>
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-md-6 mb-2">
+                                    <label for="benefits" class="form-label fw-bold">Benefits</label>
+                                    <textarea class="form-control summernote" id="benefits" name="benefits"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row  d-flex justify-content-center mt-3">
+
+                                <div class="col-12 col-md-4 col-xl-4 order-xl -2 order-1">
+                                    <button class="btn btn-danger w-100 mb-2 form-control" type="submit">
+                                        Post Job
+                                    </button>
                                 </div>
 
                             </div>
                         </div>
-
-                        <div class="col-12 col-lg-5 col-xl-4 align-items-center mb-4 rounded-1  ">
-                            <div class="col-12 p-0 mb-2">
-                                <label for="priority" class="form-label fw-bold">Priority</label>
-                                <select class="form-select" name="priority" id="priority">
-                                    <option value="Non-urgent Hiring">Non-urgent Hiring</option>
-                                    <option value="Urgent Hiring">Urgent Hiring</option>
-                                </select>
-                            </div>
-
-                            <div class="col-12 p-0 mb-2">
-                                <label for="jobType" class="form-label fw-bold">Job Type</label>
-                                <select class="form-select" name="jobType" id="jobType">
-                                    <option value="Full-time">Full-time</option>
-                                    <option value="Part-time">Part-time</option>
-                                </select>
-                            </div>
-
-                            <div class="col-md-12 p-0 mb-2 ">
-                                <label for="department" class="form-label fw-bold">Department</label>
-                                <select class="form-select" name="department" id="department">
-                                    <option value="IT">IT</option>
-                                    <option value="">Add more here</option>
-                                </select>
-                            </div>
-
-                        </div>
-
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-6 mb-2">
-                                <label for="jobDescription" class="form-label fw-bold">Job Description</label>
-                                <textarea class="form-control summernote" id="jobDescription"
-                                    placeholder="Ex. Makati City" name="jobDescription"></textarea>
-                                <div id="" class="form-text">
-                                    <!-- TEXT HERE -->
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row  d-flex justify-content-center mt-3">
-
-                            <div class="col-12 col-md-4 col-xl-4 order-xl -2 order-1">
-                                <button class="btn btn-danger w-100 mb-2 form-control" type="submit">
-                                    Post Job
-                                </button>
-                            </div>
-
-                        </div>
-                    </div>
-
+                    </form>
                 </div>
             </div>
         </div>

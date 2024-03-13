@@ -11,7 +11,9 @@ if (isset($_SESSION['user_id'])) {
         FROM jobs
         LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
         WHERE job_applicants.user_id is NULL
-        ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+        ORDER BY 
+            CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
+            CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
     $result = mysqli_query($conn, $query);
 
     //Getting the currently logged in user's resume to know if its empty
