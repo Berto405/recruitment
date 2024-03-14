@@ -17,33 +17,42 @@ if ($_SESSION['user_role'] !== 'admin') {
 }
 
 //For displaying interview schedules
-$query =
-    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.first_name, user.last_name, user.resume
+$query = "
+    SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
-    INNER JOIN user ON job_applicants.user_id = user.id)";
+    INNER JOIN user ON job_applicants.user_id = user.id)
+    ORDER BY job_applicants.interview_date ASC
+";
 $result = mysqli_query($conn, $query);
 $events = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
     if (!empty($row['interview_date'])) {
-
         $datetime = new DateTime($row['interview_date']);
-        $formatTime = $datetime->format('H:i A');
         $formattedDate = $datetime->format('Y-m-d');
+        $formatTime = $datetime->format('H:i:s');
 
         $user_name = $row['first_name'] . ' ' . $row['last_name'];
         $position = $row['job_name'];
 
+        $time = $datetime->format('h:m A');
+        $title = 'Interview with ' . $user_name . ' for ' . $position . ' position at ' . $time;
+
+        // Create start and end times using ISO 8601 format
+        $startDateTime = $formattedDate . 'T' . $formatTime;
+        // Assuming the interview lasts for 1 hour
+        $endDateTime = $datetime->modify('+1 hour')->format('Y-m-d\TH:i:s');
+
         $events[] = [
-            'title' => $formatTime . ' : ' . $position . ' : ' . $user_name,
-            'start' => $formattedDate,
+            'title' => $title,
+            'start' => $startDateTime,
+            'end' => $endDateTime,
         ];
     }
 }
 
 $events_json = json_encode($events);
-
 ?>
 
 <!DOCTYPE html>
@@ -64,6 +73,11 @@ $events_json = json_encode($events);
         .fc-event {
             cursor: default;
         }
+
+        .fc-main-container {
+            background-color: #f8d7da;
+            /* Change background color */
+        }
     </style>
 
 </head>
@@ -81,7 +95,7 @@ $events_json = json_encode($events);
 
                     <div id="calendar" class=""></div>
                 </div>
-                <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -101,8 +115,7 @@ $events_json = json_encode($events);
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                    onclick="closeModal()">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
@@ -119,6 +132,11 @@ $events_json = json_encode($events);
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 events: <?php echo $events_json; ?>,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                },
                 dateClick: function (info) {
                     var clickedDate = info.dateStr;
                     var events = calendar.getEvents();
@@ -127,17 +145,20 @@ $events_json = json_encode($events);
                     interviewList.innerHTML = '';
 
                     if (interviews.length > 0) {
-                        var div = document.createElement('div');
-                        div.classList.add('d-flex', 'justify-content-start', 'flex-wrap');
+                        interviews.forEach(function (interview, index) {
+                            var div = document.createElement('div');
+                            div.classList.add('p-3', 'mb-2', 'bg-danger', 'text-white', 'border', 'border-secondary', 'rounded', 'me-2', 'mb-2');
 
-                        interviews.forEach(function (interview) {
-                            var badge = document.createElement('span');
-                            badge.textContent = interview.title;
-                            badge.classList.add('badge', 'bg-primary', 'me-2', 'mb-2');
-                            div.appendChild(badge);
+                            var statement = document.createElement('span');
+                            statement.textContent = interview.title;
+                            div.appendChild(statement);
+                            interviewList.appendChild(div);
+
+                            // Add a divider if it's not the last interview
+                            if (index < interviews.length - 1) {
+                                interviewList.appendChild(document.createElement('hr'));
+                            }
                         });
-
-                        interviewList.appendChild(div);
                     } else {
                         interviewList.textContent = 'No interviews scheduled for this day.';
                     }
@@ -148,6 +169,7 @@ $events_json = json_encode($events);
             calendar.render();
         });
     </script>
+
 
 </body>
 

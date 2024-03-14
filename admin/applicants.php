@@ -115,28 +115,36 @@ $result = mysqli_query($conn, $query);
                                         </a>
                                     </td>
                                     <td>
-                                        <?php
-                                        if ($row['application_status'] == 'Pending') {
+                                        <a href="#" class="d-block text-dark text-decoration-none dropdown-toggle"
+                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-list"></i>
+                                        </a>
 
-                                        } else if ($row['application_status'] == 'Reviewed') {
-                                            ?>
-                                                <button type="button" class="btn btn-primary badge" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal<?php echo $row['id'] ?>">
-                                                    Setup Interview
-                                                </button>
-                                            <?php
-                                        } else if ($row['application_status'] == 'Interview') {
-                                            ?>
-                                                    <button type="button" class="btn btn-primary badge">
-                                                        Hire
-                                                    </button>
-                                            <?php
-                                        } else {
+                                        <div class="row dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                                            <div class="col-md-12 d-flex justify-content-center">
+                                                <?php
+                                                if ($row['application_status'] == 'Pending') {
 
-                                        }
-                                        ?>
+                                                } else if ($row['application_status'] == 'Reviewed') {
+                                                    ?>
+                                                        <button type="button" class="btn btn-primary badge" data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal<?php echo $row['id'] ?>">
+                                                            Setup Interview
+                                                        </button>
+                                                    <?php
+                                                } else if ($row['application_status'] == 'Interview') {
+                                                    ?>
+                                                            <button type="button" class="btn btn-primary badge">
+                                                                Hire
+                                                            </button>
+                                                    <?php
+                                                } else {
 
-                                        <button type="button" class="btn btn-danger badge">Reject</button>
+                                                }
+                                                ?>
+                                                <button type="button" class="btn btn-danger badge">Reject</button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
 
