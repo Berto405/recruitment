@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 13, 2024 at 10:50 AM
+-- Generation Time: Mar 15, 2024 at 10:27 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -52,9 +52,10 @@ INSERT INTO `jobs` (`id`, `job_name`, `salary`, `job_type`, `shift_and_schedule`
 (4, 'Accountant', 23, 'Full time', '12 hours shift', 'Pasay City', 'SHEEESSSSHHHHHHH', 'Wala', '', '', '2024-03-13 02:50:52'),
 (7, 'Waiter', 10000, 'Full-time', '8 hours shift', 'Manila', '<ul><li>SSSSSSHHHHHHHHHEEEEEEEEEESSSSSSHHHHHHH</li></ul>', '<ul><li>WLAA</li></ul>', 'Urgent Hiring', 'IT', '2024-03-13 02:50:52'),
 (8, 'Pilot', 10, 'Part-time', '8 hours shift', 'Cavite', '<ul><li><b>SHH</b></li></ul>', '<ul><li>WaLA</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:50:52'),
-(9, 'SAP', 10000, 'Full-time', '8 hours shift', 'Makati City', '<ul><li>asdads</li></ul>', '<ul><li>asdaaa</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:50:52'),
+(9, 'SAP', 10000, 'Part-time', '8 hours shift', 'Parañaque', '<ul><li>asdads</li></ul>', '<ul><li>asdaaa</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-15 08:28:20'),
 (10, 'Finance', 10000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>das</li></ul>', '<ol><li>2313</li></ol>', 'Non-urgent Hiring', 'Operations', '2024-03-13 02:50:52'),
-(11, 'SHESSH', 1000, 'Full-time', '9 hours shift', 'Makati', '<p>asda</p>', '<p>asda</p><p>asdsd</p>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:51:41');
+(11, 'SHESSH', 1000, 'Full-time', '9 hours shift', 'Makati', '<p>asda</p>', '<p>asda</p><p>asdsd</p>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:51:41'),
+(12, '', 0, 'Full-time', '', '', '<span style=\"background-color: rgb(247, 173, 107);\">sdsada</span>', '', 'Non-urgent Hiring', 'IT', '2024-03-15 02:08:42');
 
 -- --------------------------------------------------------
 
@@ -75,11 +76,12 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
-(1, 9, 1, 'Selected', NULL),
-(2, 9, 3, 'Not Selected', NULL),
-(3, 9, 2, 'Interview', '2024-03-15 11:49:00'),
-(5, 9, 4, 'Interview', '2024-03-15 14:11:00'),
-(6, 19, 1, 'Reviewed', NULL);
+(1, 9, 1, 'Interview', '2024-03-15 12:40:00'),
+(2, 9, 3, 'Interview', '2024-03-19 09:31:00'),
+(3, 9, 2, 'Interview', '2024-03-19 15:13:00'),
+(5, 9, 4, 'Interview', '2024-03-19 11:13:00'),
+(6, 19, 1, 'Selected', '2024-03-15 13:41:00'),
+(7, 2, 8, 'Pending', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,7 +104,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`) VALUES
-(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$lMvqJWsXFRrbmf8eoOgWP.RsBDTQ4PRt8914ZQzWGN2yWAbX/LUXO', 'admin', ''),
+(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$lMvqJWsXFRrbmf8eoOgWP.RsBDTQ4PRt8914ZQzWGN2yWAbX/LUXO', 'admin', '65f3ac7f2912c_01_Handout_1.pdf'),
 (9, 'Roberto', 'Wews', 'nm@gmail.com', '$2y$10$.Vcfb7anIIoorTOqUceLrebcgdbd8OImp19nZvI64wvIFem/wSAWW', 'user', '65efcda1239af_01_Handout_1.pdf'),
 (18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', ''),
 (19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf');
@@ -137,13 +139,13 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `user`
