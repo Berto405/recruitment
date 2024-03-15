@@ -18,11 +18,13 @@ if ($_SESSION['user_role'] !== 'admin') {
 
 //Fetching job applicants
 $query =
-    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.first_name, user.last_name, user.resume
+    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, jobs.priority, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
+    WHERE job_applicants.application_status != 'Not Selected' AND job_applicants.application_status != 'Selected'
     ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+
 $result = mysqli_query($conn, $query);
 ?>
 
@@ -36,35 +38,7 @@ $result = mysqli_query($conn, $query);
 </head>
 
 <body style="background-color: #F4F4F4; ">
-    <?php
-    if (isset($_GET['message'])) {
-        $message = $_GET['message'];
-        ?>
-        <script>
-            swal({
-                title: "Success!",
-                icon: "success",
-                text: "<?php echo $message; ?>"
 
-            });
-        </script>
-
-        <?php
-    } else if (isset($_GET['error'])) {
-        $error = $_GET['error'];
-        ?>
-            <script>
-                swal({
-                    title: "Oops!",
-                    icon: "error",
-                    text: "<?php echo $error; ?>"
-
-                });
-            </script>
-
-        <?php
-    }
-    ?>
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
@@ -75,6 +49,10 @@ $result = mysqli_query($conn, $query);
                 <h4 class=" mt-1 mb-5 ">Applicants</h4>
 
                 <div class="container-fluid table-responsive-sm">
+                    <span class="float-end">
+                        <i class="bi bi-exclamation-circle-fill text-danger"></i> = Urgent
+                        Hiring
+                    </span>
                     <table class="table text-center table-hover table-bordered">
                         <thead class="table-danger">
                             <tr>
@@ -97,7 +75,17 @@ $result = mysqli_query($conn, $query);
                                         <?php echo $row['first_name'] . ' ' . $row['first_name']; ?>
                                     </th>
                                     <td>
-                                        <?php echo $row['job_name']; ?>
+                                        <?php
+                                        if ($row['priority'] == 'Urgent Hiring') {
+                                            ?>
+                                            <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                                            <?php
+                                            echo $row['job_name'];
+                                        } else {
+                                            echo $row['job_name'];
+                                        }
+                                        ?>
+
                                     </td>
                                     <td>
                                         <?php echo $row['job_type']; ?>
@@ -134,15 +122,23 @@ $result = mysqli_query($conn, $query);
                                                     <?php
                                                 } else if ($row['application_status'] == 'Interview') {
                                                     ?>
-                                                            <button type="button" class="btn btn-primary badge">
-                                                                Hire
-                                                            </button>
+                                                            <form action="../admin/applicants_process.php" method="post">
+                                                                <input type="hidden" class="form-control" name="hire_applicant"
+                                                                    value="<?php echo $row['id'] ?>">
+                                                                <button type="submit" class="btn btn-primary badge">
+                                                                    Hire
+                                                                </button>
+                                                            </form>
                                                     <?php
                                                 } else {
 
                                                 }
                                                 ?>
-                                                <button type="button" class="btn btn-danger badge">Reject</button>
+                                                <form action="../admin/applicants_process.php" method="post">
+                                                    <input type="hidden" class="form-control" name="reject_applicant"
+                                                        value="<?php echo $row['id'] ?>">
+                                                    <button type="submit" class="btn btn-danger badge">Reject</button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>

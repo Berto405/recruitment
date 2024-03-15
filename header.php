@@ -1,7 +1,5 @@
 <?php
 session_start();
-
-
 ?>
 
 <html lang="en">
@@ -24,6 +22,12 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
+    <style>
+        .text-align-center {
+            text-align: center;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -35,7 +39,13 @@ session_start();
             swal({
                 title: "Success!",
                 icon: "success",
-                text: "<?php echo $message; ?>"
+                content: {
+                    element: "p",
+                    attributes: {
+                        innerHTML: "<?php echo $message; ?>",
+                        style: "text-align: center;"
+                    }
+                }
 
             });
         </script>
@@ -50,8 +60,13 @@ session_start();
                 swal({
                     title: "Oops!",
                     icon: "error",
-                    text: "<?php echo $error; ?>"
-
+                    content: {
+                        element: "p",
+                        attributes: {
+                            innerHTML: "<?php echo $error; ?>",
+                            style: "text-align: center;"
+                        }
+                    }
                 });
             </script>
 

@@ -50,7 +50,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                                             <div class="mb-2">
                                                 <label for="jobName" class="form-label fw-bold">Position</label>
                                                 <input type="text" class="form-control" id="jobName"
-                                                    placeholder="Ex. Tech Support" name="jobName">
+                                                    placeholder="Ex. Tech Support" name="jobName" required>
                                                 <div id="" class="form-text">
                                                     <!-- TEXT HERE -->
                                                 </div>
@@ -65,7 +65,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                                                         <div class="input-group-text">Php</div>
                                                     </div>
                                                     <input type="text" class="form-control" id="salary"
-                                                        placeholder="Ex. 15000" name="salary">
+                                                        placeholder="Ex. 15000" name="salary" required>
                                                 </div>
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                                             <div class="mb-2">
                                                 <label for="shift" class="form-label fw-bold">Shift & Schedule</label>
                                                 <input type="text" class="form-control" id="shift"
-                                                    placeholder="Ex. 8 hours shift" name="shift">
+                                                    placeholder="Ex. 8 hours shift" name="shift" required>
                                                 <div id="" class="form-text">
                                                     <!-- TEXT HERE -->
                                                 </div>
@@ -84,7 +84,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                                             <div class="mb-2">
                                                 <label for="location" class="form-label fw-bold">Location</label>
                                                 <input type="text" class="form-control" id="location"
-                                                    placeholder="Ex. Makati City" name="location">
+                                                    placeholder="Ex. Makati City" name="location" required>
                                                 <div id="" class="form-text">
                                                     <!-- TEXT HERE -->
                                                 </div>
@@ -113,7 +113,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                             <div class="col-12 col-lg-5 col-xl-4 align-items-center mb-4 rounded-1  ">
                                 <div class="col-12 p-0 mb-2">
                                     <label for="priority" class="form-label fw-bold">Priority</label>
-                                    <select class="form-select" name="priority" id="priority">
+                                    <select class="form-select" name="priority" id="priority" required>
                                         <option value="Non-urgent Hiring">Non-urgent Hiring</option>
                                         <option value="Urgent Hiring">Urgent Hiring</option>
                                     </select>
@@ -121,7 +121,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 
                                 <div class="col-12 p-0 mb-2">
                                     <label for="jobType" class="form-label fw-bold">Job Type</label>
-                                    <select class="form-select" name="jobType" id="jobType">
+                                    <select class="form-select" name="jobType" id="jobType" required>
                                         <option value="Full-time">Full-time</option>
                                         <option value="Part-time">Part-time</option>
                                     </select>
@@ -129,7 +129,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 
                                 <div class="col-md-12 p-0 mb-2 ">
                                     <label for="department" class="form-label fw-bold">Department</label>
-                                    <select class="form-select" name="department" id="department">
+                                    <select class="form-select" name="department" id="department" required>
                                         <option value="IT">IT</option>
                                         <option value="Human Resource">Human Resource</option>
                                         <option value="Legal">Legal</option>
@@ -142,15 +142,17 @@ if ($_SESSION['user_role'] !== 'admin') {
 
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6 mb-2">
-                                    <label for="jobDescription" class="form-label fw-bold">Job Description</label>
-                                    <textarea class="form-control summernote" id="jobDescription"
-                                        name="jobDescription"></textarea>
+                                    <label for="jobDescription" class="form-label fw-bold">Job Description</label><span
+                                        class="text-secondary">(Qualifications)</span>
+                                    <textarea class="form-control summernote" id="jobDescription" name="jobDescription"
+                                        required></textarea>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6 mb-2">
                                     <label for="benefits" class="form-label fw-bold">Benefits</label>
-                                    <textarea class="form-control summernote" id="benefits" name="benefits"></textarea>
+                                    <textarea class="form-control summernote" id="benefits" name="benefits"
+                                        required></textarea>
                                 </div>
                             </div>
 

@@ -160,7 +160,7 @@ $events_json = json_encode($events);
                             }
                         });
                     } else {
-                        interviewList.textContent = 'No interviews scheduled for this day.';
+                        interviewList.textContent = 'No interviews scheduled for this day/time.';
                     }
 
                     $('#myModal').modal('show');
