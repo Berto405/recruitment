@@ -1,32 +1,6 @@
 <?php
-include("dbconn.php");
 include("header.php");
-//For Showing the Jobs
-
-if (isset($_SESSION['user_id'])) {
-    //Showing only the jobs that the currently logged in user has not applied
-    $userId = $_SESSION['user_id'];
-    $query =
-        "SELECT jobs.* 
-        FROM jobs
-        LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
-        WHERE job_applicants.user_id is NULL
-        ORDER BY 
-            CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
-            CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
-    $result = mysqli_query($conn, $query);
-
-    //Getting the currently logged in user's resume to know if its empty
-    $query2 = "SELECT resume FROM user WHERE id='$userId'";
-    $result2 = mysqli_query($conn, $query2);
-    $row = mysqli_fetch_assoc($result2);
-    $resume = $row['resume'];
-} else {
-    //Showing all jobs for not logged in user
-    $query = "SELECT * FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
-    $result = mysqli_query($conn, $query);
-}
-
+include("index_process.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,6 +34,110 @@ if (isset($_SESSION['user_id'])) {
     <div class="container">
         <div class="container-fluid bg-white shadow mb-3 mt-5">
             <h4 class=" mt-1 mb-1 fw-bold">Available Job Openings</h4>
+        </div>
+        <div class="container bg-transparent  mb-3 ">
+            <div class="row">
+                <div class="col-md-9">
+                    <div class="container d-flex mb-2">
+                        <div class="row ">
+                            <div class="col-md col-sm">
+                                <div class="dropdown mb-2">
+                                    <button class="btn btn-outline-danger dropdown-toggle form-control" type="button"
+                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <?php
+                                        if (isset($_GET["loc"])) {
+                                            $loc = $_GET["loc"];
+                                            echo $loc;
+                                        } else {
+                                            ?>
+                                            Location
+                                            <?php
+                                        }
+                                        ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <a class="dropdown-item" href="index.php?loc=Bacolod">Bacolod</a>
+                                        <a class="dropdown-item" href="index.php?loc=Bicol">Bicol</a>
+                                        <a class="dropdown-item" href="index.php?loc=Cagayan de Oro">Cagayan de
+                                            Oro</a>
+                                        <a class="dropdown-item" href="index.php?loc=Cavite">Cavite</a>
+                                        <a class="dropdown-item" href="index.php?loc=Cebu">Cebu</a>
+                                        <a class="dropdown-item" href="index.php?loc=Davao">Davao</a>
+                                        <a class="dropdown-item" href="index.php?loc=General Santos">General
+                                            Santos</a>
+                                        <a class="dropdown-item" href="index.php?loc=Iloilo">Iloilo</a>
+                                        <a class="dropdown-item" href="index.php?loc=Kalibo">Kalibo</a>
+                                        <a class="dropdown-item" href="index.php?loc=Laguna">Laguna</a>
+                                        <a class="dropdown-item" href="index.php?loc=Makati">Makati</a>
+                                        <a class="dropdown-item" href="index.php?loc=Pampanga">Pampanga</a>
+                                        <a class="dropdown-item" href="index.php?loc=Parañaque">Parañaque</a>
+                                        <a class="dropdown-item" href="index.php?loc=Subic">Subic</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md col-sm ">
+                                <div class="dropdown mb-2">
+                                    <button class="btn btn-outline-danger dropdown-toggle form-control" type="button"
+                                        id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <?php
+                                        if (isset($_GET["dept"])) {
+                                            $dept = $_GET["dept"];
+                                            echo $dept;
+                                        } else {
+                                            ?>
+                                            Department
+                                            <?php
+                                        }
+                                        ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                        <a class="dropdown-item" href="index.php?dept=IT">IT</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md col-sm">
+                                <div class="dropdown mb-2">
+                                    <button class="btn btn-outline-danger dropdown-toggle form-control" type="button"
+                                        id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        <?php
+                                        if (isset($_GET["type"])) {
+                                            $type = $_GET["type"];
+                                            echo $type;
+                                        } else {
+                                            ?>
+                                            Job Type
+                                            <?php
+                                        }
+                                        ?>
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                        <a class="dropdown-item" href="index.php?type=Full-time">Full-time</a>
+                                        <a class=" dropdown-item" href="index.php?type=Part-time">Part-time</a>
+                                        <a class="dropdown-item" href="index.php?type=Inter">Intern</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3">
+                    <form class="d-flex" role="search">
+                        <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success">Search</button>
+                    </form>
+                </div>
+            </div>
+
+
+
         </div>
         <div class="row">
             <div class="col-sm-12 col-md-6 ">
