@@ -1,25 +1,27 @@
 <?php
 session_start();
-include("dbconn.php");
+include ("dbconn.php");
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset ($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 } else {
     $userId = $_SESSION['user_id'];
 
     //Showing current resume    
-    $query = "SELECT resume FROM user WHERE id='$userId'";
-    $result = mysqli_query($conn, $query);
-
+    $query = "SELECT resume FROM user WHERE id=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $row = mysqli_fetch_array($result);
 
     //Uploading Resume
-    if (isset($_POST['submit'])) {
+    if (isset ($_POST['submit'])) {
         $userId = $_SESSION['user_id'];
 
         // Check if a file is selected
-        if (isset($_FILES['resume_file']['name']) && !empty($_FILES['resume_file']['name'])) {
+        if (isset ($_FILES['resume_file']['name']) && !empty ($_FILES['resume_file']['name'])) {
             // Get file details
             $file_name = basename($_FILES['resume_file']['name']);
             $file_tmp = $_FILES['resume_file']['tmp_name'];
@@ -33,11 +35,14 @@ if (!isset($_SESSION['user_id'])) {
             if (in_array($file_ext, $allowed_extensions) && $file_size <= $max_file_size) {
 
                 //Gets the previous resume and delete it.
-                $delete_previous_resume_query = "SELECT resume FROM user WHERE id = '$userId'";
-                $delete_result = mysqli_query($conn, $delete_previous_resume_query);
+                $delete_previous_resume_query = "SELECT resume FROM user WHERE id = ?";
+                $stmt = $conn->prepare($delete_previous_resume_query);
+                $stmt->bind_param("i", $userId);
+                $stmt->execute();
+                $delete_result = $stmt->get_result();
                 $row = mysqli_fetch_assoc($delete_result);
                 $previous_name = $row["resume"];
-                if (!empty($previous_name)) {
+                if (!empty ($previous_name)) {
                     $previous_resume_path = "./resume/" . $previous_name;
                     if (file_exists($previous_resume_path)) {
                         unlink($previous_resume_path);
@@ -54,8 +59,10 @@ if (!isset($_SESSION['user_id'])) {
                 $file_destination = $upload_path . $unique_file_name;
                 if (move_uploaded_file($file_tmp, $file_destination)) {
                     // Update the user's resume in the database
-                    $query = "UPDATE `user` SET `resume`='$unique_file_name' WHERE `id`='$userId'";
-                    $result = mysqli_query($conn, $query);
+                    $query = "UPDATE `user` SET `resume`= ? WHERE `id`= ?";
+                    $stmt = $conn->prepare($query);
+                    $stmt->bind_param("si", $unique_file_name, $userId);
+                    $result = $stmt->get_result();
 
                     $_SESSION['success_message'] = "Resume Uploaded";
                     header("Location: /recruitment/index.php");

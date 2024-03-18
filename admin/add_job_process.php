@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("../dbconn.php");
+include ("../dbconn.php");
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $jobName = $_POST["jobName"];
@@ -15,12 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $query =
         "INSERT INTO jobs (job_name, salary, job_type, shift_and_schedule, location, job_description, benefits, priority, department) 
-        VALUES ('$jobName', '$salary', '$type', '$shift', '$loc', '$jobDesc', '$benefits', '$priority',  '$dept')";
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("sisssssss", $jobName, $salary, $type, $shift, $loc, $jobDesc, $benefits, $priority, $dept);
+    $stmt->execute();
 
-    $result = mysqli_query($conn, $query);
-    if ($result) {
-
-        //Sweet Alert not showing
+    if ($stmt->affected_rows > 0) {
         $_SESSION["success_message"] = "Job Posted";
         header("Location: ../admin/home.php");
         exit();

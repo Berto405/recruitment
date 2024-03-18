@@ -17,18 +17,27 @@ if (isset ($_GET['status'])) {
             "SELECT jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, job_applicants.application_status 
             FROM jobs 
             INNER JOIN job_applicants ON jobs.id = job_applicants.job_id
-            WHERE job_applicants.user_id = '$userId' AND (job_applicants.application_status = 'Selected' OR job_applicants.application_status = 'Not Selected')
+            WHERE job_applicants.user_id = ? AND (job_applicants.application_status = ? OR job_applicants.application_status = ?)
             ORDER BY 
                 CASE WHEN job_applicants.application_status = 'Selected' THEN 0 ELSE 1 END";
+
+        $stmt = $conn->prepare($query);
+        $status1 = 'Selected';
+        $status2 = 'Not Selected';
+        $stmt->bind_param("iss", $userId, $status1, $status2);
+        $stmt->execute();
     } else {
         // Exclude 'Selected' and 'Not Selected' statuses
         $query =
             "SELECT jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, job_applicants.application_status 
             FROM jobs 
             INNER JOIN job_applicants ON jobs.id = job_applicants.job_id
-            WHERE job_applicants.user_id = '$userId' AND job_applicants.application_status = '$status'";
+            WHERE job_applicants.user_id = ? AND job_applicants.application_status = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("is", $userId, $status);
+        $stmt->execute();
     }
-    $result = mysqli_query($conn, $query);
+    $result = $stmt->get_result();
 
     //Determine the text color of application status
     function getStatusClass($status)

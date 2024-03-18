@@ -1,6 +1,6 @@
 <?php
 session_start();
-include("dbconn.php");
+include ("dbconn.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,8 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         $role = "user";
-        $query = "INSERT INTO user (first_name, last_name, email, password, role) VALUES ('$fName', '$lName', '$email', '$hashedPassword', '$role')";
-        $result = mysqli_query($conn, $query);
+        $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $fName, $lName, $email, $hashedPassword, $role);
+        $result = $stmt->execute();
 
         if ($result) {
 

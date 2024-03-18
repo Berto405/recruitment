@@ -112,7 +112,8 @@ if (isset ($_SESSION['user_id'])) {
                         </div>
 
                         <div class="mb-3 d-flex justify-content-center mt-3">
-                            <button class="btn btn-danger rounded-1 w-100 text-light" type="submit">
+                            <button class="btn btn-danger rounded-1 w-100 text-light" type="submit"
+                                name="editProfileButton">
                                 Save
                             </button>
                         </div>
@@ -150,7 +151,8 @@ if (isset ($_SESSION['user_id'])) {
                             <label class="form-label">Confirm Password</label>
                         </div>
                         <div class="mb-3 d-flex justify-content-center mt-3">
-                            <button class="btn btn-danger rounded-1 w-100 text-light" type="submit">
+                            <button class="btn btn-danger rounded-1 w-100 text-light" type="submit"
+                                name="changePassButton">
                                 Save
                             </button>
                         </div>

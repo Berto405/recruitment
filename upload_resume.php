@@ -1,17 +1,20 @@
 <?php
-include("header.php");
-include("dbconn.php");
+include ("header.php");
+include ("dbconn.php");
 
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset ($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 } else {
     $userId = $_SESSION['user_id'];
 
     //Showing current resume    
-    $query = "SELECT resume FROM user WHERE id='$userId'";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT resume FROM user WHERE id=?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
     $row = mysqli_fetch_array($result);
 }
@@ -82,4 +85,4 @@ if (!isset($_SESSION['user_id'])) {
 </body>
 
 </html>
-<?php include('footer.php'); ?>
+<?php include ('footer.php'); ?>
