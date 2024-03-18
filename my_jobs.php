@@ -1,13 +1,13 @@
 <?php
-include("dbconn.php");
-include("header.php");
+include ("dbconn.php");
+include ("header.php");
 
 if ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php') {
     header("Location: index.php");
     exit();
 }
 
-if (isset($_GET['status'])) {
+if (isset ($_GET['status'])) {
     $status = $_GET['status'];
     $userId = $_SESSION['user_id'];
 
@@ -17,7 +17,9 @@ if (isset($_GET['status'])) {
             "SELECT jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, job_applicants.application_status 
             FROM jobs 
             INNER JOIN job_applicants ON jobs.id = job_applicants.job_id
-            WHERE job_applicants.user_id = '$userId' AND (job_applicants.application_status = 'Selected' OR job_applicants.application_status = 'Not Selected')";
+            WHERE job_applicants.user_id = '$userId' AND (job_applicants.application_status = 'Selected' OR job_applicants.application_status = 'Not Selected')
+            ORDER BY 
+                CASE WHEN job_applicants.application_status = 'Selected' THEN 0 ELSE 1 END";
     } else {
         // Exclude 'Selected' and 'Not Selected' statuses
         $query =
@@ -155,4 +157,4 @@ if (isset($_GET['status'])) {
 </body>
 
 </html>
-<?php include('footer.php'); ?>
+<?php include ('footer.php'); ?>

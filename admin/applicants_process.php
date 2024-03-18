@@ -1,20 +1,20 @@
 <?php
 session_start();
-include("../dbconn.php");
+include ("../dbconn.php");
 
 if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
 
     //Schedule Interview
-    if (isset($_POST['applicant_id'])) {
+    if (isset ($_POST['applicant_id'])) {
         schedule_interview($conn);
     }
 
-    if (isset($_POST['hire_applicant'])) {
+    if (isset ($_POST['hire_applicant']) && isset ($_POST['applicant_user_id'])) {
         hire_applicant($conn);
     }
 
-    if (isset($_POST['reject_applicant'])) {
+    if (isset ($_POST['reject_applicant']) && isset ($_POST['applicant_user_id'])) {
         reject_applicant($conn);
     }
 
@@ -54,7 +54,7 @@ function hire_applicant($conn)
 {
     $applicantId = $_POST["hire_applicant"];
 
-    $query = "UPDATE job_applicants SET application_status = 'Selected' WHERE user_id = '$applicantId'";
+    $query = "UPDATE job_applicants SET application_status = 'Selected' WHERE id = '$applicantId'";
     $result = mysqli_query($conn, $query);
 
     if ($result) {
@@ -71,7 +71,7 @@ function reject_applicant($conn)
 {
     $applicantId = $_POST["reject_applicant"];
 
-    $query = "UPDATE job_applicants SET application_status = 'Not Selected' WHERE user_id = '$applicantId'";
+    $query = "UPDATE job_applicants SET application_status = 'Not Selected' WHERE id = '$applicantId'";
     $result = mysqli_query($conn, $query);
 
     if ($result) {

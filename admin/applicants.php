@@ -1,9 +1,9 @@
 <?php
-include('../header.php');
-include('../dbconn.php');
+include ('../header.php');
+include ('../dbconn.php');
 
 // Check if user is not logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
+if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
@@ -42,7 +42,7 @@ $result = mysqli_query($conn, $query);
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
-                <?php include("../admin/admin_sidebar.php"); ?>
+                <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
 
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
@@ -123,12 +123,13 @@ $result = mysqli_query($conn, $query);
                                                 } else if ($row['application_status'] == 'Interview') {
                                                     ?>
                                                             <form action="../admin/applicants_process.php" method="post">
-                                                                <input type="hidden" class="form-control" name="hire_applicant"
-                                                                    value="<?php echo $row['id'] ?>">
-                                                                <button type="submit" class="btn btn-primary badge">
-                                                                    Hire
-                                                                </button>
+                                                                <input type="hidden" name="hire_applicant"
+                                                                    value="<?php echo $row['id']; ?>">
+                                                                <input type="hidden" name="applicant_user_id"
+                                                                    value="<?php echo $row['user_id']; ?>">
+                                                                <button type="submit" class="btn btn-primary badge">Hire</button>
                                                             </form>
+
                                                     <?php
                                                 } else {
 
@@ -137,6 +138,8 @@ $result = mysqli_query($conn, $query);
                                                 <form action="../admin/applicants_process.php" method="post">
                                                     <input type="hidden" class="form-control" name="reject_applicant"
                                                         value="<?php echo $row['id'] ?>">
+                                                    <input type="hidden" name="applicant_user_id"
+                                                        value="<?php echo $row['user_id']; ?>">
                                                     <button type="submit" class="btn btn-danger badge">Reject</button>
                                                 </form>
                                             </div>
@@ -190,4 +193,4 @@ $result = mysqli_query($conn, $query);
 
 </html>
 
-<?php include('../footer.php'); ?>
+<?php include ('../footer.php'); ?>
