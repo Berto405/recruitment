@@ -1,8 +1,8 @@
 <?php
-include("dbconn.php");
-include("header.php");
+include ("dbconn.php");
+include ("header.php");
 
-if (isset($_SESSION['user_id'])) {
+if (isset ($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
     $query = "SELECT * FROM user WHERE id = '$userId'";
     $result = mysqli_query($conn, $query);
@@ -87,26 +87,28 @@ if (isset($_SESSION['user_id'])) {
                         <div class="row">
                             <div class="col-md-6">
                                 <!-- First Name -->
-                                <div class="mb-2">
-                                    <label class="form-label fw-bold">First Name</label>
+                                <div class="form-floating mb-2">
                                     <input type="text" class="form-control" placeholder="First Name" name="newFName"
                                         value="<?php echo $row['first_name']; ?>" required>
+                                    <label class="form-label fw-bold">First Name</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <!-- Last Name -->
-                                <div class="mb-2">
-                                    <label class="form-label fw-bold">Last Name</label>
+                                <div class="form-floating mb-2">
                                     <input type="text" class="form-control" placeholder="Last Name" name="newLName"
                                         value="<?php echo $row['last_name']; ?>" required>
+                                    <label class="form-label fw-bold">Last Name</label>
                                 </div>
                             </div>
                         </div>
 
                         <div class="col w-100">
-                            <label class="form-label fw-bold">Email</label>
-                            <input type="text" class="form-control" placeholder="Email" name="newEmail"
-                                value="<?php echo $row['email']; ?>" required>
+                            <div class="form-floating">
+                                <input type="text" class="form-control" placeholder="Email" name="newEmail"
+                                    value="<?php echo $row['email']; ?>" required>
+                                <label class="form-label fw-bold">Email</label>
+                            </div>
                         </div>
 
                         <div class="mb-3 d-flex justify-content-center mt-3">
@@ -127,22 +129,25 @@ if (isset($_SESSION['user_id'])) {
                 <div class="container mt-3">
                     <form action="/recruitment/profile_process.php" method="post">
                         <!-- Current Password -->
-                        <label class="form-label fw-bold">Current Password</label>
-                        <div class="input-group mb-1 border rounded">
-                            <input type="password" class="form-control bg-transparent border-0"
-                                placeholder="Current Password" name="currentPassword" required>
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control bg-transparent" placeholder="Current Password"
+                                name="currentPassword" required>
+                            <label for="currentPassword" class="form-label">Current Password</label>
                         </div>
+
                         <!-- New Password -->
-                        <label class="form-label fw-bold">New Password</label>
-                        <div class="input-group mb-1 border rounded">
-                            <input type="password" class="form-control bg-transparent border-0"
-                                placeholder="New Password" name="newPassword" required>
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control bg-transparent " placeholder="New Password"
+                                name="newPassword" required>
+
+                            <label class="form-label ">New Password</label>
                         </div>
                         <!-- Confirm Password -->
-                        <label class="form-label fw-bold">Confirm Password</label>
-                        <div class="input-group mb-1 border rounded">
-                            <input type="password" class="form-control bg-transparent border-0"
+                        <div class="form-floating mb-2">
+                            <input type="password" class="form-control bg-transparent "
                                 placeholder="Confirm New Password" name="confirmNewPassword" required>
+
+                            <label class="form-label">Confirm Password</label>
                         </div>
                         <div class="mb-3 d-flex justify-content-center mt-3">
                             <button class="btn btn-danger rounded-1 w-100 text-light" type="submit">
@@ -210,4 +215,4 @@ if (isset($_SESSION['user_id'])) {
 </body>
 
 </html>
-<?php include('footer.php'); ?>
+<?php include ('footer.php'); ?>

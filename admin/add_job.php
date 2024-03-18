@@ -1,9 +1,9 @@
 <?php
-include('../header.php');
-include('../dbconn.php');
+include ('../header.php');
+include ('../dbconn.php');
 
 // Check if user is not logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
+if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
@@ -31,7 +31,7 @@ if ($_SESSION['user_role'] !== 'admin') {
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
-                <?php include("../admin/admin_sidebar.php"); ?>
+                <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
 
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
@@ -47,47 +47,36 @@ if ($_SESSION['user_role'] !== 'admin') {
                                     <div class="card-body m-0 p-0">
 
                                         <div class="col w-100">
-                                            <div class="mb-2">
-                                                <label for="jobName" class="form-label fw-bold">Position</label>
-                                                <input type="text" class="form-control" id="jobName"
+                                            <div class="form-floating mb-2">
+                                                <input type="text" class="form-control" id="floatingInput"
                                                     placeholder="Ex. Tech Support" name="jobName" required>
-                                                <div id="" class="form-text">
-                                                    <!-- TEXT HERE -->
-                                                </div>
+                                                <label for="floatingInput" class="form-label">Position</label>
                                             </div>
                                         </div>
 
                                         <div class="col w-100">
-                                            <div class="mb-2">
-                                                <label for="salary" class="form-label fw-bold">Salary</label>
-                                                <div class="input-group mb-2">
-                                                    <div class="input-group-prepend">
-                                                        <div class="input-group-text">Php</div>
-                                                    </div>
-                                                    <input type="text" class="form-control" id="salary"
-                                                        placeholder="Ex. 15000" name="salary" required>
-                                                </div>
+                                            <div class="form-floating mb-2">
+                                                <input type="text" class="form-control" id="salary"
+                                                    placeholder="Ex. 15000" name="salary" required>
+                                                <label for="salary" class="form-label">Salary (Php)</label>
                                             </div>
                                         </div>
 
+
                                         <div class="col w-100">
-                                            <div class="mb-2">
-                                                <label for="shift" class="form-label fw-bold">Shift & Schedule</label>
+                                            <div class="form-floating mb-2">
                                                 <input type="text" class="form-control" id="shift"
                                                     placeholder="Ex. 8 hours shift" name="shift" required>
-                                                <div id="" class="form-text">
-                                                    <!-- TEXT HERE -->
-                                                </div>
+
+                                                <label for="shift" class="form-label">Shift & Schedule</label>
                                             </div>
                                         </div>
                                         <div class="col w-100">
-                                            <div class="mb-2">
-                                                <label for="location" class="form-label fw-bold">Location</label>
+                                            <div class="form-floating mb-2">
                                                 <input type="text" class="form-control" id="location"
                                                     placeholder="Ex. Makati City" name="location" required>
-                                                <div id="" class="form-text">
-                                                    <!-- TEXT HERE -->
-                                                </div>
+
+                                                <label for="location" class="form-label">Location</label>
                                             </div>
                                         </div>
 
@@ -112,30 +101,36 @@ if ($_SESSION['user_role'] !== 'admin') {
 
                             <div class="col-12 col-lg-5 col-xl-4 align-items-center mb-4 rounded-1  ">
                                 <div class="col-12 p-0 mb-2">
-                                    <label for="priority" class="form-label fw-bold">Priority</label>
-                                    <select class="form-select" name="priority" id="priority" required>
-                                        <option value="Non-urgent Hiring">Non-urgent Hiring</option>
-                                        <option value="Urgent Hiring">Urgent Hiring</option>
-                                    </select>
+                                    <div class="form-floating">
+                                        <select class="form-select" name="priority" id="priority" required>
+                                            <option value="Non-urgent Hiring">Non-urgent Hiring</option>
+                                            <option value="Urgent Hiring">Urgent Hiring</option>
+                                        </select>
+                                        <label for="priority" class="form-label fw-bold">Priority</label>
+                                    </div>
                                 </div>
 
                                 <div class="col-12 p-0 mb-2">
-                                    <label for="jobType" class="form-label fw-bold">Job Type</label>
-                                    <select class="form-select" name="jobType" id="jobType" required>
-                                        <option value="Full-time">Full-time</option>
-                                        <option value="Part-time">Part-time</option>
-                                    </select>
+                                    <div class="form-floating">
+                                        <select class="form-select" name="jobType" id="jobType" required>
+                                            <option value="Full-time">Full-time</option>
+                                            <option value="Part-time">Part-time</option>
+                                        </select>
+                                        <label for="jobType" class="form-label fw-bold">Job Type</label>
+                                    </div>
                                 </div>
 
                                 <div class="col-md-12 p-0 mb-2 ">
-                                    <label for="department" class="form-label fw-bold">Department</label>
-                                    <select class="form-select" name="department" id="department" required>
-                                        <option value="IT">IT</option>
-                                        <option value="Human Resource">Human Resource</option>
-                                        <option value="Legal">Legal</option>
-                                        <option value="Operations">Operations</option>
-                                        <option value="">Add more here</option>
-                                    </select>
+                                    <div class="form-floating">
+                                        <select class="form-select" name="department" id="department" required>
+                                            <option value="IT">IT</option>
+                                            <option value="Human Resource">Human Resource</option>
+                                            <option value="Legal">Legal</option>
+                                            <option value="Operations">Operations</option>
+                                            <option value="">Add more here</option>
+                                        </select>
+                                        <label for="department" class="form-label fw-bold">Department</label>
+                                    </div>
                                 </div>
 
                             </div>
@@ -176,4 +171,4 @@ if ($_SESSION['user_role'] !== 'admin') {
 
 </html>
 
-<?php include('../footer.php'); ?>
+<?php include ('../footer.php'); ?>
