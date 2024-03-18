@@ -18,11 +18,25 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
         reject_applicant($conn);
     }
 
+    if (isset ($_POST['application_id'])) {
+        review_applicant($conn);
+    }
 }
 
 
 //FUNCTIONS HERE
 
+function review_applicant($conn)
+{
+    $applicantId = $_POST['application_id'];
+
+    $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $status = "Reviewed";
+    $stmt->bind_param("si", $status, $applicantId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+}
 function schedule_interview($conn)
 {
     $applicantId = $_POST['applicant_id'];

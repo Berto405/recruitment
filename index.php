@@ -1,6 +1,6 @@
 <?php
-include("header.php");
-include("index_process.php");
+include ("header.php");
+include ("index_process.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@ include("index_process.php");
                                         id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset($_GET["loc"])) {
+                                        if (isset ($_GET["loc"])) {
                                             $loc = $_GET["loc"];
                                             echo $loc;
                                         } else {
@@ -82,7 +82,7 @@ include("index_process.php");
                                         id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset($_GET["dept"])) {
+                                        if (isset ($_GET["dept"])) {
                                             $dept = $_GET["dept"];
                                             echo $dept;
                                         } else {
@@ -105,7 +105,7 @@ include("index_process.php");
                                         id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset($_GET["type"])) {
+                                        if (isset ($_GET["type"])) {
                                             $type = $_GET["type"];
                                             echo $type;
                                         } else {
@@ -118,7 +118,7 @@ include("index_process.php");
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                                         <a class="dropdown-item" href="index.php?type=Full-time">Full-time</a>
                                         <a class=" dropdown-item" href="index.php?type=Part-time">Part-time</a>
-                                        <a class="dropdown-item" href="index.php?type=Inter">Intern</a>
+                                        <a class="dropdown-item" href="index.php?type=Intern">Intern</a>
                                     </div>
                                 </div>
                             </div>
@@ -129,9 +129,10 @@ include("index_process.php");
 
 
                 <div class="col-md-3">
-                    <form class="d-flex" role="search">
-                        <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success">Search</button>
+                    <form action="index.php" method="GET" class="d-flex" role="search">
+                        <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search"
+                            name="search">
+                        <button type="submit" class="btn btn-outline-success">Search</button>
                     </form>
                 </div>
             </div>
@@ -140,7 +141,7 @@ include("index_process.php");
 
         </div>
         <div class="row">
-            <div class="col-sm-12 col-md-6 ">
+            <div class="col-sm-12 col-md-6 " id="searchResultsContainer">
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     ?>
@@ -207,14 +208,14 @@ include("index_process.php");
 
                                 <!-- Checks if user is logged or not -->
                                 <?php
-                                if (!isset($_SESSION['user_id'])) {
+                                if (!isset ($_SESSION['user_id'])) {
                                     echo '
                                         <a href="login.php" class="btn btn-danger">
                                             Apply now
                                         </a>
                                     ';
                                 } else {
-                                    if (empty($resume)) {
+                                    if (empty ($resume)) {
 
                                         echo '
                                             <a href="upload_resume.php" class="btn btn-danger" style="border-radius: 0;">
@@ -305,4 +306,4 @@ include("index_process.php");
 </body>
 
 </html>
-<?php include('footer.php'); ?>
+<?php include ('footer.php'); ?>

@@ -22,17 +22,17 @@ session_start();
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 
-    <style>
-        .text-align-center {
-            text-align: center;
-        }
-    </style>
+
+    <!-- JQuery CDN -->
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="../style.css">
 
 </head>
 
 <body>
     <?php
-    if (isset($_SESSION['success_message'])) {
+    if (isset ($_SESSION['success_message'])) {
         $message = $_SESSION['success_message'];
         ?>
         <script>
@@ -53,7 +53,7 @@ session_start();
         <?php
         //Unset session of success message so that it wont appear again
         unset($_SESSION['success_message']);
-    } else if (isset($_SESSION['error_message'])) {
+    } else if (isset ($_SESSION['error_message'])) {
         $error = $_SESSION['error_message'];
         ?>
             <script>
@@ -97,7 +97,7 @@ session_start();
                     </li>
 
                     <?php
-                    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
+                    if (isset ($_SESSION['user_role']) && $_SESSION['user_role'] == 'admin') {
                         $adminDashboardUrl = "/recruitment/admin/home.php";
                         $href = $adminDashboardUrl;
                         $isActive = ($_SERVER['REQUEST_URI'] == $adminDashboardUrl || $_SERVER['REQUEST_URI'] == $adminDashboardUrl . '/') ? ' text-dark fw-bold' : ' text-secondary';
@@ -109,7 +109,7 @@ session_start();
                         </li>
                         ';
                     }
-                    if (isset($_SESSION['user_id'])) {
+                    if (isset ($_SESSION['user_id'])) {
                         echo '
                         <li class="nav-item">
                             <a href="/recruitment/my_jobs.php?status=Pending" class="nav-link link-dark  '
@@ -132,7 +132,7 @@ session_start();
 
                 <div class="navbar-text text-end">
                     <?php
-                    if (isset($_SESSION["user_id"])) {
+                    if (isset ($_SESSION["user_id"])) {
                         $user = $_SESSION["user_name"];
                         echo '
                             <div class="row">

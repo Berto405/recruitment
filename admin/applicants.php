@@ -61,6 +61,7 @@ $result = mysqli_query($conn, $query);
                                 <th>Job Type</th>
                                 <th>Shift</th>
                                 <th>Location</th>
+                                <th>Application Status</th>
                                 <th>Resume</th>
                                 <th>Action</th>
                             </tr>
@@ -97,10 +98,35 @@ $result = mysqli_query($conn, $query);
                                         <?php echo $row['location']; ?>
                                     </td>
                                     <td>
-                                        <a href="/recruitment/resume/<?php echo $row['resume']; ?>" target="_blank"
-                                            class="text-decoration-none btn btn-success badge">
+                                        <?php
+                                        if ($row['application_status'] == 'Pending') {
+                                            ?>
+                                            <span class="badge border border-secondary text-secondary">
+                                                Pending
+                                            </span>
+
+                                            <?php
+                                        } elseif ($row['application_status'] == 'Reviewed') {
+                                            ?>
+                                            <span class="badge border border-primary text-primary">
+                                                Reviewed
+                                            </span>
+                                            <?php
+                                        } elseif ($row['application_status'] == 'Interview') {
+                                            ?>
+                                            <span class="badge border border-danger text-danger"">
+                                                To be Interview
+                                            </span>
+                                            <?php
+                                        }
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <a href=" /recruitment/resume/<?php echo $row['resume']; ?>" target="_blank"
+                                            class="text-decoration-none btn btn-success badge view-resume"
+                                            data-application-id="<?php echo $row['id']; ?>">
                                             View Resume
-                                        </a>
+                                            </a>
                                     </td>
                                     <td>
                                         <a href="#" class="d-block text-dark text-decoration-none dropdown-toggle"
@@ -189,6 +215,39 @@ $result = mysqli_query($conn, $query);
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".view-resume").click(function (e) {
+                e.preventDefault();
+                var applicationId = $(this).data("application-id");
+
+                // Send AJAX request to update the application status
+                $.ajax({
+                    type: "POST",
+                    url: "applicants_process.php",
+                    data: { application_id: applicationId },
+                    success: function (response) {
+                        // Handle the response if needed
+                        console.log(response);
+
+                        // Open the resume link in a new tab
+                        var resumeUrl = $(e.target).attr('href');
+                        window.open(resumeUrl, '_blank');
+
+                        // Reload the current page
+                        window.location.reload();
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle errors here
+                        console.error(error);
+                    }
+                });
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>

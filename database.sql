@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 15, 2024 at 10:27 AM
+-- Generation Time: Mar 18, 2024 at 10:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -55,7 +55,10 @@ INSERT INTO `jobs` (`id`, `job_name`, `salary`, `job_type`, `shift_and_schedule`
 (9, 'SAP', 10000, 'Part-time', '8 hours shift', 'Parañaque', '<ul><li>asdads</li></ul>', '<ul><li>asdaaa</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-15 08:28:20'),
 (10, 'Finance', 10000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>das</li></ul>', '<ol><li>2313</li></ol>', 'Non-urgent Hiring', 'Operations', '2024-03-13 02:50:52'),
 (11, 'SHESSH', 1000, 'Full-time', '9 hours shift', 'Makati', '<p>asda</p>', '<p>asda</p><p>asdsd</p>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:51:41'),
-(12, '', 0, 'Full-time', '', '', '<span style=\"background-color: rgb(247, 173, 107);\">sdsada</span>', '', 'Non-urgent Hiring', 'IT', '2024-03-15 02:08:42');
+(12, '', 0, 'Full-time', '', '', '<span style=\"background-color: rgb(247, 173, 107);\">sdsada</span>', '', 'Non-urgent Hiring', 'IT', '2024-03-15 02:08:42'),
+(13, 'Tech Support', 100, 'Full-time', '8 hours shift', 'Makati City', '<ul><li>sda</li></ul>', '<ul><li>aksjdhakj</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:15:12'),
+(14, 'Developer', 20, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asd</li></ul>', '<ul><li>asd</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:16:57'),
+(15, 'kjk', 0, 'Full-time', 'jdsalk', 'ojas', '<ol><li>ds</li><li>asd</li><li>sad</li></ol>', '<ul><li>adads</li><li><b>ada</b></li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 07:12:22');
 
 -- --------------------------------------------------------
 
@@ -77,11 +80,20 @@ CREATE TABLE `job_applicants` (
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
 (1, 9, 1, 'Interview', '2024-03-15 12:40:00'),
-(2, 9, 3, 'Interview', '2024-03-19 09:31:00'),
-(3, 9, 2, 'Interview', '2024-03-19 15:13:00'),
-(5, 9, 4, 'Interview', '2024-03-19 11:13:00'),
+(2, 9, 3, 'Not Selected', '2024-03-19 09:31:00'),
+(3, 9, 2, 'Not Selected', '2024-03-19 15:13:00'),
+(5, 9, 4, 'Selected', '2024-03-19 11:13:00'),
 (6, 19, 1, 'Selected', '2024-03-15 13:41:00'),
-(7, 2, 8, 'Pending', NULL);
+(7, 2, 8, 'Selected', NULL),
+(8, 9, 7, 'Selected', '2024-03-19 17:26:00'),
+(9, 9, 9, 'Reviewed', NULL),
+(10, 9, 11, 'Not Selected', NULL),
+(11, 9, 8, 'Not Selected', NULL),
+(12, 2, 14, 'Pending', NULL),
+(13, 2, 1, 'Reviewed', NULL),
+(14, 2, 7, 'Pending', NULL),
+(15, 2, 13, 'Pending', NULL),
+(16, 2, 9, 'Reviewed', NULL);
 
 -- --------------------------------------------------------
 
@@ -96,18 +108,23 @@ CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
-  `resume` varchar(255) NOT NULL
+  `resume` varchar(255) NOT NULL,
+  `branch` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`) VALUES
-(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$lMvqJWsXFRrbmf8eoOgWP.RsBDTQ4PRt8914ZQzWGN2yWAbX/LUXO', 'admin', '65f3ac7f2912c_01_Handout_1.pdf'),
-(9, 'Roberto', 'Wews', 'nm@gmail.com', '$2y$10$.Vcfb7anIIoorTOqUceLrebcgdbd8OImp19nZvI64wvIFem/wSAWW', 'user', '65efcda1239af_01_Handout_1.pdf'),
-(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', ''),
-(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`) VALUES
+(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$lMvqJWsXFRrbmf8eoOgWP.RsBDTQ4PRt8914ZQzWGN2yWAbX/LUXO', 'admin', '65f3ac7f2912c_01_Handout_1.pdf', ''),
+(9, 'Roberto', 'Wews', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', ''),
+(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', ''),
+(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', ''),
+(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', ''),
+(21, 'ber', 'to', 'ber@gmail.com', '$2y$10$Qi9sRBmyiTjV.E6veZAOR.qr8I5yXG27xduLn.rLvzblp/epkWn.e', 'admin', '', 'Makati'),
+(22, 'b', 'a', 'ba@gmail.com', '$2y$10$eVFF1qhSqf0g18ZiLN0hS.UEf4fkiVFPh53xZuyqlRdlKJU7ctZHW', 'admin', '', 'Pampanga'),
+(23, 'asd', 'sa', 'sa@gmail.com', '$2y$10$qE1GQ1Nlbf1Z9iy4ZzvEa.n4btLtGeOX2gRIoLDK3TfDdavUkk31G', 'admin', '', 'Makati');
 
 --
 -- Indexes for dumped tables
@@ -139,19 +156,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

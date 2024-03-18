@@ -8,18 +8,16 @@ if (!isset ($_SESSION['user_id'])) {
 } else {
     $userId = $_SESSION['user_id'];
 
-    //Showing current resume    
+    // Showing current resume    
     $query = "SELECT resume FROM user WHERE id=?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = mysqli_fetch_array($result);
+    $row = $result->fetch_assoc();
 
-    //Uploading Resume
+    // Uploading Resume
     if (isset ($_POST['submit'])) {
-        $userId = $_SESSION['user_id'];
-
         // Check if a file is selected
         if (isset ($_FILES['resume_file']['name']) && !empty ($_FILES['resume_file']['name'])) {
             // Get file details
@@ -33,22 +31,24 @@ if (!isset ($_SESSION['user_id'])) {
             $max_file_size = 5 * 1024 * 1024; // 5 MB
 
             if (in_array($file_ext, $allowed_extensions) && $file_size <= $max_file_size) {
-
-                //Gets the previous resume and delete it.
+                // Get the previous resume name and delete it
                 $delete_previous_resume_query = "SELECT resume FROM user WHERE id = ?";
                 $stmt = $conn->prepare($delete_previous_resume_query);
                 $stmt->bind_param("i", $userId);
                 $stmt->execute();
                 $delete_result = $stmt->get_result();
-                $row = mysqli_fetch_assoc($delete_result);
-                $previous_name = $row["resume"];
-                if (!empty ($previous_name)) {
-                    $previous_resume_path = "./resume/" . $previous_name;
-                    if (file_exists($previous_resume_path)) {
-                        unlink($previous_resume_path);
+                if ($delete_result->num_rows > 0) {
+                    $row = $delete_result->fetch_assoc();
+                    $previous_name = $row["resume"];
+                    if (!empty ($previous_name)) {
+                        $previous_resume_path = "./resume/" . $previous_name;
+                        if (file_exists($previous_resume_path)) {
+                            unlink($previous_resume_path);
+                        }
                     }
                 }
-                //Generate a unique file name
+
+                // Generate a unique file name
                 $unique_file_name = uniqid() . '_' . $file_name;
 
                 // Move the uploaded file to the desired directory
@@ -62,26 +62,26 @@ if (!isset ($_SESSION['user_id'])) {
                     $query = "UPDATE `user` SET `resume`= ? WHERE `id`= ?";
                     $stmt = $conn->prepare($query);
                     $stmt->bind_param("si", $unique_file_name, $userId);
-                    $result = $stmt->get_result();
+                    $stmt->execute();
 
                     $_SESSION['success_message'] = "Resume Uploaded";
                     header("Location: /recruitment/index.php");
                     exit();
-
                 } else {
                     $_SESSION['error_message'] = "Resume Not Uploaded";
                     header("Location: /recruitment/index.php");
                     exit();
                 }
             } else {
-
                 $_SESSION['error_message'] = "File must be uploaded in PDF format and should not exceed 5MB.";
                 header("Location: /recruitment/index.php");
                 exit();
             }
         } else {
             // If no file is selected
-            echo '<div class="alert alert-danger">Please select a file.</div>';
+            $_SESSION['error_message'] = "Please select a file.";
+            header("Location: /recruitment/index.php");
+            exit();
         }
     }
 }
