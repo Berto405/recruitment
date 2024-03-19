@@ -1,9 +1,9 @@
 <?php
-include('../header.php');
-include('../dbconn.php');
+include ('../admin/admin_header.php');
+include ('../dbconn.php');
 
 // Check if user is not logged in
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
+if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $query);
 $events = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-    if (!empty($row['interview_date'])) {
+    if (!empty ($row['interview_date'])) {
         $datetime = new DateTime($row['interview_date']);
         $formattedDate = $datetime->format('Y-m-d');
         $formatTime = $datetime->format('H:i:s');
@@ -87,7 +87,7 @@ $events_json = json_encode($events);
     <div class="container-fluid">
         <div class="row h-100">
             <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
-                <?php include("../admin/admin_sidebar.php"); ?>
+                <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
                 <h4 class=" mt-1 mb-5 ">Interview Schedules</h4>
@@ -175,4 +175,4 @@ $events_json = json_encode($events);
 
 </html>
 
-<?php include('../footer.php'); ?>
+<?php include ('../footer.php'); ?>

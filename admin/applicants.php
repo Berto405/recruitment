@@ -1,5 +1,5 @@
 <?php
-include ('../header.php');
+include ('../admin/admin_header.php');
 include ('../dbconn.php');
 
 // Check if user is not logged in
