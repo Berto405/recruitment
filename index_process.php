@@ -82,47 +82,4 @@ if (isset ($_GET['type'])) {
     }
 }
 
-//Search backend
-if (isset ($_GET['search'])) {
-    $search = $_GET['search'];
-    if (isset ($_SESSION['user_id'])) {
-        $query = "
-            SELECT jobs.* 
-            FROM jobs
-            LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = ?
-            WHERE job_applicants.user_id IS NULL
-                AND (
-                    job_name LIKE ? 
-                    OR salary LIKE ?  
-                    OR job_type LIKE ?  
-                    OR shift_and_schedule LIKE ?  
-                    OR priority LIKE ?  
-                    OR department LIKE ?
-                )
-            ORDER BY 
-                CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
-                CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
-
-
-        $stmt = $conn->prepare($query);
-        $searchParam = "%$search%";
-        $stmt->bind_param('issssss', $userId, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    } else {
-        $query = 'SELECT * FROM jobs 
-            WHERE job_name LIKE ? 
-            OR salary LIKE ?  
-            OR job_type LIKE ?  
-            OR shift_and_schedule LIKE ?  
-            OR priority LIKE ?  
-            OR department LIKE ?';
-
-        $stmt = $conn->prepare($query);
-        $searchParam = "%$search%";
-        $stmt->bind_param('ssssss', $searchParam, $searchParam, $searchParam, $searchParam, $searchParam, $searchParam);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    }
-}
 ?>

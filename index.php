@@ -24,6 +24,24 @@ include ("index_process.php");
                 window.scrollTo({ top: hiddenContentTop, behavior: "smooth" });
             }
         }
+        function searchJobs() {
+            var input, filter, cards, card, i, jobName;
+            input = document.getElementById("searchInput");
+            filter = input.value.toLowerCase();
+            cards = document.getElementsByClassName("card");
+
+            for (i = 0; i < cards.length; i++) {
+                card = cards[i];
+                jobName = card.getElementsByClassName("job-name")[0].textContent.toLowerCase();
+
+                if (jobName.includes(filter)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            }
+        }
+
 
     </script>
 
@@ -129,11 +147,11 @@ include ("index_process.php");
 
 
                 <div class="col-md-3">
-                    <form action="index.php" method="GET" class="d-flex" role="search">
-                        <input type="search" class="form-control me-2" placeholder="Search" aria-label="Search"
-                            name="search">
-                        <button type="submit" class="btn btn-outline-success">Search</button>
-                    </form>
+                    <div class="float-end input-group mb-2">
+                        <input id="searchInput" type="search" class="form-control" placeholder="Search"
+                            aria-label="Search" name="search" oninput="searchJobs()">
+                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    </div>
                 </div>
             </div>
 
@@ -160,7 +178,7 @@ include ("index_process.php");
                             <a href="javascript:void(0)" onclick="showDetails(<?php echo $row['id'] ?>)"
                                 class="text-decoration-none">
                                 <!-- Job Name -->
-                                <h4 class="text-black mt-3">
+                                <h4 class="text-black mt-3 job-name">
                                     <?php echo $row['job_name']; ?>
                                 </h4>
                             </a>
