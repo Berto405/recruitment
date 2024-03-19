@@ -48,7 +48,7 @@ $result = mysqli_query($conn, $query);
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
                 <h4 class=" mt-1 mb-5 ">Applicants</h4>
 
-                <div class="container-fluid table-responsive-sm">
+                <div class="container-fluid table-responsive">
                     <span class="float-end">
                         <i class="bi bi-exclamation-circle-fill text-danger"></i> = Urgent
                         Hiring
