@@ -15,6 +15,23 @@ if ($_SESSION['user_role'] !== 'admin') {
     header("Location: ../index.php");
     exit();
 }
+
+$today = date("Y-m-d");
+$notSelectedStatus = "Not Selected";
+$selectedStatus = "Selected";
+$query =
+    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, jobs.priority, user.first_name, user.last_name, user.resume
+    FROM ((job_applicants
+    INNER JOIN jobs ON job_applicants.job_id = jobs.id)
+    INNER JOIN user ON job_applicants.user_id = user.id)
+    WHERE job_applicants.application_status != ? AND job_applicants.application_status != ? AND DATE(job_applicants.interview_date) = ?
+    ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+$stmt = $conn->prepare($query);
+$stmt->bind_param("sss", $notSelectedStatus, $selectedStatus, $today);
+$stmt->execute();
+$result = $stmt->get_result();
+
+
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +57,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                 <div class="container ">
                     <div class="row">
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <div class="card bg-success bg-opacity-50 border border-2  border-success">
+                            <div class="card bg-success bg-opacity-50 border border-2  border-success shadow">
                                 <div class="card-body">
 
                                     <div class="container">
@@ -63,7 +80,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <div class="card bg-warning  bg-opacity-50 border border-2  border-warning">
+                            <div class="card bg-warning  bg-opacity-50 border border-2  border-warning shadow">
                                 <div class="card-body">
 
                                     <div class="container">
@@ -86,7 +103,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <div class="card bg-primary  bg-opacity-50 border border-2  border-primary">
+                            <div class="card bg-primary  bg-opacity-50 border border-2  border-primary shadow">
                                 <div class="card-body">
 
                                     <div class="container">
@@ -109,7 +126,7 @@ if ($_SESSION['user_role'] !== 'admin') {
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6 mb-3">
-                            <div class="card bg-danger  bg-opacity-50 border border-2  border-danger">
+                            <div class="card bg-danger  bg-opacity-50 border border-2  border-danger shadow">
                                 <div class="card-body">
 
                                     <div class="container">
@@ -142,9 +159,59 @@ if ($_SESSION['user_role'] !== 'admin') {
                             </div>
                         </div>
                         <div class="col-lg-4 mb-3">
-                            <div class="card">
+                            <div class="card h-100">
                                 <div class="card-body">
-                                    Today Interviews
+
+                                    <div class="container">
+                                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                                            <div class="mb-2">
+                                                Today Interviews
+                                            </div>
+                                        </div>
+                                        <?php
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $interviewDateTime = $row['interview_date'];
+                                                $interviewDateTimeObj = new DateTime($interviewDateTime);
+                                                $interviewTime = $interviewDateTimeObj->format('h:i A');
+                                                ?>
+                                                <div class="row-12">
+                                                    <div class="col mb-2">
+                                                        <div
+                                                            class="card bg-danger  bg-opacity-50 border border-2  border-danger">
+                                                            <div class="card-body">
+
+                                                                <div class="container">
+                                                                    <div class="d-flex fw-bold justify-content-between align-items-center"
+                                                                        style="height: 1px;">
+                                                                        <div>
+                                                                            <?php echo $row['first_name'] . ' ' . $row['last_name']; ?>
+                                                                        </div>
+                                                                        <div>
+                                                                            <small>
+                                                                                <?php echo $interviewTime; ?>
+                                                                            </small>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php
+                                            }
+                                        } else {
+                                            ?>
+                                                <div class="row">
+                                                    <div class="col text-secondary">
+                                                        No interviews scheduled today.
+                                                    </div>
+                                                </div>
+                                                <?php
+                                        }
+                                        ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -152,87 +219,86 @@ if ($_SESSION['user_role'] !== 'admin') {
                 </div>
             </div>
         </div>
-    </div>
-    <script>
-        var dates = [
-            [1587640800000, 30], // Sample data: [timestamp, value]
-            [1587727200000, 40],
-            [1587813600000, 35],
-            // Add more data points as needed
-        ];
+        <script>
+            var dates = [
+                [1587640800000, 30], // Sample data: [timestamp, value]
+                [1587727200000, 40],
+                [1587813600000, 35],
+                // Add more data points as needed
+            ];
 
-        var options = {
-            series: [{
-                name: 'XYZ MOTORS',
-                data: dates,
-                color: '#dc3545'
-            }],
-            chart: {
-                type: 'area',
-                stacked: false,
-                height: 350,
-                zoom: {
-                    type: 'x',
-                    enabled: true,
-                    autoScaleYaxis: true
-                },
-                toolbar: {
-                    autoSelected: 'zoom'
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            markers: {
-                size: 0,
-            },
-            title: {
-                text: 'Chart Here',
-                align: 'left'
-            },
-            fill: {
-                type: 'gradient',
-                gradient: {
-                    shadeIntensity: 1,
-                    inverseColors: false,
-                    opacityFrom: 0.5,
-                    opacityTo: 0,
-                    stops: [0, 90, 100]
-                },
-                colors: ['#dc3545']
-            },
-            stroke: {
-                curve: 'smooth',
-                width: 2, // Line width
-                colors: ['#dc3545'] // Line color
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (val) {
-                        return (val / 1000000).toFixed(0);
+            var options = {
+                series: [{
+                    name: 'XYZ MOTORS',
+                    data: dates,
+                    color: '#dc3545'
+                }],
+                chart: {
+                    type: 'area',
+                    stacked: false,
+                    height: 350,
+                    zoom: {
+                        type: 'x',
+                        enabled: true,
+                        autoScaleYaxis: true
                     },
+                    toolbar: {
+                        autoSelected: 'zoom'
+                    }
+                },
+                dataLabels: {
+                    enabled: false
+                },
+                markers: {
+                    size: 0,
                 },
                 title: {
-                    text: 'Price'
+                    text: 'Chart Here',
+                    align: 'left'
                 },
-            },
-            xaxis: {
-                type: 'datetime',
-            },
-            tooltip: {
-                shared: false,
-                y: {
-                    formatter: function (val) {
-                        return (val / 1000000).toFixed(0)
+                fill: {
+                    type: 'gradient',
+                    gradient: {
+                        shadeIntensity: 1,
+                        inverseColors: false,
+                        opacityFrom: 0.5,
+                        opacityTo: 0,
+                        stops: [0, 90, 100]
+                    },
+                    colors: ['#dc3545']
+                },
+                stroke: {
+                    curve: 'smooth',
+                    width: 2, // Line width
+                    colors: ['#dc3545'] // Line color
+                },
+                yaxis: {
+                    labels: {
+                        formatter: function (val) {
+                            return (val / 1000000).toFixed(0);
+                        },
+                    },
+                    title: {
+                        text: 'Price'
+                    },
+                },
+                xaxis: {
+                    type: 'datetime',
+                },
+                tooltip: {
+                    shared: false,
+                    y: {
+                        formatter: function (val) {
+                            return (val / 1000000).toFixed(0)
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        var chart = new ApexCharts(document.querySelector("#chart"), options);
-        chart.render();
+            var chart = new ApexCharts(document.querySelector("#chart"), options);
+            chart.render();
 
-    </script>
+        </script>
 </body>
 
 </html>
