@@ -19,7 +19,21 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
     }
 
     if (isset ($_POST['application_id'])) {
-        review_applicant($conn);
+        $application_id = $_POST['application_id'];
+        // Assuming $conn is your database connection
+        $query = "SELECT application_status FROM job_applicants WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", $application_id);
+        $stmt->execute();
+        $stmt->bind_result($application_status);
+        $stmt->fetch();
+        $stmt->close();
+
+        // Check if the application_status is not "Interview"
+        if ($application_status !== "Interview") {
+            // If application_status is not "Interview", then execute the function
+            review_applicant($conn);
+        }
     }
 }
 

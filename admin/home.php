@@ -1,6 +1,6 @@
 <?php
 include ('../admin/admin_header.php');
-include ('../dbconn.php');
+include ('../admin/home_process.php');
 
 // Check if user is not logged in
 if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
@@ -15,23 +15,6 @@ if ($_SESSION['user_role'] !== 'admin') {
     header("Location: ../index.php");
     exit();
 }
-
-$today = date("Y-m-d");
-$notSelectedStatus = "Not Selected";
-$selectedStatus = "Selected";
-$query =
-    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, jobs.priority, user.first_name, user.last_name, user.resume
-    FROM ((job_applicants
-    INNER JOIN jobs ON job_applicants.job_id = jobs.id)
-    INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status != ? AND job_applicants.application_status != ? AND DATE(job_applicants.interview_date) = ?
-    ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("sss", $notSelectedStatus, $selectedStatus, $today);
-$stmt->execute();
-$result = $stmt->get_result();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -66,12 +49,14 @@ $result = $stmt->get_result();
                                                 Registered Users
                                             </div>
                                             <div>
-                                                <i class="bi bi-people"></i>
+                                                <i class="bi bi-people h3"></i>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <h2>+293</h2>
+                                                <h2>
+                                                    <?php echo '+' . $countReg; ?>
+                                                </h2>
                                             </div>
                                         </div>
                                     </div>
@@ -89,12 +74,14 @@ $result = $stmt->get_result();
                                                 Total Applicants
                                             </div>
                                             <div>
-                                                <i class="bi bi-people"></i>
+                                                <i class="bi bi-file-earmark-person h3"></i>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">
-                                                <h2>+69</h2>
+                                                <h2>
+                                                    <?php echo '+' . $countApp; ?>
+                                                </h2>
                                             </div>
                                         </div>
                                     </div>
@@ -112,7 +99,7 @@ $result = $stmt->get_result();
                                                 Registered Users
                                             </div>
                                             <div>
-                                                <i class="bi bi-people"></i>
+                                                <i class="bi bi-people h3"></i>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -135,7 +122,7 @@ $result = $stmt->get_result();
                                                 Registered Users
                                             </div>
                                             <div>
-                                                <i class="bi bi-people"></i>
+                                                <i class="bi bi-people h3"></i>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -262,7 +249,7 @@ $result = $stmt->get_result();
                         shadeIntensity: 1,
                         inverseColors: false,
                         opacityFrom: 0.5,
-                        opacityTo: 0,
+                        opacityTo: 0.4,
                         stops: [0, 90, 100]
                     },
                     colors: ['#dc3545']

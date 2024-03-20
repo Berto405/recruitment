@@ -31,11 +31,11 @@ if ($result->num_rows == 1) {
             exit();
         }
     } else {
-        header("Location: login.php?error=Wrong email or passworsd");
+        header("Location: login.php?error=Wrong passworsd");
         exit();
     }
 } else {
-    header("Location: login.php?error=Wrong email or password");
+    header("Location: login.php?error=Wrong email");
     exit();
 }
 ?>
