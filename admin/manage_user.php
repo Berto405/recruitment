@@ -39,8 +39,8 @@ $result = $stmt->get_result();
 
 <body style="background-color: #F4F4F4; ">
     <div class="container-fluid">
-        <div class="row h-100">
-            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
+        <div class="row">
+            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow" style="min-height: 91vh;">
                 <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3 ">

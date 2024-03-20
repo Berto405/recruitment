@@ -1,5 +1,5 @@
 <div class="accordion p-1" id="accordionExample">
-    <ul class="nav flex-column mt-5" style="font-size:16px;">
+    <ul class="nav flex-column mt-5">
         <li>
             <a href="../admin/home.php"
                 class="nav-link p-2 ps-4 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/home.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/home.php/') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">

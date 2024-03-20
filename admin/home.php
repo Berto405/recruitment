@@ -24,20 +24,215 @@ if ($_SESSION['user_role'] !== 'admin') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+
 </head>
 
 <body style="background-color: #F4F4F4; ">
 
     <div class="container-fluid">
-        <div class="row h-100">
-            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow">
+        <div class="row">
+            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow " style="min-height: 91vh;">
                 <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
                 <h4 class=" mt-1 mb-5 ">Dashboard</h4>
+
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-success bg-opacity-50 border border-2  border-success">
+                                <div class="card-body">
+
+                                    <div class="container">
+                                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                                            <div>
+                                                Registered Users
+                                            </div>
+                                            <div>
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>+293</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-warning  bg-opacity-50 border border-2  border-warning">
+                                <div class="card-body">
+
+                                    <div class="container">
+                                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                                            <div>
+                                                Total Applicants
+                                            </div>
+                                            <div>
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>+69</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-primary  bg-opacity-50 border border-2  border-primary">
+                                <div class="card-body">
+
+                                    <div class="container">
+                                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                                            <div>
+                                                Registered Users
+                                            </div>
+                                            <div>
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>+293</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <div class="card bg-danger  bg-opacity-50 border border-2  border-danger">
+                                <div class="card-body">
+
+                                    <div class="container">
+                                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                                            <div>
+                                                Registered Users
+                                            </div>
+                                            <div>
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2>+293</h2>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-8 mb-3">
+                            <div class="card">
+                                <div class="card-body" id="chart">
+                                    <!-- CHART HERE -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    Today Interviews
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script>
+        var dates = [
+            [1587640800000, 30], // Sample data: [timestamp, value]
+            [1587727200000, 40],
+            [1587813600000, 35],
+            // Add more data points as needed
+        ];
+
+        var options = {
+            series: [{
+                name: 'XYZ MOTORS',
+                data: dates,
+                color: '#dc3545'
+            }],
+            chart: {
+                type: 'area',
+                stacked: false,
+                height: 350,
+                zoom: {
+                    type: 'x',
+                    enabled: true,
+                    autoScaleYaxis: true
+                },
+                toolbar: {
+                    autoSelected: 'zoom'
+                }
+            },
+            dataLabels: {
+                enabled: false
+            },
+            markers: {
+                size: 0,
+            },
+            title: {
+                text: 'Chart Here',
+                align: 'left'
+            },
+            fill: {
+                type: 'gradient',
+                gradient: {
+                    shadeIntensity: 1,
+                    inverseColors: false,
+                    opacityFrom: 0.5,
+                    opacityTo: 0,
+                    stops: [0, 90, 100]
+                },
+                colors: ['#dc3545']
+            },
+            stroke: {
+                curve: 'smooth',
+                width: 2, // Line width
+                colors: ['#dc3545'] // Line color
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (val) {
+                        return (val / 1000000).toFixed(0);
+                    },
+                },
+                title: {
+                    text: 'Price'
+                },
+            },
+            xaxis: {
+                type: 'datetime',
+            },
+            tooltip: {
+                shared: false,
+                y: {
+                    formatter: function (val) {
+                        return (val / 1000000).toFixed(0)
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+    </script>
 </body>
 
 </html>

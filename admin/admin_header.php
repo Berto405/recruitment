@@ -26,6 +26,9 @@ session_start();
     <!-- JQuery CDN -->
     <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+    <!-- Apex Chart CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
     <link rel="stylesheet" href="../style.css">
 
 
