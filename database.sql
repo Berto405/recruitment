@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2024 at 10:38 AM
+-- Generation Time: Mar 22, 2024 at 09:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,90 @@ SET time_zone = "+00:00";
 --
 -- Database: `recruitment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `character_references`
+--
+
+CREATE TABLE `character_references` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name_one` varchar(255) NOT NULL,
+  `name_one_position` varchar(255) NOT NULL,
+  `name_one_company` varchar(255) NOT NULL,
+  `name_one_contact_number` int(12) NOT NULL,
+  `name_two` varchar(255) NOT NULL,
+  `name_two_position` varchar(255) NOT NULL,
+  `name_two_company` varchar(255) NOT NULL,
+  `name_two_contact_number` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `educational_attainment`
+--
+
+CREATE TABLE `educational_attainment` (
+  `id` int(11) NOT NULL,
+  `user_id` int(12) NOT NULL,
+  `college` varchar(255) NOT NULL,
+  `college_from` year(4) NOT NULL,
+  `college_to` year(4) NOT NULL,
+  `college_degree` varchar(255) NOT NULL,
+  `vocational` varchar(255) NOT NULL,
+  `vocational_from` year(4) NOT NULL,
+  `vocational_to` year(4) NOT NULL,
+  `vocational_diploma` varchar(255) NOT NULL,
+  `high_school` varchar(255) NOT NULL,
+  `high_school_from` year(4) NOT NULL,
+  `high_school_to` year(4) NOT NULL,
+  `high_school_level` varchar(255) NOT NULL,
+  `elementary` varchar(255) NOT NULL,
+  `elementary_from` year(4) NOT NULL,
+  `elementary_to` year(4) NOT NULL,
+  `elementary_level` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employment_background`
+--
+
+CREATE TABLE `employment_background` (
+  `id` int(11) NOT NULL,
+  `user_id` int(12) NOT NULL,
+  `company_one` varchar(255) NOT NULL,
+  `company_one_position` varchar(255) NOT NULL,
+  `company_one_from` year(4) NOT NULL,
+  `company_one_to` year(4) NOT NULL,
+  `company_one_status` varchar(255) NOT NULL,
+  `company_one_responsibilities` text NOT NULL,
+  `company_one_reason_for_leaving` text NOT NULL,
+  `company_one_last_salary` int(12) NOT NULL,
+  `company_two` varchar(255) NOT NULL,
+  `company_two_position` varchar(255) NOT NULL,
+  `company_two_from` year(4) NOT NULL,
+  `company_two_to` year(4) NOT NULL,
+  `company_two_status` varchar(255) NOT NULL,
+  `company_two_responsibilities` text NOT NULL,
+  `company_two_reason_for_leaving` text NOT NULL,
+  `company_two_last_salary` int(12) NOT NULL,
+  `company_three` varchar(255) NOT NULL,
+  `company_three_position` varchar(255) NOT NULL,
+  `company_three_from` year(4) NOT NULL,
+  `company_three_to` year(4) NOT NULL,
+  `company_three_status` varchar(255) NOT NULL,
+  `company_three_responsibilities` text NOT NULL,
+  `company_three_reason_for_leaving` text NOT NULL,
+  `company_three_last_salary` int(12) NOT NULL,
+  `recent_employment_contact_person` varchar(255) NOT NULL,
+  `recent_employment_position` varchar(255) NOT NULL,
+  `recent_employment_contact_number` int(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -48,9 +132,8 @@ CREATE TABLE `jobs` (
 INSERT INTO `jobs` (`id`, `job_name`, `salary`, `job_type`, `shift_and_schedule`, `location`, `job_description`, `benefits`, `priority`, `department`, `created_at`) VALUES
 (1, 'Tech Support', 20, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join  team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Free lunch', 'Urgent Hiring', 'Legal', '2024-03-19 08:48:52'),
 (2, 'Human Resource', 50, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join Accenture’s team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Wala', 'Non-urgent Hiring', 'Operations', '2024-03-19 09:03:20'),
-(3, 'IT Specialist', 900, 'Intern', '8 hours shift', 'Makati City', '<p>Sheesh</p><p>sd</p>', '<p>Wala</p><p>sd</p>', 'Urgent Hiring', 'IT', '2024-03-19 08:44:30'),
+(3, 'IT Specialist', 900, 'Intern', '8 hours shift', 'Makati City', '<p>Sheesh</p><p>sd</p><ul><li>dasda</li><li>asd</li><li>a</li></ul>', '<p>Wala</p><p>sd</p>', 'Urgent Hiring', 'IT', '2024-03-20 02:37:32'),
 (7, 'Waiter', 10000, 'Full-time', '8 hours shift', 'Manila', '<ul><li>SSSSSSHHHHHHHHHEEEEEEEEEESSSSSSHHHHHHH</li></ul>', '<ul><li>WLAA</li></ul>', 'Urgent Hiring', 'IT', '2024-03-13 02:50:52'),
-(8, 'Pilot', 10, 'Part-time', '8 hours shift', 'Cavite', '<ul><li><b>SHH</b></li></ul>', '<ul><li>WaLA</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:50:52'),
 (9, 'SAP', 10000, 'Part-time', '8 hours shift', 'Parañaque', '<ul><li>asdads</li></ul>', '<ul><li>asdaaa</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-15 08:28:20'),
 (10, 'Finance', 10000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>das</li></ul>', '<ol><li>2313</li></ol>', 'Non-urgent Hiring', 'Operations', '2024-03-13 02:50:52'),
 (11, 'SHESSH', 1000, 'Full-time', '9 hours shift', 'Makati', '<p>asda</p>', '<p>asda</p><p>asdsd</p>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:51:41'),
@@ -79,21 +162,54 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
-(1, 9, 1, 'Interview', '2024-03-15 12:40:00'),
+(1, 9, 1, 'Selected', '2024-03-20 12:40:00'),
 (2, 9, 3, 'Not Selected', '2024-03-19 09:31:00'),
-(3, 9, 2, 'Not Selected', '2024-03-19 15:13:00'),
-(5, 9, 4, 'Selected', '2024-03-19 11:13:00'),
-(6, 19, 1, 'Selected', '2024-03-15 13:41:00'),
+(3, 9, 2, 'Not Selected', '2024-03-20 15:13:00'),
+(5, 9, 4, 'Selected', '2024-03-20 11:13:00'),
+(6, 19, 1, 'Interview', '2024-03-20 18:20:00'),
 (7, 2, 8, 'Selected', NULL),
 (8, 9, 7, 'Selected', '2024-03-19 17:26:00'),
 (9, 9, 9, 'Reviewed', NULL),
 (10, 9, 11, 'Not Selected', NULL),
 (11, 9, 8, 'Not Selected', NULL),
-(12, 2, 14, 'Pending', NULL),
-(13, 2, 1, 'Reviewed', NULL),
+(12, 2, 14, 'Reviewed', NULL),
+(13, 2, 1, 'Interview', '2024-03-28 05:32:00'),
 (14, 2, 7, 'Reviewed', NULL),
 (15, 2, 13, 'Pending', NULL),
-(16, 2, 9, 'Reviewed', NULL);
+(16, 2, 9, 'Reviewed', NULL),
+(17, 9, 16, 'Interview', '2024-03-21 08:00:00'),
+(18, 9, 14, 'Pending', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `lectures_and_seminars_attended`
+--
+
+CREATE TABLE `lectures_and_seminars_attended` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `title_one` varchar(255) NOT NULL,
+  `title_one_from` year(4) NOT NULL,
+  `title_one_to` year(4) NOT NULL,
+  `title_one_venue` varchar(255) NOT NULL,
+  `title_two` varchar(255) NOT NULL,
+  `title_two_from` year(4) NOT NULL,
+  `title_two_to` year(4) NOT NULL,
+  `title_two_venue` varchar(255) NOT NULL,
+  `title_three` varchar(255) NOT NULL,
+  `title_three_from` year(4) NOT NULL,
+  `title_three_to` year(4) NOT NULL,
+  `title_three_venue` varchar(255) NOT NULL,
+  `title_four` varchar(255) NOT NULL,
+  `title_four_from` year(4) NOT NULL,
+  `title_four_to` year(4) NOT NULL,
+  `title_four_venue` varchar(255) NOT NULL,
+  `title_five` varchar(255) NOT NULL,
+  `title_five_from` year(4) NOT NULL,
+  `title_five_to` year(4) NOT NULL,
+  `title_five_venue` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -118,18 +234,76 @@ CREATE TABLE `user` (
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`) VALUES
 (2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila'),
-(9, 'Roberto', 'Wews', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', ''),
+(9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', ''),
 (18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', ''),
 (19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', ''),
 (20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', ''),
 (21, 'ber', 'to', 'ber@gmail.com', '$2y$10$Qi9sRBmyiTjV.E6veZAOR.qr8I5yXG27xduLn.rLvzblp/epkWn.e', 'admin', '', 'Makati'),
 (22, 'b', 'a', 'ba@gmail.com', '$2y$10$eVFF1qhSqf0g18ZiLN0hS.UEf4fkiVFPh53xZuyqlRdlKJU7ctZHW', 'admin', '', 'Pampangaa'),
 (24, 'Roberto', 'Advincula', 'berts@gmail.com', '$2y$10$DG7vKB5uFnYHhVqL3naUdOoBe1izdk9z9W4bq1JZZO6RZTfisybVO', 'admin', '', 'Makati'),
-(25, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$BJTz6JsWIPjoe8Wu8R/TD.9oSFTXcbDyjhao4Xf7gaLTBlE0SRW6i', 'admin', '', 'Pampanga');
+(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_resumes`
+--
+
+CREATE TABLE `user_resumes` (
+  `id` int(11) NOT NULL,
+  `user_id` int(12) NOT NULL,
+  `picture` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `middle_name` varchar(255) NOT NULL,
+  `present_address` text NOT NULL,
+  `permanent_address` text NOT NULL,
+  `birthdate` date NOT NULL,
+  `gender` varchar(255) NOT NULL,
+  `height` int(12) NOT NULL,
+  `weight` int(12) NOT NULL,
+  `nationality` varchar(255) NOT NULL,
+  `religion` varchar(255) NOT NULL,
+  `civil_status` varchar(255) NOT NULL,
+  `sss_number` int(12) NOT NULL,
+  `pagibig_number` int(12) NOT NULL,
+  `philhealth_number` int(12) NOT NULL,
+  `tin_number` int(12) NOT NULL,
+  `contact_number` int(12) NOT NULL,
+  `educational_attainment_id` int(12) NOT NULL,
+  `empoloyment_background_id` int(12) NOT NULL,
+  `lectures_and_seminars_attended_id` int(12) NOT NULL,
+  `character_references_id` int(12) NOT NULL,
+  `reference` varchar(255) NOT NULL,
+  `additional_info_q1` varchar(255) NOT NULL,
+  `additional_info_q1v2` varchar(255) NOT NULL,
+  `additional_info_q2` varchar(255) NOT NULL,
+  `declaration` tinyint(1) NOT NULL,
+  `authorization` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `character_references`
+--
+ALTER TABLE `character_references`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `employment_background`
+--
+ALTER TABLE `employment_background`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `jobs`
@@ -144,14 +318,44 @@ ALTER TABLE `job_applicants`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `lectures_and_seminars_attended`
+--
+ALTER TABLE `lectures_and_seminars_attended`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_resumes`
+--
+ALTER TABLE `user_resumes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `character_references`
+--
+ALTER TABLE `character_references`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `educational_attainment`
+--
+ALTER TABLE `educational_attainment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `employment_background`
+--
+ALTER TABLE `employment_background`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -163,13 +367,25 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `lectures_and_seminars_attended`
+--
+ALTER TABLE `lectures_and_seminars_attended`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+
+--
+-- AUTO_INCREMENT for table `user_resumes`
+--
+ALTER TABLE `user_resumes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
