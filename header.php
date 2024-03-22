@@ -122,8 +122,8 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/recruitment/upload_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
-                                Upload Resume
+                            <a href="/recruitment/my_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/my_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/my_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                                My Resume
                             </a>
                         </li>
                         ';
