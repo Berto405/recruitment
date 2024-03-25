@@ -2,87 +2,394 @@
 session_start();
 include ("dbconn.php");
 
-if (!isset ($_SESSION['user_id'])) {
+if (!isset ($_SESSION["user_id"])) {
     header('Location: login.php');
     exit();
 } else {
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+        personalInfo($conn);
+        educationAttainment($conn);
+        employmentBackground($conn);
+        lecturesAndSeminar($conn);
+        characterReference($conn);
+
+
+
+    }
+
+}
+
+
+function personalInfo($conn)
+{
     $userId = $_SESSION['user_id'];
 
-    // Showing current resume    
-    $query = "SELECT resume FROM user WHERE id=?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
+    //Personal Info Inputs
+    $last_name = $_POST['lName'];
+    $first_name = $_POST['fName'];
+    $mid_name = $_POST['mName'];
+    $email = $_POST['emailAddress'];
+    $presentAddress = $_POST['presentAddress'];
+    $permanentAddress = $_POST['permanentAddress'];
+    $height = $_POST['height'];
+    $weight = $_POST['weight'];
+    $nationality = $_POST['nationality'];
+    $religion = $_POST['religion'];
+    $birthDate = $_POST['birthDate'];
+    $gender = $_POST['gender'];
+    $sssNumber = $_POST['sssNumber'];
+    $philhealthNumber = $_POST['philhealthNumber'];
+    $pagibigNumber = $_POST['pagibigNumber'];
+    $tinNumber = $_POST['tinNumber'];
+    $contactNumber = $_POST['contactNumber'];
+    $civilStatus = $_POST['civilStatus'];
+
+
+    if (isset ($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        // Get the temporary location of the uploaded file
+        $imageTmpName = $_FILES['image']['tmp_name'];
+
+        // Read the contents of the uploaded file
+        $imageData = file_get_contents($imageTmpName);
+    }
+
+    $stmt = $conn->prepare('SELECT * FROM user_resumes WHERE user_id = ?');
+    $stmt->bind_param('i', $userId);
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
 
-    // Uploading Resume
-    if (isset ($_POST['submit'])) {
-        // Check if a file is selected
-        if (isset ($_FILES['resume_file']['name']) && !empty ($_FILES['resume_file']['name'])) {
-            // Get file details
-            $file_name = basename($_FILES['resume_file']['name']);
-            $file_tmp = $_FILES['resume_file']['tmp_name'];
-            $file_size = $_FILES['resume_file']['size'];
+    if ($result->num_rows > 0) {
+        //Update if it already exist on user_resumes table
+        $stmt = $conn->prepare("UPDATE user_resumes SET 
+            picture = ?,
+            email = ?,
+            last_name = ?,
+            first_name = ?,
+            middle_name = ?,
+            present_address = ?,
+            permanent_address = ?,
+            birthdate = ?,
+            gender = ?,
+            height = ?,
+            weight = ?,
+            nationality = ?,
+            religion = ?,
+            civil_status = ?,
+            sss_number = ?,
+            pagibig_number = ?,
+            philhealth_number = ?,
+            tin_number = ?,
+            contact_number = ?
+            WHERE user_id = ?"
+        );
+        $stmt->bind_param(
+            'sssssssssssssssssssi',
+            $imageData,
+            $email,
+            $last_name,
+            $first_name,
+            $mid_name,
+            $presentAddress,
+            $permanentAddress,
+            $birthDate,
+            $gender,
+            $height,
+            $weight,
+            $nationality,
+            $religion,
+            $civilStatus,
+            $sssNumber,
+            $pagibigNumber,
+            $philhealthNumber,
+            $tinNumber,
+            $contactNumber,
+            $userId
+        );
 
-            // Check if the uploaded file is a PDF and the size is within limits
-            $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-            $allowed_extensions = array("pdf");
-            $max_file_size = 5 * 1024 * 1024; // 5 MB
-
-            if (in_array($file_ext, $allowed_extensions) && $file_size <= $max_file_size) {
-                // Get the previous resume name and delete it
-                $delete_previous_resume_query = "SELECT resume FROM user WHERE id = ?";
-                $stmt = $conn->prepare($delete_previous_resume_query);
-                $stmt->bind_param("i", $userId);
-                $stmt->execute();
-                $delete_result = $stmt->get_result();
-                if ($delete_result->num_rows > 0) {
-                    $row = $delete_result->fetch_assoc();
-                    $previous_name = $row["resume"];
-                    if (!empty ($previous_name)) {
-                        $previous_resume_path = "./resume/" . $previous_name;
-                        if (file_exists($previous_resume_path)) {
-                            unlink($previous_resume_path);
-                        }
-                    }
-                }
-
-                // Generate a unique file name
-                $unique_file_name = uniqid() . '_' . $file_name;
-
-                // Move the uploaded file to the desired directory
-                $upload_path = "./resume/";
-                if (!file_exists($upload_path)) {
-                    mkdir($upload_path, 0777, true);
-                }
-                $file_destination = $upload_path . $unique_file_name;
-                if (move_uploaded_file($file_tmp, $file_destination)) {
-                    // Update the user's resume in the database
-                    $query = "UPDATE `user` SET `resume`= ? WHERE `id`= ?";
-                    $stmt = $conn->prepare($query);
-                    $stmt->bind_param("si", $unique_file_name, $userId);
-                    $stmt->execute();
-
-                    $_SESSION['success_message'] = "Resume Uploaded";
-                    header("Location: /recruitment/index.php");
-                    exit();
-                } else {
-                    $_SESSION['error_message'] = "Resume Not Uploaded";
-                    header("Location: /recruitment/index.php");
-                    exit();
-                }
-            } else {
-                $_SESSION['error_message'] = "File must be uploaded in PDF format and should not exceed 5MB.";
-                header("Location: /recruitment/index.php");
-                exit();
-            }
-        } else {
-            // If no file is selected
-            $_SESSION['error_message'] = "Please select a file.";
-            header("Location: /recruitment/index.php");
-            exit();
-        }
+        $stmt->execute();
+    } else {
+        // Insert personal info into the user_resumes table
+        $stmt = $conn->prepare('INSERT INTO user_resumes (user_id, picture, email, last_name, first_name, middle_name,  present_address, permanent_address, birthdate, gender, height, weight, nationality, religion, civil_status,  sss_number, pagibig_number, philhealth_number,  tin_number, contact_number) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param(
+            'isssssssssssssssssss',
+            $userId,
+            $imageData,
+            $email,
+            $last_name,
+            $first_name,
+            $mid_name,
+            $presentAddress,
+            $permanentAddress,
+            $birthDate,
+            $gender,
+            $height,
+            $weight,
+            $nationality,
+            $religion,
+            $civilStatus,
+            $sssNumber,
+            $pagibigNumber,
+            $philhealthNumber,
+            $tinNumber,
+            $contactNumber
+        );
+        $stmt->execute();
     }
+
+
+    // Prepare a SQL statement to update the reference column for the user's resume
+    if (isset ($_POST['source']) && !empty ($_POST['source'])) {
+        // Concatenate the selected checkboxes and referral name (if provided)
+        $reference = implode(', ', $_POST['source']);
+        if (isset ($_POST['referralName'])) {
+            $reference .= ', ' . $_POST['referralName'];
+        }
+
+        // Update the reference column
+        $stmt = $conn->prepare('UPDATE user_resumes SET reference = ? WHERE user_id = ?');
+        $stmt->bind_param('si', $reference, $userId);
+        $stmt->execute();
+        $stmt->close();
+    }
+
+    //Additional Info Inputs
+    $addInfoFirstQuestion = $_POST['addInfoFirstQuestion'];
+    $addInfoSecondQuestion = $_POST['addInfoSecondQuestion'];
+
+    //Declaration checkbox
+    $declaration = $_POST['declaration'];
+
+    //Authority to Process and Disclosure of Information Input
+    $applicantSignature = null;
+
+    if (isset ($_FILES['applicantSignature']) && $_FILES['applicantSignature']['error'] === UPLOAD_ERR_OK) {
+        // Get the temporary location of the uploaded file
+        $signatureTmpName = $_FILES['applicantSignature']['tmp_name'];
+
+        // Read the contents of the uploaded file
+        $signatureData = file_get_contents($signatureTmpName);
+
+        $applicantSignature = $signatureData;
+    }
+
+    $stmt = $conn->prepare('UPDATE user_resumes SET additional_info_q1 = ?, additional_info_q2 = ?, declaration = ?, authorization = ? WHERE user_id = ?');
+    $stmt->bind_param('ssssi', $addInfoFirstQuestion, $addInfoSecondQuestion, $declaration, $applicantSignature, $userId);
+    $stmt->execute();
 }
+
+function educationAttainment($conn)
+{
+    $userId = $_SESSION['user_id'];
+
+    //Educational Attainment Inputs
+    $college = $_POST['college'];
+    $degree = $_POST['degree'];
+    $eduCollegeFromDate = $_POST['eduCollegeFromDate'];
+    $eduCollegeToDate = $_POST['eduCollegeToDate'];
+
+    $vocational = $_POST['vocational'];
+    $diploma = $_POST['diploma'];
+    $eduVocationalFromDate = $_POST['eduVocationalFromDate'];
+    $eduVocationalToDate = $_POST['eduVocationalToDate'];
+
+    $highSchool = $_POST['highSchool'];
+    $highSchoolLevel = $_POST['highSchoolLevel'];
+    $eduHighSchoolFromDate = $_POST['eduHighSchoolFromDate'];
+    $eduHighSchoolToDate = $_POST['eduHighSchoolToDate'];
+
+    $elementary = $_POST['elementary'];
+    $elementaryLevel = $_POST['elementaryLevel'];
+    $eduElementaryFromDate = $_POST['eduElementaryFromDate'];
+    $eduElementaryToDate = $_POST['eduElementaryToDate'];
+
+    $stmt = $conn->prepare('INSERT INTO educational_attainment (user_id, college, college_from, college_to, college_degree, vocational, vocational_from, vocational_to, vocational_diploma, high_school, high_school_from, high_school_to, high_school_level, elementary, elementary_from, elementary_to, elementary_level) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->bind_param('issssssssssssssss', $userId, $college, $eduCollegeFromDate, $eduCollegeToDate, $degree, $vocational, $eduVocationalFromDate, $eduVocationalToDate, $diploma, $highSchool, $eduHighSchoolFromDate, $eduHighSchoolToDate, $highSchoolLevel, $elementary, $eduElementaryFromDate, $eduElementaryToDate, $elementaryLevel);
+    $stmt->execute();
+}
+
+function employmentBackground($conn)
+{
+    $userId = $_SESSION['user_id'];
+    $default = null;
+
+    // Employment Background Inputs
+    $company1 = isset ($_POST['company1']) ? $_POST['company1'] : $default;
+    $position1 = isset ($_POST['position1']) ? $_POST['position1'] : $default;
+    $empBgFromDate1 = isset ($_POST['empBgFromDate1']) ? $_POST['empBgFromDate1'] : $default;
+    $empBgToDate1 = isset ($_POST['empBgToDate1']) ? $_POST['empBgToDate1'] : $default;
+    $status1 = isset ($_POST['status1']) ? $_POST['status1'] : $default;
+    $responsibilities1 = isset ($_POST['responsibilities1']) ? $_POST['responsibilities1'] : $default;
+    $reason1 = isset ($_POST['reason1']) ? $_POST['reason1'] : $default;
+    $lastSalary1 = isset ($_POST['lastSalary1']) ? $_POST['lastSalary1'] : $default;
+
+    $company2 = isset ($_POST['company2']) ? $_POST['company2'] : $default;
+    $position2 = isset ($_POST['position2']) ? $_POST['position2'] : $default;
+    $empBgFromDate2 = isset ($_POST['empBgFromDate2']) ? $_POST['empBgFromDate2'] : $default;
+    $empBgToDate2 = isset ($_POST['empBgToDate2']) ? $_POST['empBgToDate2'] : $default;
+    $status2 = isset ($_POST['status2']) ? $_POST['status2'] : $default;
+    $responsibilities2 = isset ($_POST['responsibilities2']) ? $_POST['responsibilities2'] : $default;
+    $reason2 = isset ($_POST['reason2']) ? $_POST['reason2'] : $default;
+    $lastSalary2 = isset ($_POST['lastSalary2']) ? $_POST['lastSalary2'] : $default;
+
+    $company3 = isset ($_POST['company3']) ? $_POST['company3'] : $default;
+    $position3 = isset ($_POST['position3']) ? $_POST['position3'] : $default;
+    $empBgFromDate3 = isset ($_POST['empBgFromDate3']) ? $_POST['empBgFromDate3'] : $default;
+    $empBgToDate3 = isset ($_POST['empBgToDate3']) ? $_POST['empBgToDate3'] : $default;
+    $status3 = isset ($_POST['status3']) ? $_POST['status3'] : $default;
+    $responsibilities3 = isset ($_POST['responsibilities3']) ? $_POST['responsibilities3'] : $default;
+    $reason3 = isset ($_POST['reason3']) ? $_POST['reason3'] : $default;
+    $lastSalary3 = isset ($_POST['lastSalary3']) ? $_POST['lastSalary3'] : $default;
+
+    //Recent Employment Inputs
+    $recentEmpContactPerson = isset ($_POST['recentEmpContactPerson']) ? $_POST['recentEmpContactPerson'] : $default;
+    $recentEmpPosition = isset ($_POST['recentEmpPosition']) ? $_POST['recentEmpPosition'] : $default;
+    $recentEmpContactNum = isset ($_POST['recentEmpContactNum']) ? $_POST['recentEmpContactNum'] : $default;
+
+
+    $stmt = $conn->prepare('INSERT INTO employment_background (user_id, company_one, company_one_position, company_one_from, company_one_to, company_one_status, company_one_responsibilities, company_one_reason_for_leaving, company_one_last_salary, company_two, company_two_position, company_two_from, company_two_to, company_two_status, company_two_responsibilities, company_two_reason_for_leaving, company_two_last_salary, company_three, company_three_position, company_three_from, company_three_to, company_three_status, company_three_responsibilities, company_three_reason_for_leaving, company_three_last_salary, recent_employment_contact_person, recent_employment_position, recent_employment_contact_number) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->bind_param(
+        'isssssssssssssssssssssssssss',
+        $userId,
+        $company1,
+        $position1,
+        $empBgFromDate1,
+        $empBgToDate1,
+        $status1,
+        $responsibilities1,
+        $reason1,
+        $lastSalary1,
+        $company2,
+        $position2,
+        $empBgFromDate2,
+        $empBgToDate2,
+        $status2,
+        $responsibilities2,
+        $reason2,
+        $lastSalary2,
+        $company3,
+        $position3,
+        $empBgFromDate3,
+        $empBgToDate3,
+        $status3,
+        $responsibilities3,
+        $reason3,
+        $lastSalary3,
+        $recentEmpContactPerson,
+        $recentEmpPosition,
+        $recentEmpContactNum
+    );
+
+    $stmt->execute();
+}
+
+function lecturesAndSeminar($conn)
+{
+    $userId = $_SESSION['user_id'];
+    $default = null;
+
+
+    $seminarTitle1 = isset ($_POST['seminarTitle1']) ? $_POST['seminarTitle1'] : $default;
+    $seminarVenue1 = isset ($_POST['seminarVenue1']) ? $_POST['seminarVenue1'] : $default;
+    $seminarFromDate1 = isset ($_POST['seminarFromDate1']) ? $_POST['seminarFromDate1'] : $default;
+    $seminarToDate1 = isset ($_POST['seminarToDate1']) ? $_POST['seminarToDate1'] : $default;
+
+
+    $seminarTitle2 = isset ($_POST['seminarTitle2']) ? $_POST['seminarTitle2'] : $default;
+    $seminarVenue2 = isset ($_POST['seminarVenue2']) ? $_POST['seminarVenue2'] : $default;
+    $seminarFromDate2 = isset ($_POST['seminarFromDate2']) ? $_POST['seminarFromDate2'] : $default;
+    $seminarToDate2 = isset ($_POST['seminarToDate2']) ? $_POST['seminarToDate2'] : $default;
+
+    $seminarTitle3 = isset ($_POST['seminarTitle3']) ? $_POST['seminarTitle3'] : $default;
+    $seminarVenue3 = isset ($_POST['seminarVenue3']) ? $_POST['seminarVenue3'] : $default;
+    $seminarFromDate3 = isset ($_POST['seminarFromDate2']) ? $_POST['seminarFromDate3'] : $default;
+    $seminarToDate3 = isset ($_POST['seminarToDate2']) ? $_POST['seminarToDate3'] : $default;
+
+    $stmt = $conn->prepare('INSERT INTO lectures_and_seminars_attended (
+        user_id,	
+        title_one,
+        title_one_from,
+        title_one_to,	
+        title_one_venue,	
+        title_two,	
+        title_two_from,	
+        title_two_to,	
+        title_two_venue,	
+        title_three,	
+        title_three_from,	
+        title_three_to,	
+        title_three_venue
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+    $stmt->bind_param(
+        'issssssssssss',
+        $userId,
+        $seminarTitle1,
+        $seminarVenue1,
+        $seminarFromDate1,
+        $seminarToDate1,
+        $seminarTitle2,
+        $seminarVenue2,
+        $seminarFromDate2,
+        $seminarToDate2,
+        $seminarTitle3,
+        $seminarVenue3,
+        $seminarFromDate3,
+        $seminarToDate3
+    );
+
+    $stmt->execute();
+
+
+}
+
+function characterReference($conn)
+{
+    $userId = $_SESSION['user_id'];
+    $default = null;
+
+
+    $charRefName1 = isset ($_POST['charRefName1']) ? $_POST['charRefName1'] : $default;
+    $charRefPosition1 = isset ($_POST['charRefPosition1']) ? $_POST['charRefPosition1'] : $default;
+    $charRefCompany1 = isset ($_POST['charRefCompany1']) ? $_POST['charRefCompany1'] : $default;
+    $charRefContactNum1 = isset ($_POST['charRefContactNum1']) ? $_POST['charRefContactNum1'] : $default;
+
+    $charRefName2 = isset ($_POST['charRefName2']) ? $_POST['charRefName2'] : $default;
+    $charRefPosition2 = isset ($_POST['charRefPosition2']) ? $_POST['charRefPosition2'] : $default;
+    $charRefCompany2 = isset ($_POST['charRefCompany2']) ? $_POST['charRefCompany2'] : $default;
+    $charRefContactNum2 = isset ($_POST['charRefContactNum2']) ? $_POST['charRefContactNum2'] : $default;
+
+    $stmt = $conn->prepare("INSERT INTO character_references (
+        user_id, 
+        name_one, 
+        name_one_position, 
+        name_one_company, 
+        name_one_contact_number, 
+        name_two, 
+        name_two_position, 
+        name_two_company, 
+        name_two_contact_number) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    // Bind parameters
+    $stmt->bind_param(
+        "isssssssi",
+        $userId,
+        $charRefName1,
+        $charRefPosition1,
+        $charRefCompany1,
+        $charRefContactNum1,
+        $charRefName2,
+        $charRefPosition2,
+        $charRefCompany2,
+        $charRefContactNum2
+    );
+    $stmt->execute();
+}
+
+
 ?>
