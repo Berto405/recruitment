@@ -13,7 +13,7 @@ session_start();
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
     <!-- Bootstrap Icon CDN -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
     <!-- SweetAlert CDN -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -125,8 +125,8 @@ session_start();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/recruitment/upload_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
-                                Upload Resume
+                            <a href="/recruitment/my_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                                My Resume
                             </a>
                         </li>
                         ';
