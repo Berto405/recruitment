@@ -15,10 +15,12 @@ if (!isset ($_SESSION['user_id'])) {
         LEFT JOIN educational_attainment ON user_resumes.user_id = educational_attainment.user_id
         LEFT JOIN employment_background ON user_resumes.user_id = employment_background.user_id
         LEFT JOIN lectures_and_seminars_attended ON user_resumes.user_id = lectures_and_seminars_attended.user_id
-        LEFT JOIN character_references ON user_resumes.user_id = character_references.user_id;
+        LEFT JOIN character_references ON user_resumes.user_id = character_references.user_id
+        WHERE user_resumes.user_id = ?;
     ";
 
     $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 

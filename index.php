@@ -233,10 +233,11 @@ include ("index_process.php");
                                         </a>
                                     ';
                                 } else {
-                                    if (empty ($resume)) {
+                                    //If user does not have a resume
+                                    if ($result2->num_rows === 0) {
 
                                         echo '
-                                            <a href="upload_resume.php" class="btn btn-danger" style="border-radius: 0;">
+                                            <a href="my_resume.php" class="btn btn-danger" style="border-radius: 0;">
                                                 Apply now
                                             </a>
                                         ';

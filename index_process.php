@@ -19,13 +19,11 @@ if (isset ($_SESSION['user_id'])) {
     $result = $stmt->get_result();
 
     //Getting the currently logged in user's resume to know if its empty
-    $query2 = "SELECT resume FROM user WHERE id=?";
+    $query2 = "SELECT * FROM user_resumes WHERE user_id=?";
     $stmt2 = $conn->prepare($query2);
     $stmt2->bind_param("i", $userId);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
-    $row = $result2->fetch_assoc();
-    $resume = $row['resume'];
 } else {
     //Showing all jobs for not logged in user
     $query = "SELECT * FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
