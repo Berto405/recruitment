@@ -17,7 +17,9 @@ if (!isset ($_SESSION["user_id"])) {
         characterReference($conn);
 
 
-
+        $_SESSION['success_message'] = "Resume Submitted.";
+        header('Location: my_resume.php');
+        exit();
     }
 
 }
@@ -48,22 +50,89 @@ function personalInfo($conn)
     $civilStatus = $_POST['civilStatus'];
 
 
-    if (isset ($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-        // Get the temporary location of the uploaded file
-        $imageTmpName = $_FILES['image']['tmp_name'];
-
-        // Read the contents of the uploaded file
-        $imageData = file_get_contents($imageTmpName);
-    }
-
     $stmt = $conn->prepare('SELECT * FROM user_resumes WHERE user_id = ?');
     $stmt->bind_param('i', $userId);
     $stmt->execute();
     $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    // Check if there's an uploaded image
+    if (isset ($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+        // Generate a unique filename for the new image
+        $uniqueFilename = uniqid() . '_' . $_FILES["image"]["name"];
+        $targetFile = "./img/applicant/" . $uniqueFilename;
+
+        // Delete previous image file if it exists
+        if (!empty ($row['picture'])) {
+            $previousImage = "./img/applicant/" . $row['picture'];
+            if (file_exists($previousImage)) {
+                unlink($previousImage);
+            }
+        }
+
+        // Move the uploaded file to the specified directory
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+            $imageData = $uniqueFilename; // Store the unique filename in the database
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+            return; // Stop execution if file upload fails
+        }
+    } else {
+        $imageData = ""; // No image uploaded
+    }
 
     if ($result->num_rows > 0) {
-        //Update if it already exist on user_resumes table
-        $stmt = $conn->prepare("UPDATE user_resumes SET 
+
+        if (empty ($imageData)) {
+            //If image input is empty or user did not want to change his picture
+            $stmt = $conn->prepare("UPDATE user_resumes SET 
+                email = ?,
+                last_name = ?,
+                first_name = ?,
+                middle_name = ?,
+                present_address = ?,
+                permanent_address = ?,
+                birthdate = ?,
+                gender = ?,
+                height = ?,
+                weight = ?,
+                nationality = ?,
+                religion = ?,
+                civil_status = ?,
+                sss_number = ?,
+                pagibig_number = ?,
+                philhealth_number = ?,
+                tin_number = ?,
+                contact_number = ?
+                WHERE user_id = ?"
+            );
+
+            // Bind parameters
+            $stmt->bind_param(
+                'ssssssssssssssssssi',
+                $email,
+                $last_name,
+                $first_name,
+                $mid_name,
+                $presentAddress,
+                $permanentAddress,
+                $birthDate,
+                $gender,
+                $height,
+                $weight,
+                $nationality,
+                $religion,
+                $civilStatus,
+                $sssNumber,
+                $pagibigNumber,
+                $philhealthNumber,
+                $tinNumber,
+                $contactNumber,
+                $userId
+            );
+        } else {
+            //Update if it already exist on user_resumes table and update the picture
+            $stmt = $conn->prepare("UPDATE user_resumes SET 
             picture = ?,
             email = ?,
             last_name = ?,
@@ -84,34 +153,34 @@ function personalInfo($conn)
             tin_number = ?,
             contact_number = ?
             WHERE user_id = ?"
-        );
-        $stmt->bind_param(
-            'sssssssssssssssssssi',
-            $imageData,
-            $email,
-            $last_name,
-            $first_name,
-            $mid_name,
-            $presentAddress,
-            $permanentAddress,
-            $birthDate,
-            $gender,
-            $height,
-            $weight,
-            $nationality,
-            $religion,
-            $civilStatus,
-            $sssNumber,
-            $pagibigNumber,
-            $philhealthNumber,
-            $tinNumber,
-            $contactNumber,
-            $userId
-        );
+            );
+            $stmt->bind_param(
+                'sssssssssssssssssssi',
+                $imageData,
+                $email,
+                $last_name,
+                $first_name,
+                $mid_name,
+                $presentAddress,
+                $permanentAddress,
+                $birthDate,
+                $gender,
+                $height,
+                $weight,
+                $nationality,
+                $religion,
+                $civilStatus,
+                $sssNumber,
+                $pagibigNumber,
+                $philhealthNumber,
+                $tinNumber,
+                $contactNumber,
+                $userId
+            );
+        }
 
-        $stmt->execute();
     } else {
-        // Insert personal info into the user_resumes table
+        // Insert personal info into the user_resumes table if user still not have uploaded a resume
         $stmt = $conn->prepare('INSERT INTO user_resumes (user_id, picture, email, last_name, first_name, middle_name,  present_address, permanent_address, birthdate, gender, height, weight, nationality, religion, civil_status,  sss_number, pagibig_number, philhealth_number,  tin_number, contact_number) 
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
         $stmt->bind_param(
@@ -137,9 +206,10 @@ function personalInfo($conn)
             $tinNumber,
             $contactNumber
         );
-        $stmt->execute();
+
     }
 
+    $stmt->execute();
 
     // Prepare a SQL statement to update the reference column for the user's resume
     if (isset ($_POST['source']) && !empty ($_POST['source'])) {
@@ -164,16 +234,22 @@ function personalInfo($conn)
     $declaration = $_POST['declaration'];
 
     //Authority to Process and Disclosure of Information Input
-    $applicantSignature = null;
 
-    if (isset ($_FILES['applicantSignature']) && $_FILES['applicantSignature']['error'] === UPLOAD_ERR_OK) {
-        // Get the temporary location of the uploaded file
-        $signatureTmpName = $_FILES['applicantSignature']['tmp_name'];
 
-        // Read the contents of the uploaded file
-        $signatureData = file_get_contents($signatureTmpName);
+    if (isset ($_FILES["applicantSignature"]) && $_FILES["applicantSignature"]["error"] == 0) {
+        // Generate a unique filename
+        $uniqueFilename = uniqid() . '_' . $_FILES["applicantSignature"]["name"];
+        $targetFile = "./img/esignature/" . $uniqueFilename;
 
-        $applicantSignature = $signatureData;
+        // Move the uploaded file to the specified directory
+        if (move_uploaded_file($_FILES["applicantSignature"]["tmp_name"], $targetFile)) {
+            $applicantSignature = $uniqueFilename; // Store the unique filename in the database
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+            return; // Stop execution if file upload fails
+        }
+    } else {
+        $applicantSignature = ""; // No image uploaded
     }
 
     $stmt = $conn->prepare('UPDATE user_resumes SET additional_info_q1 = ?, additional_info_q2 = ?, declaration = ?, authorization = ? WHERE user_id = ?');
@@ -206,9 +282,60 @@ function educationAttainment($conn)
     $eduElementaryFromDate = $_POST['eduElementaryFromDate'];
     $eduElementaryToDate = $_POST['eduElementaryToDate'];
 
-    $stmt = $conn->prepare('INSERT INTO educational_attainment (user_id, college, college_from, college_to, college_degree, vocational, vocational_from, vocational_to, vocational_diploma, high_school, high_school_from, high_school_to, high_school_level, elementary, elementary_from, elementary_to, elementary_level) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->bind_param('issssssssssssssss', $userId, $college, $eduCollegeFromDate, $eduCollegeToDate, $degree, $vocational, $eduVocationalFromDate, $eduVocationalToDate, $diploma, $highSchool, $eduHighSchoolFromDate, $eduHighSchoolToDate, $highSchoolLevel, $elementary, $eduElementaryFromDate, $eduElementaryToDate, $elementaryLevel);
+
+    $stmt = $conn->prepare('SELECT * FROM educational_attainment WHERE user_id = ?');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Update if user already has data in the educational_attainment table
+        $stmt = $conn->prepare("UPDATE educational_attainment SET 
+            college = ?,
+            college_from = ?,
+            college_to = ?,
+            college_degree = ?,
+            vocational = ?,
+            vocational_from = ?,
+            vocational_to = ?,
+            vocational_diploma = ?,
+            high_school = ?,
+            high_school_from = ?,
+            high_school_to = ?,
+            high_school_level = ?,
+            elementary = ?,
+            elementary_from = ?,
+            elementary_to = ?,
+            elementary_level = ?
+            WHERE user_id = ?"
+        );
+        $stmt->bind_param(
+            'ssssssssssssssssi',
+            $college,
+            $eduCollegeFromDate,
+            $eduCollegeToDate,
+            $degree,
+            $vocational,
+            $eduVocationalFromDate,
+            $eduVocationalToDate,
+            $diploma,
+            $highSchool,
+            $eduHighSchoolFromDate,
+            $eduHighSchoolToDate,
+            $highSchoolLevel,
+            $elementary,
+            $eduElementaryFromDate,
+            $eduElementaryToDate,
+            $elementaryLevel,
+            $userId
+        );
+    } else {
+        $stmt = $conn->prepare('INSERT INTO educational_attainment (user_id, college, college_from, college_to, college_degree, vocational, vocational_from, vocational_to, vocational_diploma, high_school, high_school_from, high_school_to, high_school_level, elementary, elementary_from, elementary_to, elementary_level) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param('issssssssssssssss', $userId, $college, $eduCollegeFromDate, $eduCollegeToDate, $degree, $vocational, $eduVocationalFromDate, $eduVocationalToDate, $diploma, $highSchool, $eduHighSchoolFromDate, $eduHighSchoolToDate, $highSchoolLevel, $elementary, $eduElementaryFromDate, $eduElementaryToDate, $elementaryLevel);
+
+    }
+
     $stmt->execute();
 }
 
@@ -250,40 +377,110 @@ function employmentBackground($conn)
     $recentEmpPosition = isset ($_POST['recentEmpPosition']) ? $_POST['recentEmpPosition'] : $default;
     $recentEmpContactNum = isset ($_POST['recentEmpContactNum']) ? $_POST['recentEmpContactNum'] : $default;
 
+    $stmt = $conn->prepare('SELECT * FROM employment_background WHERE user_id = ?');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    $stmt = $conn->prepare('INSERT INTO employment_background (user_id, company_one, company_one_position, company_one_from, company_one_to, company_one_status, company_one_responsibilities, company_one_reason_for_leaving, company_one_last_salary, company_two, company_two_position, company_two_from, company_two_to, company_two_status, company_two_responsibilities, company_two_reason_for_leaving, company_two_last_salary, company_three, company_three_position, company_three_from, company_three_to, company_three_status, company_three_responsibilities, company_three_reason_for_leaving, company_three_last_salary, recent_employment_contact_person, recent_employment_position, recent_employment_contact_number) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->bind_param(
-        'isssssssssssssssssssssssssss',
-        $userId,
-        $company1,
-        $position1,
-        $empBgFromDate1,
-        $empBgToDate1,
-        $status1,
-        $responsibilities1,
-        $reason1,
-        $lastSalary1,
-        $company2,
-        $position2,
-        $empBgFromDate2,
-        $empBgToDate2,
-        $status2,
-        $responsibilities2,
-        $reason2,
-        $lastSalary2,
-        $company3,
-        $position3,
-        $empBgFromDate3,
-        $empBgToDate3,
-        $status3,
-        $responsibilities3,
-        $reason3,
-        $lastSalary3,
-        $recentEmpContactPerson,
-        $recentEmpPosition,
-        $recentEmpContactNum
-    );
+    if ($result->num_rows > 0) {
+        // Update if user already has data in the employment_background table
+        $stmt = $conn->prepare("UPDATE employment_background SET 
+            company_one = ?,
+            company_one_position = ?,
+            company_one_from = ?,
+            company_one_to = ?,
+            company_one_status = ?,
+            company_one_responsibilities = ?,
+            company_one_reason_for_leaving = ?,
+            company_one_last_salary = ?,
+            company_two = ?,
+            company_two_position = ?,
+            company_two_from = ?,
+            company_two_to = ?,
+            company_two_status = ?,
+            company_two_responsibilities = ?,
+            company_two_reason_for_leaving = ?,
+            company_two_last_salary = ?,
+            company_three = ?,
+            company_three_position = ?,
+            company_three_from = ?,
+            company_three_to = ?,
+            company_three_status = ?,
+            company_three_responsibilities = ?,
+            company_three_reason_for_leaving = ?,
+            company_three_last_salary = ?,
+            recent_employment_contact_person = ?,
+            recent_employment_position = ?,
+            recent_employment_contact_number = ?
+            WHERE user_id = ?"
+        );
+        $stmt->bind_param(
+            'sssssssssssssssssssssssssssi',
+            $company1,
+            $position1,
+            $empBgFromDate1,
+            $empBgToDate1,
+            $status1,
+            $responsibilities1,
+            $reason1,
+            $lastSalary1,
+            $company2,
+            $position2,
+            $empBgFromDate2,
+            $empBgToDate2,
+            $status2,
+            $responsibilities2,
+            $reason2,
+            $lastSalary2,
+            $company3,
+            $position3,
+            $empBgFromDate3,
+            $empBgToDate3,
+            $status3,
+            $responsibilities3,
+            $reason3,
+            $lastSalary3,
+            $recentEmpContactPerson,
+            $recentEmpPosition,
+            $recentEmpContactNum,
+            $userId
+        );
+    } else {
+        // Insert new record if user doesn't have data in employment_background table
+        $stmt = $conn->prepare('INSERT INTO employment_background (user_id, company_one, company_one_position, company_one_from, company_one_to, company_one_status, company_one_responsibilities, company_one_reason_for_leaving, company_one_last_salary, company_two, company_two_position, company_two_from, company_two_to, company_two_status, company_two_responsibilities, company_two_reason_for_leaving, company_two_last_salary, company_three, company_three_position, company_three_from, company_three_to, company_three_status, company_three_responsibilities, company_three_reason_for_leaving, company_three_last_salary, recent_employment_contact_person, recent_employment_position, recent_employment_contact_number) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param(
+            'isssssssssssssssssssssssssss',
+            $userId,
+            $company1,
+            $position1,
+            $empBgFromDate1,
+            $empBgToDate1,
+            $status1,
+            $responsibilities1,
+            $reason1,
+            $lastSalary1,
+            $company2,
+            $position2,
+            $empBgFromDate2,
+            $empBgToDate2,
+            $status2,
+            $responsibilities2,
+            $reason2,
+            $lastSalary2,
+            $company3,
+            $position3,
+            $empBgFromDate3,
+            $empBgToDate3,
+            $status3,
+            $responsibilities3,
+            $reason3,
+            $lastSalary3,
+            $recentEmpContactPerson,
+            $recentEmpPosition,
+            $recentEmpContactNum
+        );
+    }
 
     $stmt->execute();
 }
@@ -310,37 +507,79 @@ function lecturesAndSeminar($conn)
     $seminarFromDate3 = isset ($_POST['seminarFromDate2']) ? $_POST['seminarFromDate3'] : $default;
     $seminarToDate3 = isset ($_POST['seminarToDate2']) ? $_POST['seminarToDate3'] : $default;
 
-    $stmt = $conn->prepare('INSERT INTO lectures_and_seminars_attended (
-        user_id,	
-        title_one,
-        title_one_from,
-        title_one_to,	
-        title_one_venue,	
-        title_two,	
-        title_two_from,	
-        title_two_to,	
-        title_two_venue,	
-        title_three,	
-        title_three_from,	
-        title_three_to,	
-        title_three_venue
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-    $stmt->bind_param(
-        'issssssssssss',
-        $userId,
-        $seminarTitle1,
-        $seminarVenue1,
-        $seminarFromDate1,
-        $seminarToDate1,
-        $seminarTitle2,
-        $seminarVenue2,
-        $seminarFromDate2,
-        $seminarToDate2,
-        $seminarTitle3,
-        $seminarVenue3,
-        $seminarFromDate3,
-        $seminarToDate3
-    );
+    $stmt = $conn->prepare('SELECT * FROM lectures_and_seminars_attended WHERE user_id = ?');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Update if user already has data in the lectures_and_seminars_attended table
+        $stmt = $conn->prepare("UPDATE lectures_and_seminars_attended SET 
+            title_one = ?,
+            title_one_from = ?,
+            title_one_to = ?,
+            title_one_venue = ?,
+            title_two = ?,
+            title_two_from = ?,
+            title_two_to = ?,
+            title_two_venue = ?,
+            title_three = ?,
+            title_three_from = ?,
+            title_three_to = ?,
+            title_three_venue = ?
+            WHERE user_id = ?"
+        );
+        $stmt->bind_param(
+            'ssssssssssssi',
+            $seminarTitle1,
+            $seminarFromDate1,
+            $seminarToDate1,
+            $seminarVenue1,
+            $seminarTitle2,
+            $seminarFromDate2,
+            $seminarToDate2,
+            $seminarVenue2,
+            $seminarTitle3,
+            $seminarFromDate3,
+            $seminarToDate3,
+            $seminarVenue3,
+            $userId
+        );
+    } else {
+        $stmt = $conn->prepare('INSERT INTO lectures_and_seminars_attended (
+            user_id,	
+            title_one,
+            title_one_from,
+            title_one_to,	
+            title_one_venue,	
+            title_two,	
+            title_two_from,	
+            title_two_to,	
+            title_two_venue,	
+            title_three,	
+            title_three_from,	
+            title_three_to,	
+            title_three_venue
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->bind_param(
+            'issssssssssss',
+            $userId,
+            $seminarTitle1,
+            $seminarVenue1,
+            $seminarFromDate1,
+            $seminarToDate1,
+            $seminarTitle2,
+            $seminarVenue2,
+            $seminarFromDate2,
+            $seminarToDate2,
+            $seminarTitle3,
+            $seminarVenue3,
+            $seminarFromDate3,
+            $seminarToDate3
+        );
+
+    }
+
 
     $stmt->execute();
 
@@ -363,31 +602,66 @@ function characterReference($conn)
     $charRefCompany2 = isset ($_POST['charRefCompany2']) ? $_POST['charRefCompany2'] : $default;
     $charRefContactNum2 = isset ($_POST['charRefContactNum2']) ? $_POST['charRefContactNum2'] : $default;
 
-    $stmt = $conn->prepare("INSERT INTO character_references (
-        user_id, 
-        name_one, 
-        name_one_position, 
-        name_one_company, 
-        name_one_contact_number, 
-        name_two, 
-        name_two_position, 
-        name_two_company, 
-        name_two_contact_number) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    // Bind parameters
-    $stmt->bind_param(
-        "isssssssi",
-        $userId,
-        $charRefName1,
-        $charRefPosition1,
-        $charRefCompany1,
-        $charRefContactNum1,
-        $charRefName2,
-        $charRefPosition2,
-        $charRefCompany2,
-        $charRefContactNum2
-    );
+    $stmt = $conn->prepare('SELECT * FROM character_references WHERE user_id = ?');
+    $stmt->bind_param('i', $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // Update if user already has data in the character_references table
+        $stmt = $conn->prepare("UPDATE character_references SET 
+            name_one = ?,
+            name_one_position = ?,
+            name_one_company = ?,
+            name_one_contact_number = ?,
+            name_two = ?,
+            name_two_position = ?,
+            name_two_company = ?,
+            name_two_contact_number = ?
+            WHERE user_id = ?"
+        );
+
+        $stmt->bind_param(
+            "ssssssssi",
+            $charRefName1,
+            $charRefPosition1,
+            $charRefCompany1,
+            $charRefContactNum1,
+            $charRefName2,
+            $charRefPosition2,
+            $charRefCompany2,
+            $charRefContactNum2,
+            $userId
+        );
+    } else {
+        // Insert new record if user doesn't have data in character_references table
+        $stmt = $conn->prepare("INSERT INTO character_references (
+            user_id, 
+            name_one, 
+            name_one_position, 
+            name_one_company, 
+            name_one_contact_number, 
+            name_two, 
+            name_two_position, 
+            name_two_company, 
+            name_two_contact_number) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+        $stmt->bind_param(
+            "isssssssi",
+            $userId,
+            $charRefName1,
+            $charRefPosition1,
+            $charRefCompany1,
+            $charRefContactNum1,
+            $charRefName2,
+            $charRefPosition2,
+            $charRefCompany2,
+            $charRefContactNum2
+        );
+    }
+
     $stmt->execute();
 }
 

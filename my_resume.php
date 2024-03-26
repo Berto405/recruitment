@@ -12,11 +12,12 @@ if (!isset ($_SESSION['user_id'])) {
     //Showing current resume    
     $query = "SELECT *
         FROM user_resumes
-        INNER JOIN educational_attainment ON user_resumes.user_id = educational_attainment.user_id
-        INNER JOIN employment_background ON user_resumes.user_id = employment_background.user_id
-        INNER JOIN lectures_and_seminars_attended ON user_resumes.user_id = lectures_and_seminars_attended.user_id
-        INNER JOIN character_references ON user_resumes.user_id = character_references.user_id;
+        LEFT JOIN educational_attainment ON user_resumes.user_id = educational_attainment.user_id
+        LEFT JOIN employment_background ON user_resumes.user_id = employment_background.user_id
+        LEFT JOIN lectures_and_seminars_attended ON user_resumes.user_id = lectures_and_seminars_attended.user_id
+        LEFT JOIN character_references ON user_resumes.user_id = character_references.user_id;
     ";
+
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -25,11 +26,6 @@ if (!isset ($_SESSION['user_id'])) {
     if ($result->num_rows > 0) {
         // Fetch the row from the result set
         $row = $result->fetch_assoc();
-        if (!empty ($row['picture'])) {
-            // Convert the binary image data to base64 encoding
-            $imageData = base64_encode($row['picture']);
-
-        }
     }
 
 }
@@ -73,7 +69,7 @@ if (!isset ($_SESSION['user_id'])) {
                         <div class="col-auto" id="imagePreviewContainer">
                             <div class="row justify-content-center">
                                 <div class="col-auto">
-                                    <img id="imagePreview" src="data:image/jpeg;base64,<?php echo $imageData ?> "
+                                    <img id="imagePreview" src="./img/applicant/<?php echo $row['picture']; ?>"
                                         alt="No Image">
                                 </div>
                             </div>
