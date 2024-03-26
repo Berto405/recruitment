@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2024 at 03:44 AM
+-- Generation Time: Mar 26, 2024 at 10:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -111,7 +111,7 @@ CREATE TABLE `educational_attainment` (
 --
 
 INSERT INTO `educational_attainment` (`id`, `user_id`, `college`, `college_from`, `college_to`, `college_degree`, `vocational`, `vocational_from`, `vocational_to`, `vocational_diploma`, `high_school`, `high_school_from`, `high_school_to`, `high_school_level`, `elementary`, `elementary_from`, `elementary_to`, `elementary_level`) VALUES
-(33, 9, 'dasd', '0000-00-00', '0000-00-00', 'asd', 'da', '0000-00-00', '0000-00-00', 'a', 'asd', '0000-00-00', '0000-00-00', 'adad', 'asd', '0000-00-00', '0000-00-00', 'asd');
+(33, 9, 'dasd', '2024-03-14', '0000-00-00', 'asd', 'da', '0000-00-00', '0000-00-00', 'a', 'asd', '0000-00-00', '0000-00-00', 'adad', 'asd', '0000-00-00', '0000-00-00', 'asd');
 
 -- --------------------------------------------------------
 
@@ -231,7 +231,11 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (15, 2, 13, 'Pending', NULL),
 (16, 2, 9, 'Reviewed', NULL),
 (17, 9, 16, 'Interview', '2024-03-21 08:00:00'),
-(18, 9, 14, 'Pending', NULL);
+(18, 9, 14, 'Pending', NULL),
+(19, 9, 15, 'Pending', NULL),
+(20, 9, 13, 'Pending', NULL),
+(21, 2, 3, 'Pending', NULL),
+(22, 2, 16, 'Pooling', NULL);
 
 -- --------------------------------------------------------
 
@@ -429,7 +433,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
