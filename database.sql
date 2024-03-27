@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2024 at 10:29 AM
+-- Generation Time: Mar 27, 2024 at 09:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -216,21 +216,18 @@ CREATE TABLE `job_applicants` (
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
 (1, 9, 1, 'Selected', '2024-03-20 12:40:00'),
-(2, 9, 3, 'Not Selected', '2024-03-19 09:31:00'),
-(3, 9, 2, 'Not Selected', '2024-03-20 15:13:00'),
-(5, 9, 4, 'Selected', '2024-03-20 11:13:00'),
+(2, 9, 3, 'Ongoing Requirements', '2024-03-19 09:31:00'),
+(3, 9, 2, 'Placed', '2024-03-20 15:13:00'),
 (6, 19, 1, 'Interview', '2024-03-20 18:20:00'),
-(7, 2, 8, 'Selected', NULL),
 (8, 9, 7, 'Selected', '2024-03-19 17:26:00'),
-(9, 9, 9, 'Reviewed', NULL),
-(10, 9, 11, 'Not Selected', NULL),
-(11, 9, 8, 'Not Selected', NULL),
-(12, 2, 14, 'Reviewed', NULL),
-(13, 2, 1, 'Interview', '2024-03-28 05:32:00'),
-(14, 2, 7, 'Reviewed', NULL),
+(9, 9, 9, 'For Final Interview', NULL),
+(10, 9, 11, 'Waiting for Start Date', NULL),
+(12, 2, 14, 'Onboarding', NULL),
+(13, 2, 1, 'Passed', '2024-03-28 05:32:00'),
+(14, 2, 7, 'Hired', NULL),
 (15, 2, 13, 'Pending', NULL),
-(16, 2, 9, 'Reviewed', NULL),
-(17, 9, 16, 'Interview', '2024-03-21 08:00:00'),
+(16, 2, 9, 'For Initial Interview', NULL),
+(17, 9, 16, 'Waiting for Feedback', '2024-03-21 08:00:00'),
 (18, 9, 14, 'Pending', NULL),
 (19, 9, 15, 'Pending', NULL),
 (20, 9, 13, 'Pending', NULL),
@@ -347,7 +344,7 @@ CREATE TABLE `user_resumes` (
 --
 
 INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, 231, '', 'das', 'dsa', 'agreed', '');
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, 231, 'Job Fair, Newspaper / Magazines, Brochures / Flyers, Referral: shhhesssghg', 'das', 'dasfds', 'agreed', '');
 
 --
 -- Indexes for dumped tables
