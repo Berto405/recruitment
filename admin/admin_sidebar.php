@@ -1,3 +1,9 @@
+<style>
+    .accordion .nav-link:hover {
+        background-color: rgba(220, 53, 69, 0.25);
+        color: #dc3545;
+    }
+</style>
 <div class="accordion p-1" id="accordionExample">
     <ul class="nav flex-column mt-5">
         <li>
@@ -8,13 +14,13 @@
         </li>
         <li>
             <a href="#"
-                class="nav-link  bg-opacity-25 p-2 ps-4 text-danger <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/pooling_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'bg-danger' : ''; ?>"
+                class="nav-link  bg-opacity-25 p-2 ps-4 text-danger <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/pooling_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/shortlisted_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'bg-danger' : ''; ?>"
                 data-bs-toggle="collapse" data-bs-target="#manageApplicantCollapse" aria-expanded="true">
                 <i class="bi bi-person-vcard-fill me-2"></i>Manage Applicants<i
                     class="bi bi-chevron-down me-2 float-end"></i>
             </a>
         </li>
-        <div class="collapse <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/pooling_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'show' : ''; ?>"
+        <div class="collapse <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/pooling_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/shortlisted_applicant.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'show' : ''; ?>"
             id="manageApplicantCollapse">
             <ul class="btn-toggle-nav list-unstyled fw-normal m-0 mb-2 p-0">
                 <li class="my-1  bg-container text-white">
@@ -24,9 +30,15 @@
                     </a>
                 </li>
                 <li class="my-1 menu_">
-                    <a href="../admin/#.php"
-                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                    <a href="../admin/shortlisted_applicant.php"
+                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/shortlisted_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
                         <i class="bi bi-file-plus-fill me-2"></i>Shortlisted
+                    </a>
+                </li>
+                <li class="my-1 ">
+                    <a href="../admin/identified_applicant.php"
+                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                        <i class="bi bi-file-earmark-check-fill me-2"></i>Identified
                     </a>
                 </li>
             </ul>

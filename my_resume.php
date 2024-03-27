@@ -1045,7 +1045,7 @@ if (!isset ($_SESSION['user_id'])) {
                 <div class="col">
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="checkbox" id="inlineCheckbox1" name="source[]"
-                            value="Others">
+                            value="Referral">
                         <label class="form-check-label" for="inlineCheckbox1">Referral (Please specify name)</label>
                         <input class="" type="text" name="referralName">
                     </div>

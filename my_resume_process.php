@@ -216,7 +216,7 @@ function personalInfo($conn)
         // Concatenate the selected checkboxes and referral name (if provided)
         $reference = implode(', ', $_POST['source']);
         if (isset ($_POST['referralName'])) {
-            $reference .= ', ' . $_POST['referralName'];
+            $reference .= ': ' . $_POST['referralName'];
         }
 
         // Update the reference column
