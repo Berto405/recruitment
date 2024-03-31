@@ -64,19 +64,32 @@ if (isset($_SESSION['success_message'])) {
                 </li>
 
                 <?php
-                if (isset($_SESSION['user_role']) && $_SESSION['user_role'] !== 'user') {
-                    $adminDashboardUrl = "/recruitment/admin/home.php";
-                    $href = $adminDashboardUrl;
-                    $isActive = ($_SERVER['REQUEST_URI'] == $adminDashboardUrl || $_SERVER['REQUEST_URI'] == $adminDashboardUrl . '/') ? ' text-dark fw-bold' : ' text-secondary';
-                    echo '
+                if (isset($_SESSION['user_role'])) {
+                    if ($_SESSION['user_role'] !== 'user' && $_SESSION['user_role'] !== 'Operations') {
+                        $adminDashboardUrl = "/recruitment/admin/home.php";
+                        $href = $adminDashboardUrl;
+                        $isActive = ($_SERVER['REQUEST_URI'] == $adminDashboardUrl || $_SERVER['REQUEST_URI'] == $adminDashboardUrl . '/') ? ' text-dark fw-bold' : ' text-secondary';
+                        echo '
                         <li class="nav-item">
                             <a href="' . $href . '" class="nav-link  link-dark ' . $isActive . '">
                                 Dashboard
                             </a>
                         </li>
                         ';
+                    } else if ($_SESSION['user_role'] == 'Operations') {
+                        $mrfUrl = "/recruitment/admin/add_job.php";
+                        $href = $mrfUrl;
+                        $isActive = ($_SERVER['REQUEST_URI'] == $mrfUrl || $_SERVER['REQUEST_URI'] == $mrfUrl . '/') ? ' text-dark fw-bold' : ' text-secondary';
+                        echo '
+                        <li class="nav-item">
+                            <a href="' . $href . '" class="nav-link  link-dark ' . $isActive . '">
+                                MRF
+                            </a>
+                        </li>
+                        ';
+                    }
                 }
-                if (isset($_SESSION['user_id'])) {
+                if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 'user') {
                     echo '
                         <li class="nav-item">
                             <a href="/recruitment/my_jobs.php?status=Pending" class="nav-link link-dark  '
@@ -88,7 +101,7 @@ if (isset($_SESSION['success_message'])) {
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/recruitment/my_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/upload_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                            <a href="/recruitment/my_resume.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/my_resume.php' || $_SERVER['REQUEST_URI'] == '/recruitment/my_resume.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
                                 My Resume
                             </a>
                         </li>

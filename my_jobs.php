@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("dbconn.php");
 include ("header.php");
 
@@ -6,8 +7,14 @@ if ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php') {
     header("Location: index.php");
     exit();
 }
+if ($_SESSION['user_role'] !== 'user') {
 
-if (isset ($_GET['status'])) {
+    $_SESSION['error_message'] = "Sorry. You don't have the permission to access this page.";
+    header("Location: index.php");
+    exit();
+}
+
+if (isset($_GET['status'])) {
     $status = $_GET['status'];
     $userId = $_SESSION['user_id'];
 

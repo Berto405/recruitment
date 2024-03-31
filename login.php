@@ -1,9 +1,10 @@
 <?php
+session_start();
 include ('dbconn.php');
 include ('header.php');
 //User wont be able to access login page when logged in
 // Check if user is not logged in
-if (isset ($_SESSION['user_id']) || isset ($_SESSION['user_role'])) {
+if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: /recruitment/index.php");
     exit();
@@ -44,7 +45,7 @@ if (isset ($_SESSION['user_id']) || isset ($_SESSION['user_role'])) {
                             </div>
                         </div>
                         <!-- Error message -->
-                        <?php if (isset ($_GET['error'])) { ?>
+                        <?php if (isset($_GET['error'])) { ?>
                             <div class="text-danger">
                                 <?php echo $_GET['error']; ?>
                             </div>

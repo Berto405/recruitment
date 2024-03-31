@@ -1,8 +1,9 @@
 <?php
+session_start();
 include ("dbconn.php");
 include ("header.php");
 
-if (isset ($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
     $query = "SELECT * FROM user WHERE id = '$userId'";
     $result = mysqli_query($conn, $query);
@@ -46,8 +47,8 @@ if (isset ($_SESSION['user_id'])) {
                             <?php
                             if ($row['resume']) {
                                 echo '<i class="bi bi-file-earmark-fill">' . $row['resume'] . '</i>
-                                    <a href="/recruitment/upload_resume.php" class="btn btn-outline-dark mb-2 form-control mt-3" style="border-radius: 0;">
-                                        Change Resume
+                                    <a href="/recruitment/my_resume.php" class="btn btn-outline-dark mb-2 form-control mt-3" style="border-radius: 0;">
+                                        Update Resume
                                     </a>';
                             } else {
                                 echo '
@@ -57,8 +58,8 @@ if (isset ($_SESSION['user_id'])) {
                                     </small>
                                     
                                 </div>
-                                    <a href="/recruitment/upload_resume.php" class="btn btn-outline-dark mb-2 form-control mt-3" style="border-radius: 0;">
-                                        Upload Resume
+                                    <a href="/recruitment/my_resume.php" class="btn btn-outline-dark mb-2 form-control mt-3" style="border-radius: 0;">
+                                        Create Resume
                                     </a>
                                 ';
                             }

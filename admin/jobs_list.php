@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
 }
 
 // Check if user is not admin
-if ($_SESSION['user_role'] == 'user') {
+if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') {
     // Redirect non-admin users to index.php
     header("Location: ../index.php");
     exit();

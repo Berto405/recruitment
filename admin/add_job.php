@@ -32,11 +32,22 @@ include ('../admin/admin_header.php');
 <body style="background-color: #F4F4F4; ">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow" style="min-height: 91vh;">
-                <?php include ("../admin/admin_sidebar.php"); ?>
-            </div>
+            <?php
+            $columnClasses = "col-md-10 col-lg-9 col-xl-10";
+            if ($_SESSION['user_role'] === 'Operations') {
+                $columnClasses = "col-12";
+            }
+            if ($_SESSION['user_role'] !== 'Operations') {
+                ?>
+                <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow" style="min-height: 91vh;">
+                    <?php include ("../admin/admin_sidebar.php"); ?>
+                </div>
+                <?php
+            }
+            ?>
 
-            <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
+
+            <div class="<?php echo $columnClasses; ?>  mt-3 ">
                 <h4 class=" mt-1 mb-5 ">Add Job</h4>
 
                 <div class="container-fluid bg-white rounded">

@@ -1,6 +1,6 @@
 <?php
-include ("header.php");
 include ("index_process.php");
+include ("header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +64,7 @@ include ("index_process.php");
                                         id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset ($_GET["loc"])) {
+                                        if (isset($_GET["loc"])) {
                                             $loc = $_GET["loc"];
                                             echo $loc;
                                         } else {
@@ -100,7 +100,7 @@ include ("index_process.php");
                                         id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset ($_GET["dept"])) {
+                                        if (isset($_GET["dept"])) {
                                             $dept = $_GET["dept"];
                                             echo $dept;
                                         } else {
@@ -123,7 +123,7 @@ include ("index_process.php");
                                         id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-haspopup="true"
                                         aria-expanded="false">
                                         <?php
-                                        if (isset ($_GET["type"])) {
+                                        if (isset($_GET["type"])) {
                                             $type = $_GET["type"];
                                             echo $type;
                                         } else {
@@ -226,7 +226,7 @@ include ("index_process.php");
 
                                 <!-- Checks if user is logged or not -->
                                 <?php
-                                if (!isset ($_SESSION['user_id'])) {
+                                if (!isset($_SESSION['user_id'])) {
                                     echo '
                                         <a href="login.php" class="btn btn-danger">
                                             Apply now

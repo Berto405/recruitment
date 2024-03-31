@@ -81,11 +81,18 @@
                 <i class="bi bi-calendar-fill me-2"></i>Interview Calendar
             </a>
         </li>
-        <li>
-            <a href="../admin/manage_user.php"
-                class="nav-link p-2 ps-4 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/manage_user.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/manage_user.php/') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                <i class="bi bi-person-fill-gear me-2"></i>User Management
-            </a>
-        </li>
+        <?php
+        if ($_SESSION['user_role'] == 'Super Admin') {
+            ?>
+            <li>
+                <a href="../admin/manage_user.php"
+                    class="nav-link p-2 ps-4 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/manage_user.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/manage_user.php/') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                    <i class="bi bi-person-fill-gear me-2"></i>User Management
+                </a>
+            </li>
+            <?php
+        }
+        ?>
+
     </ul>
 </div>

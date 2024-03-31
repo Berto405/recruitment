@@ -1,8 +1,9 @@
 <?php
+session_start();
 include ("dbconn.php");
 
 //For Showing the Jobs
-if (isset ($_SESSION['user_id'])) {
+if (isset($_SESSION['user_id'])) {
     //Showing only the jobs that the currently logged in user has not applied
     $userId = $_SESSION['user_id'];
     $query =
@@ -33,9 +34,9 @@ if (isset ($_SESSION['user_id'])) {
 }
 
 
-if (isset ($_GET['loc'])) {
+if (isset($_GET['loc'])) {
     $location = $_GET['loc'];
-    if (isset ($_SESSION['user_id'])) {
+    if (isset($_SESSION['user_id'])) {
         //Sorting location for logged in user
         $query = "SELECT jobs.* 
         FROM jobs
@@ -56,9 +57,9 @@ if (isset ($_GET['loc'])) {
     }
 }
 
-if (isset ($_GET['type'])) {
+if (isset($_GET['type'])) {
     $jobType = $_GET['type'];
-    if (isset ($_SESSION['user_id'])) {
+    if (isset($_SESSION['user_id'])) {
 
         //Sorting location for logged in user
         $query = "SELECT jobs.* 
