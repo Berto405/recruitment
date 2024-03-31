@@ -1,16 +1,16 @@
 <?php
-include ('../admin/admin_header.php');
+session_start();
 include ('../dbconn.php');
 
 // Check if user is not logged in
-if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
 }
 
 // Check if user is not admin
-if ($_SESSION['user_role'] !== 'admin') {
+if ($_SESSION['user_role'] == 'user') {
     // Redirect non-admin users to index.php
     header("Location: ../index.php");
     exit();
@@ -28,7 +28,7 @@ $result = mysqli_query($conn, $query);
 $events = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-    if (!empty ($row['interview_date'])) {
+    if (!empty($row['interview_date'])) {
         $datetime = new DateTime($row['interview_date']);
         $formattedDate = $datetime->format('Y-m-d');
         $formatTime = $datetime->format('H:i:s');
@@ -53,6 +53,9 @@ while ($row = mysqli_fetch_assoc($result)) {
 }
 
 $events_json = json_encode($events);
+
+//Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
+include ('../admin/admin_header.php');
 ?>
 
 <!DOCTYPE html>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ('../dbconn.php');
 
 //For displaying number of registered users

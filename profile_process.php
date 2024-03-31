@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $newLName = $_POST['newLName'];
     $newEmail = $_POST['newEmail'];
 
-    if (isset ($_POST['editProfileButton'])) {
+    if (isset($_POST['editProfileButton'])) {
         if ($userId) {
             $query =
                 "UPDATE user 
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if (isset ($_POST["changePassButton"])) {
+    if (isset($_POST["changePassButton"])) {
         //FOR CHANGING PASSWORD
         $currentPassword = $_POST['currentPassword'];
         $newPassword = $_POST['newPassword'];

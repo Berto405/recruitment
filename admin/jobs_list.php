@@ -1,16 +1,15 @@
 <?php
-include ('../admin/admin_header.php');
-include ('../dbconn.php');
+include ('../admin/jobs_list_process.php');
 
 // Check if user is not logged in
-if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
 }
 
 // Check if user is not admin
-if ($_SESSION['user_role'] !== 'admin') {
+if ($_SESSION['user_role'] == 'user') {
     // Redirect non-admin users to index.php
     header("Location: ../index.php");
     exit();
@@ -21,6 +20,9 @@ $stmt = $conn->prepare($query);
 $stmt->execute();
 $result = $stmt->get_result();
 
+
+//Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
+include ('../admin/admin_header.php');
 ?>
 
 <!DOCTYPE html>

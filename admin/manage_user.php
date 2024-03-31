@@ -1,30 +1,34 @@
 <?php
-include ('../admin/admin_header.php');
-include ('../dbconn.php');
+include ('../admin/manage_user_process.php');
+
 // Check if user is not logged in
-if (!isset ($_SESSION['user_id']) || !isset ($_SESSION['user_role'])) {
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
     header("Location: ../login.php");
     exit();
 }
 
-// Check if user is not admin
-if ($_SESSION['user_role'] !== 'admin') {
-    // Redirect non-admin users to index.php
+// Check if user is not super admin
+if ($_SESSION['user_role'] !== 'Super Admin') {
+    // Redirect non-super admin users to index.php
+    $_SESSION['error_message'] = "Sorry. You don't have the permission to access this page.";
     header("Location: ../index.php");
     exit();
 }
-
-
-$query = "SELECT * FROM user WHERE role = ?";
-
-$role = "admin";
+$query = "SELECT * FROM user WHERE role != ?";
+$role = "user";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("s", $role);
 $stmt->execute();
 $result = $stmt->get_result();
 
+
+
+
+//Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
+include ('../admin/admin_header.php');
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,6 +74,7 @@ $result = $stmt->get_result();
                             <tr>
                                 <th class="bg-danger text-white">Name</th>
                                 <th class="bg-danger text-white">Email</th>
+                                <th class="bg-danger text-white">Role</th>
                                 <th class="bg-danger text-white">Branch</th>
                                 <th class="bg-danger text-white">Action</th>
                             </tr>
@@ -88,6 +93,9 @@ $result = $stmt->get_result();
                                     </td>
                                     <td class="<?php echo $highlightClass; ?>">
                                         <?php echo $row['email']; ?>
+                                    </td>
+                                    <td class="<?php echo $highlightClass; ?>">
+                                        <?php echo $row['role']; ?>
                                     </td>
                                     <td class="<?php echo $highlightClass; ?>">
                                         <?php echo $row['branch']; ?>
@@ -165,6 +173,27 @@ $result = $stmt->get_result();
                                                         </label>
                                                     </div>
                                                     <div class="form-floating mb-3">
+                                                        <select class="form-select" name="role" id="role" required>
+                                                            <option <?php echo (empty($row['role']) ? 'selected' : ''); ?>
+                                                                disabled>
+                                                                Choose Role...
+                                                            </option>
+                                                            <option value="Super Admin" <?php echo (!empty($row['role']) && $row['role'] == 'Super Admin') ? 'selected' : ''; ?>>
+                                                                Super Admin
+                                                            </option>
+                                                            <option value="Admin" <?php echo (!empty($row['role']) && $row['role'] == 'Admin') ? 'selected' : ''; ?>>
+                                                                Admin
+                                                            </option>
+                                                            <option value="Employee" <?php echo (!empty($row['role']) && $row['role'] == 'Employee') ? 'selected' : ''; ?>>
+                                                                Employee
+                                                            </option>
+                                                            <option value="Operations" <?php echo (!empty($row['role']) && $row['role'] == 'Operations') ? 'selected' : ''; ?>>
+                                                                Operations
+                                                            </option>
+                                                        </select>
+                                                        <label for="priority" class="form-label fw-bold">Role</label>
+                                                    </div>
+                                                    <div class="form-floating mb-3">
                                                         <input type="password" class="form-control rounded-3"
                                                             placeholder="Password" name="password">
                                                         <label for="floatingPassword">Password</label>
@@ -233,6 +262,16 @@ $result = $stmt->get_result();
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control rounded-3" placeholder="Makati" name="branch">
                             <label for="floatingInput">Branch <span class="text-secondary">(City)</span></label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-select" name="role" id="role" required>
+                                <option selected disabled>Choose Role...</option>
+                                <option value="Super Admin">Super Admin</option>
+                                <option value="Admin">Admin</option>
+                                <option value="Employee">Employee</option>
+                                <option value="Operations">Operations</option>
+                            </select>
+                            <label for="priority" class="form-label fw-bold">Role</label>
                         </div>
                         <div class="form-floating mb-3">
                             <input type="password" class="form-control rounded-3" placeholder="Password"

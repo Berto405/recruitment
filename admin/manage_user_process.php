@@ -3,15 +3,15 @@ session_start();
 include ("../dbconn.php");
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset ($_POST['addUserBtn'])) {
+    if (isset($_POST['addUserBtn'])) {
         addUser($conn);
     }
 
-    if (isset ($_POST['editUserBtn'])) {
+    if (isset($_POST['editUserBtn'])) {
         editUser($conn);
     }
 
-    if (isset ($_POST['delete_emp_id'])) {
+    if (isset($_POST['delete_emp_id'])) {
         deleteUser($conn);
     }
 }
@@ -25,6 +25,7 @@ function addUser($conn)
     $lName = $_POST['lName'];
     $email = $_POST["email"];
     $branch = $_POST["branch"];
+    $role = $_POST['role'];
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPass'];
 
@@ -36,7 +37,6 @@ function addUser($conn)
     } else {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $role = "admin";
         $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, branch) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $branch);
 
@@ -64,7 +64,7 @@ function editUser($conn)
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPass'];
 
-    if (empty ($password) || empty ($confirm_password)) {
+    if (empty($password) || empty($confirm_password)) {
 
         //If user does not want to edit password
         $query = "UPDATE user 
@@ -140,4 +140,5 @@ function deleteUser($conn)
         exit();
     }
 }
+
 ?>

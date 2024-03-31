@@ -30,8 +30,5 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         header("Location: ../admin/home.php");
         exit();
     }
-} else {
-    header("Location: ../admin/home.php");
-    exit();
 }
 ?>
