@@ -34,18 +34,25 @@
                 </td>
                 <td>
                     <?php
-                    if ($row['priority'] == 'Urgent Hiring') {
+                    if ($row['priority'] == 'Urgent Hiring' && $row['application_status'] !== 'Pooling') {
                         ?>
                         <i class="bi bi-exclamation-circle-fill text-danger"></i>
                         <?php
                         echo $row['job_name'];
-                    } else {
+                    } else if ($row['priority'] == 'Non-urgent Hiring' && $row['application_status'] !== 'Pooling') {
                         echo $row['job_name'];
+                    } else {
+                        // Add Selecting MRF here
                     }
+
                     ?>
                 </td>
                 <td>
-                    <?php echo $row['location']; ?>
+                    <?php
+                    if ($row['application_status'] !== 'Pooling') {
+                        echo $row['location'];
+                    }
+                    ?>
                 </td>
                 <td>
                     <?php
@@ -271,7 +278,7 @@
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control rounded-3 fw-bold"
                                                             placeholder="Juan" name="lName"
-                                                            value="<?php echo !empty ($resumeRow['last_name']) ? $resumeRow['last_name'] : ''; ?>"
+                                                            value="<?php echo !empty($resumeRow['last_name']) ? $resumeRow['last_name'] : ''; ?>"
                                                             required disabled>
                                                         <label for="floatingInput" class="fw-bold">Last
                                                             Name</label>
@@ -281,7 +288,7 @@
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control rounded-3 fw-bold"
                                                             placeholder="Juan" name="fName"
-                                                            value="<?php echo !empty ($resumeRow['first_name']) ? $resumeRow['first_name'] : ''; ?>"
+                                                            value="<?php echo !empty($resumeRow['first_name']) ? $resumeRow['first_name'] : ''; ?>"
                                                             required disabled>
                                                         <label for="floatingInput" class="fw-bold">FIrst
                                                             Name</label>
@@ -291,7 +298,7 @@
                                                     <div class="form-floating mb-3">
                                                         <input type="text" class="form-control rounded-3 fw-bold"
                                                             placeholder="Juan" name="mName"
-                                                            value="<?php echo !empty ($resumeRow['middle_name']) ? $resumeRow['middle_name'] : ''; ?>"
+                                                            value="<?php echo !empty($resumeRow['middle_name']) ? $resumeRow['middle_name'] : ''; ?>"
                                                             required disabled>
                                                         <label for="floatingInput" class="fw-bold">Middle Name</label>
                                                     </div>
@@ -308,7 +315,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="email" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="emailAddress"
-                                                value="<?php echo !empty ($resumeRow['email']) ? $resumeRow['email'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['email']) ? $resumeRow['email'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Email
                                                 Address</label>
@@ -319,7 +326,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="presentAddress"
-                                                value="<?php echo !empty ($resumeRow['present_address']) ? $resumeRow['present_address'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['present_address']) ? $resumeRow['present_address'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Present
                                                 Address</label>
@@ -330,7 +337,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="permanentAddress"
-                                                value="<?php echo !empty ($resumeRow['permanent_address']) ? $resumeRow['permanent_address'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['permanent_address']) ? $resumeRow['permanent_address'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Permanent
                                                 Address</label>
@@ -344,7 +351,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="height"
-                                                value="<?php echo !empty ($resumeRow['height']) ? $resumeRow['height'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['height']) ? $resumeRow['height'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Height</label>
                                         </div>
@@ -354,7 +361,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="weight"
-                                                value="<?php echo !empty ($resumeRow['weight']) ? $resumeRow['weight'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['weight']) ? $resumeRow['weight'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Weight</label>
                                         </div>
@@ -364,7 +371,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="nationality"
-                                                value="<?php echo !empty ($resumeRow['nationality']) ? $resumeRow['nationality'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['nationality']) ? $resumeRow['nationality'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Nationality</label>
                                         </div>
@@ -374,7 +381,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="religion"
-                                                value="<?php echo !empty ($resumeRow['religion']) ? $resumeRow['religion'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['religion']) ? $resumeRow['religion'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Religion</label>
                                         </div>
@@ -385,7 +392,7 @@
                                             <label for="birthDate" class="fw-bold">Birth
                                                 Date:</label>
                                             <input class="form-control fw-bold" type="date" id="birthDate" name="birthDate"
-                                                value="<?php echo !empty ($resumeRow['birthdate']) ? $resumeRow['birthdate'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['birthdate']) ? $resumeRow['birthdate'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -395,12 +402,12 @@
                                             <label for="genderSelect" class="fw-bold">Gender:</label>
                                             <select class="form-control fw-bold" id="genderSelect" name="gender" required
                                                 disabled>
-                                                <option <?php echo (empty ($resumeRow['gender']) ? 'selected' : ''); ?>
+                                                <option <?php echo (empty($resumeRow['gender']) ? 'selected' : ''); ?>
                                                     disabled>
                                                     Choose...</option>
-                                                <option value="Male" <?php echo (!empty ($resumeRow['gender']) && $resumeRow['gender'] == 'Male') ? 'selected' : ''; ?>>
+                                                <option value="Male" <?php echo (!empty($resumeRow['gender']) && $resumeRow['gender'] == 'Male') ? 'selected' : ''; ?>>
                                                     Male</option>
-                                                <option value="Female" <?php echo (!empty ($resumeRow['gender']) && $resumeRow['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
+                                                <option value="Female" <?php echo (!empty($resumeRow['gender']) && $resumeRow['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
                                             </select>
                                         </div>
 
@@ -414,7 +421,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="sssNumber"
-                                                value="<?php echo !empty ($resumeRow['sss_number']) ? $resumeRow['sss_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['sss_number']) ? $resumeRow['sss_number'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">SSS
                                                 Number</label>
@@ -425,7 +432,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="philhealthNumber"
-                                                value="<?php echo !empty ($resumeRow['philhealth_number']) ? $resumeRow['philhealth_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['philhealth_number']) ? $resumeRow['philhealth_number'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">PhilHealth
                                                 Number</label>
@@ -436,7 +443,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="pagibigNumber"
-                                                value="<?php echo !empty ($resumeRow['pagibig_number']) ? $resumeRow['pagibig_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['pagibig_number']) ? $resumeRow['pagibig_number'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Pagibig
                                                 Number</label>
@@ -447,7 +454,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="tinNumber"
-                                                value="<?php echo !empty ($resumeRow['tin_number']) ? $resumeRow['tin_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['tin_number']) ? $resumeRow['tin_number'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">TIN
                                                 Number</label>
@@ -458,7 +465,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="contactNumber"
-                                                value="<?php echo !empty ($resumeRow['contact_number']) ? $resumeRow['contact_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['contact_number']) ? $resumeRow['contact_number'] : ''; ?>"
                                                 required disabled>
                                             <label for="floatingInput" class="fw-bold">Contact
                                                 Number</label>
@@ -471,15 +478,16 @@
                                                 Status:</label>
                                             <select class="form-control fw-bold " id="civilStatusSelect" name="civilStatus"
                                                 required disabled>
-                                                <option <?php echo (empty ($resumeRow['civil_status']) ? 'selected' : ''); ?> disabled>
+                                                <option <?php echo (empty($resumeRow['civil_status']) ? 'selected' : ''); ?>
+                                                    disabled>
                                                     Choose...</option>
-                                                <option value="Single" <?php echo (!empty ($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Single') ? 'selected' : ''; ?>>Single
+                                                <option value="Single" <?php echo (!empty($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Single') ? 'selected' : ''; ?>>Single
                                                 </option>
-                                                <option value="Married" <?php echo (!empty ($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Married') ? 'selected' : ''; ?>>Married
+                                                <option value="Married" <?php echo (!empty($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Married') ? 'selected' : ''; ?>>Married
                                                 </option>
-                                                <option value="Widowed" <?php echo (!empty ($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Widowed') ? 'selected' : ''; ?>>Widowed
+                                                <option value="Widowed" <?php echo (!empty($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Widowed') ? 'selected' : ''; ?>>Widowed
                                                 </option>
-                                                <option value="Separated" <?php echo (!empty ($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Separated') ? 'selected' : ''; ?>>Separated
+                                                <option value="Separated" <?php echo (!empty($resumeRow['civil_status']) && $resumeRow['civil_status'] == 'Separated') ? 'selected' : ''; ?>>Separated
                                                 </option>
                                             </select>
                                         </div>
@@ -499,7 +507,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="college"
-                                                        value="<?php echo !empty ($resumeRow['college']) ? $resumeRow['college'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['college']) ? $resumeRow['college'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">College</label>
                                                 </div>
@@ -509,7 +517,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="degree"
-                                                        value="<?php echo !empty ($resumeRow['college_degree']) ? $resumeRow['college_degree'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['college_degree']) ? $resumeRow['college_degree'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Degree</label>
                                                 </div>
@@ -525,7 +533,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="eduCollegeFromDate"
-                                                        value="<?php echo !empty ($resumeRow['college_from']) ? $resumeRow['college_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['college_from']) ? $resumeRow['college_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -535,7 +543,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="eduCollegeToDate"
-                                                        value="<?php echo !empty ($resumeRow['college_to']) ? $resumeRow['college_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['college_to']) ? $resumeRow['college_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -554,7 +562,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="vocational"
-                                                        value="<?php echo !empty ($resumeRow['vocational']) ? $resumeRow['vocational'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['vocational']) ? $resumeRow['vocational'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Vocational</label>
                                                 </div>
@@ -564,7 +572,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="diploma"
-                                                        value="<?php echo !empty ($resumeRow['vocational_diploma']) ? $resumeRow['vocational_diploma'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['vocational_diploma']) ? $resumeRow['vocational_diploma'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Diploma</label>
                                                 </div>
@@ -580,7 +588,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="eduVocationalFromDate"
-                                                        value="<?php echo !empty ($resumeRow['vocational_from']) ? $resumeRow['vocational_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['vocational_from']) ? $resumeRow['vocational_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -590,7 +598,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="eduVocationalToDate"
-                                                        value="<?php echo !empty ($resumeRow['vocational_to']) ? $resumeRow['vocational_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['vocational_to']) ? $resumeRow['vocational_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -609,7 +617,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="highSchool"
-                                                        value="<?php echo !empty ($resumeRow['high_school']) ? $resumeRow['high_school'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['high_school']) ? $resumeRow['high_school'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">High
                                                         School</label>
@@ -620,7 +628,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="highSchoolLevel"
-                                                        value="<?php echo !empty ($resumeRow['high_school_level']) ? $resumeRow['high_school_level'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['high_school_level']) ? $resumeRow['high_school_level'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Level</label>
                                                 </div>
@@ -636,7 +644,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="eduHighSchoolFromDate"
-                                                        value="<?php echo !empty ($resumeRow['high_school_from']) ? $resumeRow['high_school_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['high_school_from']) ? $resumeRow['high_school_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -646,7 +654,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="eduHighSchoolToDate"
-                                                        value="<?php echo !empty ($resumeRow['high_school_to']) ? $resumeRow['high_school_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['high_school_to']) ? $resumeRow['high_school_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -665,7 +673,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="elementary"
-                                                        value="<?php echo !empty ($resumeRow['elementary']) ? $resumeRow['elementary'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['elementary']) ? $resumeRow['elementary'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Elementary</label>
                                                 </div>
@@ -675,7 +683,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="elementaryLevel"
-                                                        value="<?php echo !empty ($resumeRow['elementary_level']) ? $resumeRow['elementary_level'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['elementary_level']) ? $resumeRow['elementary_level'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Level</label>
                                                 </div>
@@ -691,7 +699,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="eduElementaryFromDate"
-                                                        value="<?php echo !empty ($resumeRow['	elementary_from']) ? $resumeRow['	elementary_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['	elementary_from']) ? $resumeRow['	elementary_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -701,7 +709,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="eduElementaryToDate"
-                                                        value="<?php echo !empty ($resumeRow['elementary_to']) ? $resumeRow['elementary_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['elementary_to']) ? $resumeRow['elementary_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -722,7 +730,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="company1"
-                                                        value="<?php echo !empty ($resumeRow['company_one']) ? $resumeRow['company_one'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_one']) ? $resumeRow['company_one'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Company
                                                         1</label>
@@ -733,7 +741,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="position1"
-                                                        value="<?php echo !empty ($resumeRow['company_one_position']) ? $resumeRow['company_one_position'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_one_position']) ? $resumeRow['company_one_position'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Position</label>
                                                 </div>
@@ -749,7 +757,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="empBgFromDate1"
-                                                        value="<?php echo !empty ($resumeRow['company_one_from']) ? $resumeRow['company_one_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_one_from']) ? $resumeRow['company_one_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -759,7 +767,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="empBgToDate1"
-                                                        value="<?php echo !empty ($resumeRow['company_one_to']) ? $resumeRow['company_one_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_one_to']) ? $resumeRow['company_one_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -768,7 +776,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="status1"
-                                                        value="<?php echo !empty ($resumeRow['company_one_status']) ? $resumeRow['company_one_status'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_one_status']) ? $resumeRow['company_one_status'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Status</label>
                                                 </div>
@@ -784,7 +792,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="responsibilities1"
-                                                value="<?php echo !empty ($resumeRow['company_one_responsibilities']) ? $resumeRow['company_one_responsibilities'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_one_responsibilities']) ? $resumeRow['company_one_responsibilities'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Responsibilities</label>
                                         </div>
@@ -797,7 +805,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="reason1"
-                                                value="<?php echo !empty ($resumeRow['company_one_reason_for_leaving']) ? $resumeRow['company_one_reason_for_leaving'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_one_reason_for_leaving']) ? $resumeRow['company_one_reason_for_leaving'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Reason for
                                                 Leaving</label>
@@ -808,7 +816,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="lastSalary1"
-                                                value="<?php echo !empty ($resumeRow['company_one_last_salary']) ? $resumeRow['company_one_last_salary'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_one_last_salary']) ? $resumeRow['company_one_last_salary'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Last
                                                 Salary</label>
@@ -826,7 +834,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="company2"
-                                                        value="<?php echo !empty ($resumeRow['company_two']) ? $resumeRow['company_two'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_two']) ? $resumeRow['company_two'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Company
                                                         2</label>
@@ -837,7 +845,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="position2"
-                                                        value="<?php echo !empty ($resumeRow['company_two_position']) ? $resumeRow['company_two_position'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_two_position']) ? $resumeRow['company_two_position'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Position</label>
                                                 </div>
@@ -853,7 +861,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="empBgFromDate2"
-                                                        value="<?php echo !empty ($resumeRow['company_two_from']) ? $resumeRow['company_two_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_two_from']) ? $resumeRow['company_two_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -863,7 +871,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="empBgToDate2"
-                                                        value="<?php echo !empty ($resumeRow['company_two_to']) ? $resumeRow['company_two_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_two_to']) ? $resumeRow['company_two_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -872,7 +880,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="status2"
-                                                        value="<?php echo !empty ($resumeRow['company_two_status']) ? $resumeRow['company_two_status'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_two_status']) ? $resumeRow['company_two_status'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Status</label>
                                                 </div>
@@ -888,7 +896,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="responsibilities2"
-                                                value="<?php echo !empty ($resumeRow['company_two_responsibilities']) ? $resumeRow['company_two_responsibilities'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_two_responsibilities']) ? $resumeRow['company_two_responsibilities'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Responsibilities</label>
                                         </div>
@@ -901,7 +909,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="reason2"
-                                                value="<?php echo !empty ($resumeRow['company_two_reason_for_leaving']) ? $resumeRow['company_two_reason_for_leaving'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_two_reason_for_leaving']) ? $resumeRow['company_two_reason_for_leaving'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Reason for
                                                 Leaving</label>
@@ -912,7 +920,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="lastSalary2"
-                                                value="<?php echo !empty ($resumeRow['company_two_last_salary']) ? $resumeRow['company_two_last_salary'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_two_last_salary']) ? $resumeRow['company_two_last_salary'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Last
                                                 Salary</label>
@@ -929,7 +937,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="company3"
-                                                        value="<?php echo !empty ($resumeRow['company_three']) ? $resumeRow['company_three'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_three']) ? $resumeRow['company_three'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Company
                                                         3</label>
@@ -940,7 +948,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="position3"
-                                                        value="<?php echo !empty ($resumeRow['company_three_position']) ? $resumeRow['company_three_position'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_three_position']) ? $resumeRow['company_three_position'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Position</label>
                                                 </div>
@@ -956,7 +964,7 @@
                                                     <label for="fromDate" class="fw-bold">From:</label>
                                                     <input class="form-control fw-bold" type="date" id="fromDate"
                                                         name="empBgFromDate3"
-                                                        value="<?php echo !empty ($resumeRow['company_three_from']) ? $resumeRow['company_three_from'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_three_from']) ? $resumeRow['company_three_from'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -966,7 +974,7 @@
                                                     <label for="toDate" class="fw-bold">To:</label>
                                                     <input class="form-control fw-bold" type="date" id="toDate"
                                                         name="empBgToDate3"
-                                                        value="<?php echo !empty ($resumeRow['company_three_to']) ? $resumeRow['company_three_to'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_three_to']) ? $resumeRow['company_three_to'] : ''; ?>"
                                                         disabled>
                                                 </div>
                                             </div>
@@ -975,7 +983,7 @@
                                                 <div class="form-floating mb-3">
                                                     <input type="text" class="form-control rounded-3 fw-bold"
                                                         placeholder="12" name="status3"
-                                                        value="<?php echo !empty ($resumeRow['company_three_status']) ? $resumeRow['company_three_status'] : ''; ?>"
+                                                        value="<?php echo !empty($resumeRow['company_three_status']) ? $resumeRow['company_three_status'] : ''; ?>"
                                                         disabled>
                                                     <label for="floatingInput" class="fw-bold">Status</label>
                                                 </div>
@@ -991,7 +999,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="responsibilities3"
-                                                value="<?php echo !empty ($resumeRow['company_three_responsibilities']) ? $resumeRow['company_three_responsibilities'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_three_responsibilities']) ? $resumeRow['company_three_responsibilities'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Responsibilities</label>
                                         </div>
@@ -1004,7 +1012,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="reason3"
-                                                value="<?php echo !empty ($resumeRow['company_three_reason_for_leaving']) ? $resumeRow['company_three_reason_for_leaving'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_three_reason_for_leaving']) ? $resumeRow['company_three_reason_for_leaving'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Reason for
                                                 Leaving</label>
@@ -1015,7 +1023,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="lastSalary3"
-                                                value="<?php echo !empty ($resumeRow['company_three_last_salary']) ? $resumeRow['company_three_last_salary'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['company_three_last_salary']) ? $resumeRow['company_three_last_salary'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Last
                                                 Salary</label>
@@ -1034,7 +1042,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="recentEmpContactPerson"
-                                                value="<?php echo !empty ($resumeRow['recent_employment_contact_person']) ? $resumeRow['recent_employment_contact_person'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['recent_employment_contact_person']) ? $resumeRow['recent_employment_contact_person'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Contact
                                                 Person</label>
@@ -1045,7 +1053,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="recentEmpPosition"
-                                                value="<?php echo !empty ($resumeRow['recent_employment_position']) ? $resumeRow['recent_employment_position'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['recent_employment_position']) ? $resumeRow['recent_employment_position'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Position</label>
                                         </div>
@@ -1055,7 +1063,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="recentEmpContactNum"
-                                                value="<?php echo !empty ($resumeRow['recent_employment_contact_number']) ? $resumeRow['recent_employment_contact_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['recent_employment_contact_number']) ? $resumeRow['recent_employment_contact_number'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Contact
                                                 Number</label>
@@ -1074,7 +1082,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarTitle1"
-                                                value="<?php echo !empty ($resumeRow['title_one']) ? $resumeRow['title_one'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_one']) ? $resumeRow['title_one'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Title
                                                 1</label>
@@ -1085,7 +1093,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarVenue1"
-                                                value="<?php echo !empty ($resumeRow['title_one_venue']) ? $resumeRow['title_one_venue'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_one_venue']) ? $resumeRow['title_one_venue'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Venue</label>
                                         </div>
@@ -1096,7 +1104,7 @@
                                             <label for="fromDate" class="fw-bold">From:</label>
                                             <input class="form-control fw-bold" type="date" id="fromDate"
                                                 name="seminarFromDate1"
-                                                value="<?php echo !empty ($resumeRow['title_one_from']) ? $resumeRow['title_one_from'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_one_from']) ? $resumeRow['title_one_from'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1106,7 +1114,7 @@
                                             <label for="toDate" class="fw-bold">To:</label>
                                             <input class="form-control fw-bold" type="date" id="toDate"
                                                 name="seminarToDate1"
-                                                value="<?php echo !empty ($resumeRow['title_one_to']) ? $resumeRow['title_one_to'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_one_to']) ? $resumeRow['title_one_to'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1122,7 +1130,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarTitle2"
-                                                value="<?php echo !empty ($resumeRow['title_two']) ? $resumeRow['title_two'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_two']) ? $resumeRow['title_two'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Title
                                                 2</label>
@@ -1133,7 +1141,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarVenue2"
-                                                value="<?php echo !empty ($resumeRow['title_two_venue']) ? $resumeRow['title_two_venue'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_two_venue']) ? $resumeRow['title_two_venue'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Venue</label>
                                         </div>
@@ -1144,7 +1152,7 @@
                                             <label for="fromDate" class="fw-bold">From:</label>
                                             <input class="form-control fw-bold" type="date" id="fromDate"
                                                 name="seminarFromDate2"
-                                                value="<?php echo !empty ($resumeRow['title_two_from']) ? $resumeRow['title_two_from'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_two_from']) ? $resumeRow['title_two_from'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1154,7 +1162,7 @@
                                             <label for="toDate" class="fw-bold">To:</label>
                                             <input class="form-control fw-bold" type="date" id="toDate"
                                                 name="seminarToDate2"
-                                                value="<?php echo !empty ($resumeRow['title_two_to']) ? $resumeRow['title_two_to'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_two_to']) ? $resumeRow['title_two_to'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1170,7 +1178,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarTitle3"
-                                                value="<?php echo !empty ($resumeRow['title_three']) ? $resumeRow['title_three'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_three']) ? $resumeRow['title_three'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Title
                                                 3</label>
@@ -1181,7 +1189,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="seminarVenue3"
-                                                value="<?php echo !empty ($resumeRow['title_three_venue']) ? $resumeRow['title_three_venue'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_three_venue']) ? $resumeRow['title_three_venue'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Venue</label>
                                         </div>
@@ -1192,7 +1200,7 @@
                                             <label for="fromDate" class="fw-bold">From:</label>
                                             <input class="form-control fw-bold" type="date" id="fromDate"
                                                 name="seminarFromDate3"
-                                                value="<?php echo !empty ($resumeRow['title_three_from']) ? $resumeRow['title_three_from'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_three_from']) ? $resumeRow['title_three_from'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1202,7 +1210,7 @@
                                             <label for="toDate" class="fw-bold">To:</label>
                                             <input class="form-control fw-bold" type="date" id="toDate"
                                                 name="seminarToDate3"
-                                                value="<?php echo !empty ($resumeRow['title_three_to']) ? $resumeRow['title_three_to'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['title_three_to']) ? $resumeRow['title_three_to'] : ''; ?>"
                                                 disabled>
                                         </div>
                                     </div>
@@ -1219,7 +1227,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefName1"
-                                                value="<?php echo !empty ($resumeRow['name_one']) ? $resumeRow['name_one'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_one']) ? $resumeRow['name_one'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Name
                                                 1</label>
@@ -1230,7 +1238,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefPosition1"
-                                                value="<?php echo !empty ($resumeRow['name_one_position']) ? $resumeRow['name_one_position'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_one_position']) ? $resumeRow['name_one_position'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Position</label>
                                         </div>
@@ -1240,7 +1248,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefCompany1"
-                                                value="<?php echo !empty ($resumeRow['name_one_company']) ? $resumeRow['name_one_company'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_one_company']) ? $resumeRow['name_one_company'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Company</label>
                                         </div>
@@ -1250,7 +1258,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefContactNum1"
-                                                value="<?php echo !empty ($resumeRow['name_one_contact_number']) ? $resumeRow['name_one_contact_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_one_contact_number']) ? $resumeRow['name_one_contact_number'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Contact
                                                 Number</label>
@@ -1266,7 +1274,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefName2"
-                                                value="<?php echo !empty ($resumeRow['name_two']) ? $resumeRow['name_two'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_two']) ? $resumeRow['name_two'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Name
                                                 2</label>
@@ -1277,7 +1285,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefPosition2"
-                                                value="<?php echo !empty ($resumeRow['name_two_position']) ? $resumeRow['name_two_position'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_two_position']) ? $resumeRow['name_two_position'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Position</label>
                                         </div>
@@ -1287,7 +1295,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefCompany2"
-                                                value="<?php echo !empty ($resumeRow['name_two_company']) ? $resumeRow['name_two_company'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_two_company']) ? $resumeRow['name_two_company'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Company</label>
                                         </div>
@@ -1297,7 +1305,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
                                                 name="charRefContactNum2"
-                                                value="<?php echo !empty ($resumeRow['name_three_contact_number']) ? $resumeRow['name_three_contact_number'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['name_three_contact_number']) ? $resumeRow['name_three_contact_number'] : ''; ?>"
                                                 disabled>
                                             <label for="floatingInput" class="fw-bold">Contact
                                                 Number</label>
@@ -1345,7 +1353,7 @@
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control rounded-3 fw-bold"
                                                 id="addInfoFirstQuestion" placeholder="12" name="addInfoFirstQuestion"
-                                                value="<?php echo !empty ($resumeRow['additional_info_q1']) ? $resumeRow['additional_info_q1'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['additional_info_q1']) ? $resumeRow['additional_info_q1'] : ''; ?>"
                                                 required disabled>
                                             <label for="addInfoFirstQuestion" class="fw-bold">
                                                 Answer:
@@ -1366,7 +1374,7 @@
 
                                             <input type="text" class="form-control rounded-3 fw-bold"
                                                 id="addInfoSecondQuestion" placeholder="12" name="addInfoSecondQuestion"
-                                                value="<?php echo !empty ($resumeRow['additional_info_q2']) ? $resumeRow['additional_info_q2'] : ''; ?>"
+                                                value="<?php echo !empty($resumeRow['additional_info_q2']) ? $resumeRow['additional_info_q2'] : ''; ?>"
                                                 required disabled>
                                             <label for="addInfoSecondQuestion" class="fw-bold">
                                                 Answer:
