@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2024 at 09:54 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- Generation Time: Mar 31, 2024 at 09:59 AM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -223,7 +223,7 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (9, 9, 9, 'For Final Interview', NULL),
 (10, 9, 11, 'Waiting for Start Date', NULL),
 (12, 2, 14, 'Onboarding', NULL),
-(13, 2, 1, 'Passed', '2024-03-28 05:32:00'),
+(13, 2, 1, 'Reviewed', '2024-03-28 05:32:00'),
 (14, 2, 7, 'Hired', NULL),
 (15, 2, 13, 'Pending', NULL),
 (16, 2, 9, 'For Initial Interview', NULL),
@@ -232,7 +232,8 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (19, 9, 15, 'Pending', NULL),
 (20, 9, 13, 'Pending', NULL),
 (21, 2, 3, 'Pending', NULL),
-(22, 2, 16, 'Pooling', NULL);
+(23, 9, 10, 'Pooling', NULL),
+(24, 9, 0, 'Pooling', NULL);
 
 -- --------------------------------------------------------
 
@@ -294,15 +295,15 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`) VALUES
-(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila'),
+(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila'),
 (9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', ''),
 (18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', ''),
 (19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', ''),
 (20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', ''),
-(21, 'ber', 'to', 'ber@gmail.com', '$2y$10$Qi9sRBmyiTjV.E6veZAOR.qr8I5yXG27xduLn.rLvzblp/epkWn.e', 'admin', '', 'Makati'),
-(22, 'b', 'a', 'ba@gmail.com', '$2y$10$eVFF1qhSqf0g18ZiLN0hS.UEf4fkiVFPh53xZuyqlRdlKJU7ctZHW', 'admin', '', 'Pampangaa'),
-(24, 'Roberto', 'Advincula', 'berts@gmail.com', '$2y$10$DG7vKB5uFnYHhVqL3naUdOoBe1izdk9z9W4bq1JZZO6RZTfisybVO', 'admin', '', 'Makati'),
-(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '');
+(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', ''),
+(27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati'),
+(28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati'),
+(29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati');
 
 -- --------------------------------------------------------
 
@@ -344,7 +345,7 @@ CREATE TABLE `user_resumes` (
 --
 
 INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, 231, 'Job Fair, Newspaper / Magazines, Brochures / Flyers, Referral: shhhesssghg', 'das', 'dasfds', 'agreed', '');
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, 231, 'Online Advertisement, Brochures / Flyers, Walk-in: ', 'ada', 'asd', 'agreed', '');
 
 --
 -- Indexes for dumped tables
@@ -430,7 +431,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
@@ -442,7 +443,7 @@ ALTER TABLE `lectures_and_seminars_attended`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `user_resumes`
