@@ -38,7 +38,6 @@ include ('../admin/admin_header.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
 
-
 </head>
 
 <body style="background-color: #F4F4F4; ">
@@ -56,13 +55,6 @@ include ('../admin/admin_header.php');
                                 data-bs-target="#addUserModal" style="border-radius: 0;">
                                 <i class="bi bi-person-plus"></i> Add Employee
                             </button>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="float-end input-group mb-2">
-                            <input id="searchInput" type="search" class="form-control" placeholder="Search Employee"
-                                aria-label="Search" name="search" oninput="searchEmployees()">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
                         </div>
                     </div>
                 </div>
@@ -290,8 +282,19 @@ include ('../admin/admin_header.php');
             </div>
         </div>
     </div>
+    <!-- DataTable JS - CDN Link -->
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
 
     <script>
+        $('#employeeTable').DataTable({
+            language: {
+                "search": "_INPUT_",
+                "searchPlaceholder": "Search"
+            }
+        });
+
+
         function confirmDelete(emp_id) {
             swal({
                 title: "Are you sure?",
@@ -311,27 +314,7 @@ include ('../admin/admin_header.php');
                 });
         }
 
-        //For search
-        function searchEmployees() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("employeeTable");
-            tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those that don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
     </script>
 
 

@@ -1,3 +1,8 @@
+<!-- DataTable CDN -->
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.dataTables.min.css">
+<!-- DataTable JS - CDN Link -->
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
 <table id="applicantTable" class="table text-center table-hover bg-white border">
     <thead class="bg-danger">
         <tr>
@@ -12,6 +17,7 @@
     <tbody>
         <?php
         while ($row = mysqli_fetch_assoc($result)) {
+
             //For showing the users resume
             $resumeQuery = "SELECT *
                 FROM user_resumes
@@ -148,7 +154,7 @@
                 </td>
                 <td>
                     <button type="button" class="btn btn-success badge " data-bs-toggle="modal"
-                        data-bs-target="#viewResumeModal<?php echo $row['id'] ?>">
+                        data-bs-target="#viewResumeModal<?php echo $row['id']; ?>">
                         View Resume
                     </button>
                 </td>
@@ -157,85 +163,91 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-list"></i>
                     </a>
-                    <?php
-                    //Actions for Shortlisted Applicants Sidebar
-                    if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling') {
-                        ?>
-
-                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
-                            <li class="mb-1">
-                                <button type="button" class="btn btn-success badge">
-                                    <i class="bi bi-check-square"></i> Passed
-                                </button>
-                            </li>
-                            <li class="mb-1">
-                                <button type="button" class="btn btn-danger badge">
-                                    <i class="bi bi-x-square"></i> Failed
-                                </button>
-                            </li>
-                            <li class="mb-1">
-                                <button type="button" class="btn btn-primary badge">
-                                    <i class="bi bi-file-earmark-break"></i> Pooling
-                                </button>
-                            </li>
-                        </ul>
+                    <form action="../admin/applicant_process.php" method="post">
+                        <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
                         <?php
-
-                    } //Actions for Shortlisted Applicants Sidebar
-                    else if ($row['application_status'] == 'Passed' || $row['application_status'] == 'For Initial Interview' || $row['application_status'] == 'For Final Interview' || $row['application_status'] == 'Waiting for Feedback') {
-                        ?>
+                        //Actions for Pooling Applicants Sidebar
+                        if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling') {
+                            ?>
 
                             <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                 <li class="mb-1">
-                                    <button type="button" class="btn btn-warning badge">
-                                        <i class="bi bi-exclamation-diamond me-1 "></i> For Initial Interview
+
+                                    <button type="submit" name="passBtn" class="btn btn-success badge">
+                                        <i class="bi bi-check-square"></i> Passed
+                                    </button>
+
+                                </li>
+                                <li class="mb-1">
+                                    <button type="submit" name="failBtn" class="btn btn-danger badge">
+                                        <i class="bi bi-x-square"></i> Failed
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button type="button" class="btn btn-danger badge">
-                                        <i class="bi bi-calendar-check me-1"></i> For Final Interview
-                                    </button>
-                                </li>
-                                <li class="mb-1">
-                                    <button type="button" class="btn btn-primary badge">
-                                        <i class="bi bi-clock me-1"></i> Waiting for Feedback
-                                    </button>
-                                </li>
-                                <li class="mb-1">
-                                    <button type="button" class="btn btn-success badge">
-                                        <i class="bi bi-check-square me-1"></i> Hired
+                                    <button type="submit" name="poolBtn" class="btn btn-primary badge">
+                                        <i class="bi bi-file-earmark-break"></i> Pooling
                                     </button>
                                 </li>
                             </ul>
-                        <?php
-                    } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date' || $row['application_status'] == 'Placed') {
-                        ?>
+
+                            <?php
+
+                        } //Actions for Shortlisted Applicants Sidebar
+                        else if ($row['application_status'] == 'Passed' || $row['application_status'] == 'For Initial Interview' || $row['application_status'] == 'For Final Interview' || $row['application_status'] == 'Waiting for Feedback') {
+                            ?>
 
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                     <li class="mb-1">
-                                        <button type="button" class="btn btn-warning badge">
-                                            <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
+                                        <button type="submit" name="initial_interviewBtn" class="btn btn-warning badge">
+                                            <i class="bi bi-exclamation-diamond me-1 "></i> For Initial Interview
                                         </button>
                                     </li>
                                     <li class="mb-1">
-                                        <button type="button" class="btn btn-danger badge">
-                                            <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
+                                        <button type="submit" name="final_interviewBtn" class="btn btn-danger badge">
+                                            <i class="bi bi-calendar-check me-1"></i> For Final Interview
                                         </button>
                                     </li>
                                     <li class="mb-1">
-                                        <button type="button" class="btn btn-primary badge">
-                                            <i class="bi bi-clock me-1"></i> Waiting for Start Date
+                                        <button type="submit" name="feedbackBtn" class="btn btn-primary badge">
+                                            <i class="bi bi-clock me-1"></i> Waiting for Feedback
                                         </button>
                                     </li>
                                     <li class="mb-1">
-                                        <button type="button" class="btn btn-success badge">
-                                            <i class="bi bi-check-square me-1"></i> Placed
+                                        <button type="submit" name="hiredBtn" class="btn btn-success badge">
+                                            <i class="bi bi-check-square me-1"></i> Hired
                                         </button>
                                     </li>
                                 </ul>
-                        <?php
-                    }
-                    ?>
+                            <?php
+                        } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date' || $row['application_status'] == 'Placed') {
+                            ?>
+
+                                    <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                        <li class="mb-1">
+                                            <button type="submit" name="ongoingBtn" class="btn btn-warning badge">
+                                                <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="submit" name="onbaordingBtn" class="btn btn-danger badge">
+                                                <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="submit" name="startDateBtn" class="btn btn-primary badge">
+                                                <i class="bi bi-clock me-1"></i> Waiting for Start Date
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="submit" name="placedBtn" class="btn btn-success badge">
+                                                <i class="bi bi-check-square me-1"></i> Placed
+                                            </button>
+                                        </li>
+                                    </ul>
+                            <?php
+                        }
+                        ?>
+                    </form>
                 </td>
             </tr>
 
@@ -1398,44 +1410,11 @@
 </table>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var rows = document.querySelectorAll("#applicantTable tbody tr");
-
-        rows.forEach(function (row) {
-            row.addEventListener("click", function () {
-                // Remove 'table-active' class from all rows
-                rows.forEach(function (row) {
-                    row.classList.remove("table-active");
-                });
-
-                // Add 'table-active' class to the clicked row
-                this.classList.add("table-active");
-            });
-        });
+    $('#applicantTable').DataTable({
+        language: {
+            "search": "_INPUT_",
+            "searchPlaceholder": "Search"
+        }
     });
 
-    function search() {
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("applicantTable");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows starting from the second row (index 1)
-        for (i = 1; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td");
-            var found = false;
-            // Loop through all cells in the current row
-            for (j = 0; j < td.length; j++) {
-                txtValue = td[j].textContent || td[j].innerText;
-                // If the cell value matches the search query, set found to true and break the inner loop
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    found = true;
-                    break;
-                }
-            }
-            // Show or hide the row based on whether any cell matched the search query
-            tr[i].style.display = found ? "" : "none";
-        }
-    }
 </script>

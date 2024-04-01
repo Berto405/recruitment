@@ -32,6 +32,9 @@ include ('../admin/admin_header.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs List</title>
+    <!-- DataTable JS - CDN Link -->
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
+
 </head>
 
 <body style="background-color: #F4F4F4; ">
@@ -44,20 +47,6 @@ include ('../admin/admin_header.php');
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
                 <h4 class=" mt-1 mb-5 ">Jobs List</h4>
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-9">
-                        <div class="float-start mb-2">
-
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-3">
-                        <div class="float-end input-group mb-2">
-                            <input id="searchInput" type="search" class="form-control" placeholder="Search Job"
-                                aria-label="Search" name="search" oninput="searchJobs()">
-                            <span class="input-group-text"><i class="bi bi-search"></i></span>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="table-responsive">
                     <table id="jobsTable" class="table text-center table-hover bg-white border">
@@ -130,47 +119,18 @@ include ('../admin/admin_header.php');
         </div>
     </div>
 
+
     <script>
-        function confirmDelete(job_id) {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this.",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        //If user clicked "Ok" button.
-                        document.getElementById("deleteJobForm" + job_id).submit();
-                    } else {
-                        //If user clicked "Cancel" button.
-                        return false;
-                    }
-                });
-        }
-
-        function searchJobs() {
-            var input, filter, table, tr, td, i, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("jobsTable");
-            tr = table.getElementsByTagName("tr");
-
-            // Loop through all table rows, and hide those that don't match the search query
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
+        $('#jobsTable').DataTable({
+            scrollX: true,
+            language: {
+                "search": "_INPUT_",
+                "searchPlaceholder": "Search"
             }
-        }
+        });
+
     </script>
+
 </body>
 
 </html>

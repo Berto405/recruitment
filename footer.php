@@ -1,6 +1,8 @@
 <!-- Full Calendar JS - CDN Link -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
+<!-- DataTable JS - CDN Link -->
+<script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
 
 <!-- Bootstrap JS - CDN Link -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

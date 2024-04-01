@@ -56,7 +56,7 @@ include ('../admin/admin_header.php');
                         <i class="bi bi-exclamation-circle-fill text-danger"></i> = Urgent
                         Hiring
                     </span>
-                    <table class="table text-center table-hover table-bordered">
+                    <table id="applTable" class="table text-center table-hover table-bordered">
                         <thead class="table-danger">
                             <tr>
                                 <th>Name</th>
@@ -218,8 +218,16 @@ include ('../admin/admin_header.php');
             </div>
         </div>
     </div>
-
+    <!-- DataTable JS - CDN Link -->
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
     <script>
+        $('#applTable').DataTable({
+            language: {
+                "search": "_INPUT_",
+                "searchPlaceholder": "Search"
+            }
+        });
+
         $(document).ready(function () {
             $(".view-resume").click(function (e) {
                 e.preventDefault();
