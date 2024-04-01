@@ -3,7 +3,7 @@
 <!-- DataTable JS - CDN Link -->
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
 
-<table id="applicantTable" class="table text-center table-hover bg-white border">
+<table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
     <thead class="bg-danger">
         <tr>
             <th class="bg-danger text-white">Applicant Name</th>
@@ -49,6 +49,9 @@
                         echo $row['job_name'];
                     } else {
                         // Add Selecting MRF here
+                        ?>
+
+                        <?php
                     }
 
                     ?>
@@ -1416,5 +1419,4 @@
             "searchPlaceholder": "Search"
         }
     });
-
 </script>

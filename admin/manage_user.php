@@ -37,7 +37,6 @@ include ('../components/header.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Users</title>
-
 </head>
 
 <body style="background-color: #F4F4F4; ">
@@ -61,7 +60,7 @@ include ('../components/header.php');
 
 
                 <div class="table-responsive">
-                    <table id="employeeTable" class="table text-center table-hover bg-white border">
+                    <table id="employeeTable" class="table text-center table-hover table-bordered bg-white border">
                         <thead class="table-danger">
                             <tr>
                                 <th class="bg-danger text-white">Name</th>
@@ -320,6 +319,6 @@ include ('../components/header.php');
 
 </body>
 
-</html>
-
 <?php include ('../components/footer.php'); ?>
+
+</html>
