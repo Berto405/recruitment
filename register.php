@@ -1,6 +1,6 @@
 <?php
 session_start();
-include ('header.php');
+include ('components/header.php');
 include ('dbconn.php');
 
 //User wont be able to access register page when logged in
@@ -92,4 +92,4 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
 
 
 
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>

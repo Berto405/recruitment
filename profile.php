@@ -1,7 +1,7 @@
 <?php
 session_start();
 include ("dbconn.php");
-include ("header.php");
+include ("components/header.php");
 
 if (isset($_SESSION['user_id'])) {
     $userId = $_SESSION['user_id'];
@@ -218,4 +218,4 @@ if (isset($_SESSION['user_id'])) {
 </body>
 
 </html>
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>

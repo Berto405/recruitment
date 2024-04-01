@@ -56,7 +56,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 $events_json = json_encode($events);
 
 //Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
-include ('../admin/admin_header.php');
+include ('../components/header.php');
 ?>
 
 <!DOCTYPE html>
@@ -179,4 +179,4 @@ include ('../admin/admin_header.php');
 
 </html>
 
-<?php include ('../footer.php'); ?>
+<?php include ('../components/footer.php'); ?>

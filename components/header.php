@@ -24,13 +24,43 @@
     <!-- JQuery CDN -->
     <script src=" https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Apex Chart CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+
+    <?php
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] != 'user') {
+        if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) {
+            ?>
+            <link rel="stylesheet" href="../components/style.css">
+            <?php
+        } else {
+            ?>
+            <link rel="stylesheet" href="components/style.css">
+            <?php
+        }
+    } else {
+        ?>
+        <link rel="stylesheet" href="components/style.css">
+        <?php
+    }
+    ?>
 
 </head>
 
 <body>
-    <?php include ('components/header_content.php') ?>
+    <?php
+    if (isset($_SESSION['user_role']) && $_SESSION['user_role'] != 'user') {
+        // Check if the user is accessing the admin folder
+        if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false) {
+            include ('../components/header_content.php');
+        } else {
+            include ('components/header_content.php');
+        }
+    } else {
+        include ('components/header_content.php');
+    }
+    ?>
 </body>
 
 </html>

@@ -1,7 +1,8 @@
 <?php
 session_start();
 include ("dbconn.php");
-include ("header.php");
+include ("components/header.php");
+
 
 if ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php') {
     header("Location: index.php");
@@ -173,4 +174,4 @@ if (isset($_GET['status'])) {
 </body>
 
 </html>
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>

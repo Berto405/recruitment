@@ -38,7 +38,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 //Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
-include ("header.php");
+include ("components/header.php");
 ?>
 
 
@@ -1236,4 +1236,4 @@ include ("header.php");
 </body>
 
 </html>
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>

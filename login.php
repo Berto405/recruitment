@@ -1,7 +1,7 @@
 <?php
 session_start();
 include ('dbconn.php');
-include ('header.php');
+include ('components/header.php');
 //User wont be able to access login page when logged in
 // Check if user is not logged in
 if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
@@ -69,4 +69,4 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
 
 </html>
 
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>

@@ -1,6 +1,6 @@
 <?php
 include ("index_process.php");
-include ("header.php");
+include ("components/header.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -325,4 +325,4 @@ include ("header.php");
 </body>
 
 </html>
-<?php include ('footer.php'); ?>
+<?php include ('components/footer.php'); ?>
