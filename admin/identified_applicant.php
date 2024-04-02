@@ -22,7 +22,7 @@ $query =
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status IN ('Hired', 'Ongoing Requirements', 'Onboarding', 'Waiting for Start Date', 'Placed')
+    WHERE job_applicants.application_status IN ('Hired', 'Ongoing Requirements', 'Onboarding', 'Waiting for Start Date')
     ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
 
 $result = mysqli_query($conn, $query);
@@ -65,7 +65,56 @@ include ('../components/header.php');
 
                 <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
                 <div class="table-responsive">
-                    <?php include ('../components/applicants_table.php'); ?>
+                    <form action="../admin/applicant_process.php" method="post">
+
+                        <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
+                            <thead class="bg-danger ">
+                                <tr>
+                                    <th class="bg-danger text-white text-center">
+                                        <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
+                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-list"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiOngoingBtn"
+                                                    class="btn btn-warning badge">
+                                                    <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiOnbaordingBtn"
+                                                    class="btn btn-danger badge">
+                                                    <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiStartDateBtn"
+                                                    class="btn btn-primary badge">
+                                                    <i class="bi bi-clock me-1"></i> Waiting for Start Date
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiPlacedBtn"
+                                                    class="btn btn-success badge">
+                                                    <i class="bi bi-check-square me-1"></i> Placed
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th class="bg-danger text-white text-center">Applicant Name</th>
+                                    <th class="bg-danger text-white text-center">Job Position</th>
+                                    <th class="bg-danger text-white text-center">Location</th>
+                                    <th class="bg-danger text-white text-center">Status</th>
+                                    <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+                            <?php include ('../components/applicants_table.php'); ?>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>

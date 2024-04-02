@@ -42,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         updateApplicantStatus($conn, STATUS_WAITING_START_DATE);
     } else if (isset($_POST['placedBtn'])) {
         updateApplicantStatus($conn, STATUS_PLACED);
-    } //For Checkboxes
+    }
+    //For Checkboxes
     else if (isset($_POST['multiPassBtn'])) {
         updateMultiApplicants($conn, STATUS_PASSED);
 
@@ -51,6 +52,30 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 
     } else if (isset($_POST['multiPoolBtn'])) {
         updateMultiApplicants($conn, STATUS_POOLING);
+
+    } else if (isset($_POST['multi_initial_interviewBtn'])) {
+
+
+    } else if (isset($_POST['multi_final_interviewBtn'])) {
+
+
+    } else if (isset($_POST['multiFeedbackBtn'])) {
+        updateMultiApplicants($conn, STATUS_WAITING_FEEDBACK);
+
+    } else if (isset($_POST['multiHiredBtn'])) {
+        updateMultiApplicants($conn, STATUS_HIRED);
+
+    } else if (isset($_POST['multiOngoingBtn'])) {
+        updateMultiApplicants($conn, STATUS_ONGOING_REQUIREMENTS);
+
+    } else if (isset($_POST['multiOnbaordingBtn'])) {
+        updateMultiApplicants($conn, STATUS_ONBOARDING);
+
+    } else if (isset($_POST['multiStartDateBtn'])) {
+        updateMultiApplicants($conn, STATUS_WAITING_START_DATE);
+
+    } else if (isset($_POST['multiPlacedBtn'])) {
+        updateMultiApplicants($conn, STATUS_PLACED);
 
     }
 }

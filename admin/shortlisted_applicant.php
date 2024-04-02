@@ -65,7 +65,57 @@ include ('../components/header.php');
 
                 <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
                 <div class="table-responsive">
-                    <?php include ('../components/applicants_table.php'); ?>
+                    <form action="../admin/applicant_process.php" method="post">
+
+                        <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
+                            <thead class="bg-danger ">
+                                <tr>
+                                    <th class="bg-danger text-white text-center">
+                                        <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
+                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-list"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                            <li class="mb-1">
+                                                <button type="submit" name="multi_initial_interviewBtn"
+                                                    class="btn btn-warning badge">
+                                                    <i class="bi bi-exclamation-diamond me-1 "></i> For Initial
+                                                    Interview
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multi_final_interviewBtn"
+                                                    class="btn btn-danger badge">
+                                                    <i class="bi bi-calendar-check me-1"></i> For Final Interview
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiFeedbackBtn"
+                                                    class="btn btn-primary badge">
+                                                    <i class="bi bi-clock me-1"></i> Waiting for Feedback
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiHiredBtn"
+                                                    class="btn btn-success badge">
+                                                    <i class="bi bi-check-square me-1"></i> Hired
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th class="bg-danger text-white text-center">Applicant Name</th>
+                                    <th class="bg-danger text-white text-center">Job Position</th>
+                                    <th class="bg-danger text-white text-center">Location</th>
+                                    <th class="bg-danger text-white text-center">Status</th>
+                                    <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+                            <?php include ('../components/applicants_table.php'); ?>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
