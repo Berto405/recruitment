@@ -42,6 +42,16 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         updateApplicantStatus($conn, STATUS_WAITING_START_DATE);
     } else if (isset($_POST['placedBtn'])) {
         updateApplicantStatus($conn, STATUS_PLACED);
+    } //For Checkboxes
+    else if (isset($_POST['multiPassBtn'])) {
+        updateMultiApplicants($conn, STATUS_PASSED);
+
+    } else if (isset($_POST['multiFailBtn'])) {
+        //Handle failed applicant
+
+    } else if (isset($_POST['multiPoolBtn'])) {
+        updateMultiApplicants($conn, STATUS_POOLING);
+
     }
 }
 
@@ -64,6 +74,33 @@ function updateApplicantStatus($conn, $status)
     }
     redirectBack();
 }
+
+//Function to update multiple rows 
+function updateMultiApplicants($conn, $status)
+{
+    if (isset($_POST['checkbox_value'])) {
+
+        foreach ($_POST['checkbox_value'] as $applicantId) {
+
+            $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("si", $status, $applicantId);
+            $stmt->execute();
+
+            if ($stmt->affected_rows > 0) {
+                $_SESSION['success_message'] = "Applicants status updated successfully";
+            } else {
+                $_SESSION['error_message'] = "Failed to update applicant status";
+            }
+        }
+
+        redirectBack();
+    } else {
+        $_SESSION['error_message'] = "Select at least 1 data.";
+        redirectBack();
+    }
+}
+
 
 // Function to redirect back
 function redirectBack()

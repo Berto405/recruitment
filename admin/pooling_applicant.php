@@ -62,9 +62,84 @@ include ('../components/header.php');
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
                 <h4 class=" mt-1 mb-5 ">Pooling Applicants</h4>
 
-                <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+                <!-- <div class="row">
+                    <div class="col-md-9">
+                        <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownUser2"
+                            data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 0;">
+                            Mark As..
+                        </button>
+                        <form action="../admin/applicant_process.php" method="post">
+                            <input type="hidden" name="applicant_id" value="">
+
+
+                            <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                <li class="mb-1">
+
+                                    <button type="submit" name="passBtn" class="btn btn-success badge">
+                                        <i class="bi bi-check-square"></i> Passed
+                                    </button>
+
+                                </li>
+                                <li class="mb-1">
+                                    <button type="submit" name="failBtn" class="btn btn-danger badge">
+                                        <i class="bi bi-x-square"></i> Failed
+                                    </button>
+                                </li>
+                                <li class="mb-1">
+                                    <button type="submit" name="poolBtn" class="btn btn-primary badge">
+                                        <i class="bi bi-file-earmark-break"></i> Pooling
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+
+                    </div> -->
+
                 <div class="table-responsive">
-                    <?php include ('../components/applicants_table.php'); ?>
+
+                    <form action="../admin/applicant_process.php" method="post">
+
+                        <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
+                            <thead class="bg-danger ">
+                                <tr>
+                                    <th class="bg-danger text-white text-center">
+                                        <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
+                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-list"></i>
+                                        </a>
+
+                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                            <li class="mb-1">
+
+                                                <button type="submit" name="multiPassBtn" class="btn btn-success badge">
+                                                    <i class="bi bi-check-square"></i> Passed
+                                                </button>
+
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiFailBtn" class="btn btn-danger badge">
+                                                    <i class="bi bi-x-square"></i> Failed
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="submit" name="multiPoolBtn" class="btn btn-primary badge">
+                                                    <i class="bi bi-file-earmark-break"></i> Pooling
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </th>
+                                    <th class="bg-danger text-white text-center">Applicant Name</th>
+                                    <th class="bg-danger text-white text-center">Job Position</th>
+                                    <th class="bg-danger text-white text-center">Location</th>
+                                    <th class="bg-danger text-white text-center">Status</th>
+                                    <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+                            <?php include ('../components/applicants_table.php'); ?>
+                        </table>
+                    </form>
                 </div>
             </div>
         </div>
