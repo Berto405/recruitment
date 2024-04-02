@@ -57,13 +57,13 @@
                 <li class="my-1  bg-container text-white">
                     <a href="../admin/add_job.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/add_job.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-plus-square-fill me-2"></i>Add Jobs
+                        <i class="bi bi-plus-square-fill me-2"></i>Add Jobs/MRFs
                     </a>
                 </li>
                 <li class="my-1 menu_">
                     <a href="../admin/jobs_list.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-briefcase-fill me-2"></i>Jobs List
+                        <i class="bi bi-briefcase-fill me-2"></i>Jobs/MRF List
                     </a>
                 </li>
             </ul>

@@ -69,9 +69,9 @@ include ('../components/header.php');
 
                                         <div class="col w-100">
                                             <div class="form-floating mb-2">
-                                                <input type="text" class="form-control" id="salary"
-                                                    placeholder="Ex. 15000" name="salary" required>
-                                                <label for="salary" class="form-label">Salary (Php)</label>
+                                                <input type="number" class="form-control" id="numRequired"
+                                                    placeholder="Ex. 15000" name="numRequired" required>
+                                                <label for="numRequired" class="form-label">Number Required</label>
                                             </div>
                                         </div>
 
@@ -89,23 +89,9 @@ include ('../components/header.php');
                                                 <input type="text" class="form-control" id="location"
                                                     placeholder="Ex. Makati City" name="location" required>
 
-                                                <label for="location" class="form-label">Location</label>
+                                                <label for="location" class="form-label">Location of Deployment</label>
                                             </div>
                                         </div>
-
-
-
-                                        <!-- <div class="row d-flex align-items-center justify-content-center mb-3 ">
-                                        <div class="col">
-
-                                            <label for="" class="form-label "></label>
-                                            <input type="text" class="form-control" id="" placeholder="" name="">
-                                        </div>
-                                        <div class="col">
-                                            <label for="" class="form-label"></label>
-                                            <input type="text" class="form-control" id="" placeholder="" name="">
-                                        </div>
-                                    </div> -->
 
                                     </div>
 
@@ -126,8 +112,12 @@ include ('../components/header.php');
                                 <div class="col-12 p-0 mb-2">
                                     <div class="form-floating">
                                         <select class="form-select" name="jobType" id="jobType" required>
-                                            <option value="Full-time">Full-time</option>
-                                            <option value="Part-time">Part-time</option>
+                                            <option selected disabled>Choose...</option>
+                                            <option value="Probationary">Probationary</option>
+                                            <option value="Project-based">Project-based</option>
+                                            <option value="Fixed Term">Fixed Term</option>
+                                            <option value="Probationary On-call">Probationary On-call</option>
+                                            <option value="Regular On-call">Regular On-call</option>
                                         </select>
                                         <label for="jobType" class="form-label fw-bold">Job Type</label>
                                     </div>
@@ -135,14 +125,14 @@ include ('../components/header.php');
 
                                 <div class="col-md-12 p-0 mb-2 ">
                                     <div class="form-floating">
-                                        <select class="form-select" name="department" id="department" required>
-                                            <option value="IT">IT</option>
-                                            <option value="Human Resource">Human Resource</option>
-                                            <option value="Legal">Legal</option>
-                                            <option value="Operations">Operations</option>
-                                            <option value="">Add more here</option>
+                                        <select class="form-select" name="industry" id="industry" required>
+                                            <option selected disabled>Choose...</option>
+                                            <option value="Retail">Retail</option>
+                                            <option value="Logistics">Logistics</option>
+                                            <option value="Maintenance">Maintenance</option>
+                                            <option value="Services">Services</option>
                                         </select>
-                                        <label for="department" class="form-label fw-bold">Department</label>
+                                        <label for="industry" class="form-label fw-bold">Industry</label>
                                     </div>
                                 </div>
 
@@ -150,16 +140,15 @@ include ('../components/header.php');
 
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6 mb-2">
-                                    <label for="jobDescription" class="form-label fw-bold">Job Description</label><span
-                                        class="text-secondary">(Qualifications)</span>
+                                    <label for="jobDescription" class="form-label fw-bold">Job Description</label>
                                     <textarea class="form-control summernote" id="jobDescription" name="jobDescription"
                                         required></textarea>
                                 </div>
                             </div>
                             <div class="row d-flex justify-content-center">
                                 <div class="col-md-6 mb-2">
-                                    <label for="benefits" class="form-label fw-bold">Benefits</label>
-                                    <textarea class="form-control summernote" id="benefits" name="benefits"
+                                    <label for="benefits" class="form-label fw-bold">Qualifications</label>
+                                    <textarea class="form-control summernote" id="qualification" name="qualification"
                                         required></textarea>
                                 </div>
                             </div>

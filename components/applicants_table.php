@@ -37,22 +37,66 @@
             </td>
             <td>
                 <?php
-                if ($row['priority'] == 'Urgent Hiring' && $row['application_status'] !== 'Pooling') {
+                if ($row['application_status'] == 'Pooling') {
+                    // Show the button if job_id is 0
                     ?>
-                    <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                    <button type="button" class="btn btn-primary badge" data-bs-toggle="modal"
+                        data-bs-target="#viewMRFModal<?php echo $row['id']; ?>">
+                        View MRF List
+                    </button>
                     <?php
-                    echo $row['job_name'];
-                } else if ($row['priority'] == 'Non-urgent Hiring' && $row['application_status'] !== 'Pooling') {
-                    echo $row['job_name'];
                 } else {
-                    // Add Selecting MRF here
-                    ?>
-
-                    <?php
+                    // Otherwise, display the job name with appropriate icon based on priority
+                    if ($row['priority'] == 'Urgent Hiring') {
+                        ?>
+                        <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                        <?php
+                    }
+                    echo $row['job_name'];
                 }
-
                 ?>
             </td>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="viewMRFModal<?php echo $row['id']; ?>"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content rounded-4 shadow">
+                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                            <h1 class="fw-bold mb-0 fs-2">Jobs/MRFs List</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+
+                        <div class="modal-body p-5 pt-0">
+                            <form action="" method="POST" class="">
+                                <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="jobSelect" id="jobSelect" required>
+                                        <option selected disabled>Choose...</option>
+                                        <?php
+                                        $jobListQuery = "SELECT id, job_name FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+                                        $stmt = $conn->prepare($jobListQuery);
+                                        $stmt->execute();
+                                        $jobListResult = $stmt->get_result();
+
+                                        while ($jobListRow = $jobListResult->fetch_assoc()) {
+                                            ?>
+                                            <option value="<?php echo $jobListRow['id']; ?>">
+                                                <?php echo $jobListRow['job_name']; ?>
+                                            </option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <label for="priority" class="form-label fw-bold">Job/MRF</label>
+                                </div>
+
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="assignJobBtn"
+                                    type="submit">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <td>
                 <?php
                 if ($row['application_status'] !== 'Pooling') {
@@ -76,6 +120,13 @@
                         ?>
                         <span class=" badge badge border border-primary text-primary ">
                             <i class="bi bi-file-earmark-break me-1"></i>Pooling
+                        </span>
+                        <?php
+                        break;
+                    case 'Pooled':
+                        ?>
+                        <span class=" badge badge border border-info text-info ">
+                            <i class="bi bi-file-earmark-break me-1"></i>Pooled
                         </span>
                         <?php
                         break;
@@ -167,7 +218,7 @@
                     <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
                     <?php
                     //Actions for Pooling Applicants Sidebar
-                    if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling') {
+                    if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling' || $row['application_status'] == 'Pooled') {
                         ?>
 
                         <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">

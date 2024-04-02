@@ -21,7 +21,7 @@ $query =
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status = 'Pending' OR  job_applicants.application_status = 'Pooling'
+    WHERE job_applicants.application_status = 'Pending' OR  job_applicants.application_status = 'Pooling' OR  job_applicants.application_status = 'Pooled'
     ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
 
 $result = mysqli_query($conn, $query);

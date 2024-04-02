@@ -2,6 +2,7 @@
 session_start();
 include ('../dbconn.php');
 
+
 // Define application status constants
 define("STATUS_PASSED", "Passed");
 define("STATUS_POOLING", "Pooling");
@@ -16,12 +17,14 @@ define("STATUS_PLACED", "Placed");
 if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
     if (isset($_POST['passBtn'])) {
         updateApplicantStatus($conn, STATUS_PASSED);
+
     } else if (isset($_POST['failBtn'])) {
         // Handle failed applicant
 
 
     } else if (isset($_POST['poolBtn'])) {
         updateApplicantStatus($conn, STATUS_POOLING);
+
     } else if (isset($_POST['initial_interviewBtn'])) {
         // Handle initial interview
 
@@ -32,16 +35,22 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 
     } else if (isset($_POST['feedbackBtn'])) {
         updateApplicantStatus($conn, STATUS_WAITING_FEEDBACK);
+
     } else if (isset($_POST['hiredBtn'])) {
         updateApplicantStatus($conn, STATUS_HIRED);
+
     } else if (isset($_POST['ongoingBtn'])) {
         updateApplicantStatus($conn, STATUS_ONGOING_REQUIREMENTS);
+
     } else if (isset($_POST['onbaordingBtn'])) {
         updateApplicantStatus($conn, STATUS_ONBOARDING);
+
     } else if (isset($_POST['startDateBtn'])) {
         updateApplicantStatus($conn, STATUS_WAITING_START_DATE);
+
     } else if (isset($_POST['placedBtn'])) {
         updateApplicantStatus($conn, STATUS_PLACED);
+
     }
     //For Checkboxes
     else if (isset($_POST['multiPassBtn'])) {
@@ -51,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         //Handle failed applicant
 
     } else if (isset($_POST['multiPoolBtn'])) {
-        updateMultiApplicants($conn, STATUS_POOLING);
+        updateApplicantStatus($conn, STATUS_POOLING);
 
     } else if (isset($_POST['multi_initial_interviewBtn'])) {
 
@@ -77,6 +86,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
     } else if (isset($_POST['multiPlacedBtn'])) {
         updateMultiApplicants($conn, STATUS_PLACED);
 
+    } else if (isset($_POST['assignJobBtn'])) {
+        assignJob($conn);
+
+
+
     }
 }
 
@@ -87,6 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 function updateApplicantStatus($conn, $status)
 {
     $applicantId = $_POST['applicant_id'];
+
     $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("si", $status, $applicantId);
@@ -99,6 +114,8 @@ function updateApplicantStatus($conn, $status)
     }
     redirectBack();
 }
+
+
 
 //Function to update multiple rows 
 function updateMultiApplicants($conn, $status)
@@ -122,6 +139,31 @@ function updateMultiApplicants($conn, $status)
         redirectBack();
     } else {
         $_SESSION['error_message'] = "Select at least 1 data.";
+        redirectBack();
+    }
+}
+
+//Function to assign job to a pooling applicant status
+function assignJob($conn)
+{
+    if (isset($_POST["jobSelect"])) {
+        $applicant_id = $_POST['applicant_id'];
+        $job_id = $_POST['jobSelect'];
+        $applicationStatus = "Pooled";
+
+        $updateQuery = "UPDATE job_applicants SET job_id = ?, application_status = ? WHERE id = ?";
+        $stmt = $conn->prepare($updateQuery);
+        $stmt->bind_param("isi", $job_id, $applicationStatus, $applicant_id);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['success_message'] = "Assigned MRF to applicant successfully";
+        } else {
+            $_SESSION['error_message'] = "Failed to assign MRF applicant";
+        }
+        redirectBack();
+    } else {
+        $_SESSION['error_message'] = "Select at least 1 from the list.";
         redirectBack();
     }
 }

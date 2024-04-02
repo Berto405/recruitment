@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 01, 2024 at 11:39 AM
+-- Generation Time: Apr 02, 2024 at 11:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -170,14 +170,14 @@ INSERT INTO `employment_background` (`id`, `user_id`, `company_one`, `company_on
 CREATE TABLE `jobs` (
   `id` int(12) NOT NULL,
   `job_name` varchar(255) NOT NULL,
-  `salary` int(12) NOT NULL,
+  `number_required` int(12) NOT NULL,
   `job_type` varchar(255) NOT NULL,
   `shift_and_schedule` varchar(255) NOT NULL,
   `location` varchar(255) NOT NULL,
   `job_description` text NOT NULL,
-  `benefits` text NOT NULL,
+  `qualification` text NOT NULL,
   `priority` varchar(255) NOT NULL,
-  `department` varchar(255) NOT NULL,
+  `industry` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -185,7 +185,7 @@ CREATE TABLE `jobs` (
 -- Dumping data for table `jobs`
 --
 
-INSERT INTO `jobs` (`id`, `job_name`, `salary`, `job_type`, `shift_and_schedule`, `location`, `job_description`, `benefits`, `priority`, `department`, `created_at`) VALUES
+INSERT INTO `jobs` (`id`, `job_name`, `number_required`, `job_type`, `shift_and_schedule`, `location`, `job_description`, `qualification`, `priority`, `industry`, `created_at`) VALUES
 (1, 'Tech Support', 20, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join  team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Free lunch', 'Urgent Hiring', 'Legal', '2024-03-19 08:48:52'),
 (2, 'Human Resource', 50, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join Accenture’s team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Wala', 'Non-urgent Hiring', 'Operations', '2024-03-19 09:03:20'),
 (3, 'IT Specialist', 900, 'Intern', '8 hours shift', 'Makati City', '<p>Sheesh</p><p>sd</p><ul><li>dasda</li><li>asd</li><li>a</li></ul>', '<p>Wala</p><p>sd</p>', 'Urgent Hiring', 'IT', '2024-03-20 02:37:32'),
@@ -227,19 +227,18 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (12, 9, 14, 'Onboarding', NULL),
 (13, 9, 1, 'Reviewed', '2024-03-28 05:32:00'),
 (14, 9, 7, 'Ongoing Requirements', NULL),
-(15, 9, 13, 'Pooling', NULL),
+(15, 9, 13, 'Waiting for Feedback', NULL),
 (16, 9, 9, 'For Initial Interview', NULL),
 (17, 9, 16, 'Waiting for Feedback', '2024-03-21 08:00:00'),
-(18, 9, 14, 'Ongoing Requirements', NULL),
+(18, 9, 14, 'Waiting for Start Date', NULL),
 (19, 9, 15, 'Placed', NULL),
-(20, 9, 13, 'Hired', NULL),
-(21, 9, 3, 'Passed', NULL),
-(23, 9, 10, 'Pooling', NULL),
-(24, 9, 0, 'Pooling', NULL),
+(20, 9, 13, 'Waiting for Start Date', NULL),
+(21, 9, 3, 'Waiting for Start Date', NULL),
+(23, 9, 10, 'Pending', NULL),
 (25, 20, 3, 'Ongoing Requirements', NULL),
-(26, 20, 7, 'Hired', NULL),
-(27, 20, 16, 'Pending', NULL),
-(28, 20, 1, 'Passed', NULL);
+(26, 20, 1, 'Pooling', NULL),
+(27, 20, 10, 'Pooled', NULL),
+(28, 20, 1, 'Pending', NULL);
 
 -- --------------------------------------------------------
 
