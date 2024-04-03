@@ -1515,6 +1515,67 @@
                                 </div>
                             </div>
 
+                            <hr style="border-width: 3px;">
+                            <h4 class="fw-bold text-center">Declaration</h4>
+                            <hr style="border-width: 3px;">
+
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="inlineCheckbox1"
+                                            name="declaration" value="agreed" checked disabled>
+                                        <label class="form-check-label" for="inlineCheckbox1" style="text-align: justify;">
+                                            I hereby certify that the above information as
+                                            provided by me is all true and correct. If employment is obtained under this
+                                            application I
+                                            will
+                                            abide by all rules, regulations and policies of the company. I further
+                                            understand that any
+                                            false
+                                            statement on this subject application is in itself sufficient ground for
+                                            termination/cancellation of the subject application and/or employment
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <hr style="border-width: 3px;">
+                            <h4 class="fw-bold text-center">AUTHORITY TO PROCESS and DISCLOSURE OF INFORMATION</h4>
+                            <hr style="border-width: 3px;">
+
+
+                            <div class="row">
+                                <div class="col" style="text-align: justify;">
+                                    <p>
+                                        I hereby agree/authorize and consent ______________ to process and update of all my
+                                        personal
+                                        and
+                                        sensitive information relative to my application or employment. This authorization
+                                        is given in
+                                        compliance o Republic Act 10173 or the Data Privacy Act of 2012.
+                                    </p>
+                                    <p>
+                                        I also hereby authorize and consent ______________ to disclose my personal and
+                                        sensitve
+                                        information
+                                        relative to my application or employment to its clients. This authorization is given
+                                        in
+                                        compliance
+                                        of Republic Act 10173 or the Data Privacy Act of 2012.
+                                    </p>
+                                    <div class="float-end">
+                                        <label for="applicantSignature" class="fw-bold">Upload your e-Signature:</label>
+                                        <input type="file" id="applicantSignature" name="applicantSignature"
+                                            value="<?php echo !empty($resumeRow['authorization']) ? $resumeRow['authorization'] : ''; ?>"
+                                            class="form-control mt-2" disabled>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <hr style="border-width: 3px;">
 
                         </form>
                     </div>

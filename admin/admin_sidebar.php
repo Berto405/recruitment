@@ -41,6 +41,24 @@
                         <i class="bi bi-file-earmark-check-fill me-2"></i>Identified
                     </a>
                 </li>
+                <li class="my-1 ">
+                    <a href="../admin/identified_applicant.php"
+                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                        <i class="bi bi-file-earmark-check-fill me-2"></i>Placed
+                    </a>
+                </li>
+                <li class="my-1 ">
+                    <a href="../admin/identified_applicant.php"
+                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                        <i class="bi bi-file-earmark-check-fill me-2"></i>Failed
+                    </a>
+                </li>
+                <li class="my-1 ">
+                    <a href="../admin/identified_applicant.php"
+                        class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
+                        <i class="bi bi-file-earmark-check-fill me-2"></i>Backout
+                    </a>
+                </li>
             </ul>
         </div>
 
