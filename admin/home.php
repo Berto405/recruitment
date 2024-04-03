@@ -38,9 +38,11 @@ include ('../components/header.php');
                 <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
+
                 <h4 class=" mt-1 mb-5 ">Dashboard</h4>
 
                 <div class="container ">
+
                     <div class="row">
                         <div class="col-lg-3 col-md-6 mb-3">
                             <div class="card bg-success bg-opacity-50 border border-2  border-success shadow">

@@ -48,7 +48,8 @@
             <a href="#"
                 class="nav-link  bg-opacity-25 p-2 ps-4 text-danger <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/add_job.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'bg-danger' : ''; ?>"
                 data-bs-toggle="collapse" data-bs-target="#manageJobsCollapse" aria-expanded="true">
-                <i class="bi bi-file-text-fill me-2"></i>Manage Jobs<i class="bi bi-chevron-down me-2 float-end"></i>
+                <i class="bi bi-file-text-fill me-2"></i>Manage Jobs/MRFs<i
+                    class="bi bi-chevron-down me-2 float-end"></i>
             </a>
         </li>
         <div class="collapse <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/add_job.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/jobs_list.php') ? 'show' : ''; ?>"
@@ -69,12 +70,12 @@
             </ul>
         </div>
 
-        <li>
+        <!-- <li>
             <a href="../admin/applicants.php"
                 class="nav-link p-2 ps-4 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/applicants.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/applicants.php/') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
                 <i class="bi bi-card-checklist me-2"></i>Applicants
             </a>
-        </li>
+        </li> -->
         <li>
             <a href="../admin/interview_calendar.php"
                 class="nav-link p-2 ps-4 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/interview_calendar.php' || $_SERVER['REQUEST_URI'] == '/recruitment/admin/interview_calendar.php/') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">

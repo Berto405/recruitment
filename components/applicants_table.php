@@ -249,12 +249,14 @@
 
                             <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                 <li class="mb-1">
-                                    <button type="submit" name="initial_interviewBtn" class="btn btn-warning badge">
-                                        <i class="bi bi-exclamation-diamond me-1 "></i> For Initial Interview
+                                    <button type="button" class="btn btn-warning badge" data-bs-toggle="modal"
+                                        data-bs-target="#initialInterviewModal<?php echo $row['id'] ?>">
+                                        <i class="bi bi-calendar-check me-1"></i> For Initial Interview
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button type="submit" name="final_interviewBtn" class="btn btn-danger badge">
+                                    <button type="button" class="btn btn-danger badge" data-bs-toggle="modal"
+                                        data-bs-target="#finalInterviewModal<?php echo $row['id'] ?>">
                                         <i class="bi bi-calendar-check me-1"></i> For Final Interview
                                     </button>
                                 </li>
@@ -302,6 +304,77 @@
             </td>
         </tr>
 
+        <!-- Schedule Initial Interview Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="initialInterviewModal<?php echo $row['id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                            Schedule Initial Interview
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form action="../admin/applicant_process.php" method="POST" class="">
+                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                            <div class="mb-3">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="hidden" class="form-control" name="applicant_id"
+                                            value="<?php echo $row['id'] ?>">
+                                        <input type="datetime-local" class="form-control" name="interview_date" id="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="initial_interviewBtn"
+                                type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Schedule Final Interview Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="finalInterviewModal<?php echo $row['id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                            Schedule Final Interview
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form action="../admin/applicant_process.php" method="POST" class="">
+                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                            <div class="mb-3">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="hidden" class="form-control" name="applicant_id"
+                                            value="<?php echo $row['id'] ?>">
+                                        <input type="datetime-local" class="form-control" name="interview_date" id="">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="final_interviewBtn"
+                                type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Applicant's Resume Modal -->
         <div class="modal fade" id="viewResumeModal<?php echo $row['id'] ?>" tabindex="-1"
             aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -1464,5 +1537,6 @@
             "search": "_INPUT_",
             "searchPlaceholder": "Search"
         }
+
     });
 </script>

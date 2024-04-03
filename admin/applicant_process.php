@@ -8,6 +8,8 @@ define("STATUS_PASSED", "Passed");
 define("STATUS_POOLING", "Pooling");
 define("STATUS_WAITING_FEEDBACK", "Waiting for Feedback");
 define("STATUS_HIRED", "Hired");
+define("STATUS_INITIAL_INTERVIEW", "For Initial Interview");
+define("STATUS_FINAL_INTERVIEW", "For Final Interview");
 define("STATUS_ONGOING_REQUIREMENTS", "Ongoing Requirements");
 define("STATUS_ONBOARDING", "Onboarding");
 define("STATUS_WAITING_START_DATE", "Waiting for Start Date");
@@ -27,11 +29,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 
     } else if (isset($_POST['initial_interviewBtn'])) {
         // Handle initial interview
-
+        schedule_interview($conn, STATUS_INITIAL_INTERVIEW);
 
     } else if (isset($_POST['final_interviewBtn'])) {
         // Handle final interview
-
+        schedule_interview($conn, STATUS_FINAL_INTERVIEW);
 
     } else if (isset($_POST['feedbackBtn'])) {
         updateApplicantStatus($conn, STATUS_WAITING_FEEDBACK);
@@ -168,6 +170,40 @@ function assignJob($conn)
     }
 }
 
+
+//Function to schedule initial interview
+function schedule_interview($conn, $status)
+{
+    $applicantId = $_POST['applicant_id'];
+    $interview_start = $_POST['interview_date'];
+    $interview_end = date('Y-m-d H:i:s', strtotime('+1 Hour', strtotime($interview_start)));
+
+    //Checking if there are already an existing schedule with its 1 hour duration
+    $query = "SELECT * FROM job_applicants 
+          WHERE (? BETWEEN interview_date AND DATE_ADD(interview_date, INTERVAL 1 HOUR)) 
+             OR (? BETWEEN interview_date AND DATE_ADD(interview_date, INTERVAL 1 HOUR)) 
+             OR (interview_date BETWEEN ? AND ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssss", $interview_start, $interview_end, $interview_start, $interview_end);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if (mysqli_num_rows($result) > 0) {
+        $_SESSION['error_message'] = "Sorry, there's already an interview scheduled within this time slot. Try another.";
+        header("Location: ../admin/shortlisted_applicant.php");
+        exit();
+    } else {
+        $query = "UPDATE job_applicants SET interview_date = ?, application_status = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssi", $interview_start, $status, $applicantId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        $_SESSION['success_message'] = "Interview Scheduled";
+        header("Location: ../admin/shortlisted_applicant.php");
+        exit();
+    }
+}
 
 // Function to redirect back
 function redirectBack()

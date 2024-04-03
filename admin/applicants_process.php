@@ -6,21 +6,21 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST') {
 
 
     //Schedule Interview
-    if (isset ($_POST['applicant_id'])) {
+    if (isset($_POST['applicant_id'])) {
         schedule_interview($conn);
     }
 
-    if (isset ($_POST['hire_applicant']) && isset ($_POST['applicant_user_id'])) {
+    if (isset($_POST['hire_applicant']) && isset($_POST['applicant_user_id'])) {
         hire_applicant($conn);
     }
 
-    if (isset ($_POST['reject_applicant']) && isset ($_POST['applicant_user_id'])) {
+    if (isset($_POST['reject_applicant']) && isset($_POST['applicant_user_id'])) {
         reject_applicant($conn);
     }
 
-    if (isset ($_POST['application_id'])) {
+    if (isset($_POST['application_id'])) {
         $application_id = $_POST['application_id'];
-        // Assuming $conn is your database connection
+        // Assuming $conn is database connection
         $query = "SELECT application_status FROM job_applicants WHERE id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("i", $application_id);

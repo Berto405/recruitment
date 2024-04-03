@@ -38,7 +38,12 @@ while ($row = mysqli_fetch_assoc($result)) {
         $position = $row['job_name'];
 
         $time = $datetime->format('h:m A');
-        $title = 'Interview with ' . $user_name . ' for ' . $position . ' position at ' . $time;
+        if ($row['application_status'] == 'For Initial Interview') {
+            $title = 'Initial Interview with ' . $user_name . ' for ' . $position . ' position at ' . $time;
+        } else {
+            $title = 'Final Interview with ' . $user_name . ' for ' . $position . ' position at ' . $time;
+        }
+
 
         // Create start and end times using ISO 8601 format
         $startDateTime = $formattedDate . 'T' . $formatTime;

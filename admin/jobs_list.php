@@ -32,6 +32,7 @@ include ('../components/header.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jobs/MRF List</title>
+
     <!-- DataTable JS - CDN Link -->
     <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
 
@@ -122,6 +123,7 @@ include ('../components/header.php');
 
     <script>
         $('#jobsTable').DataTable({
+
             scrollX: true,
             language: {
                 "search": "_INPUT_",
