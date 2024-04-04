@@ -77,7 +77,7 @@ if (isset($_SESSION['success_message'])) {
                         </li>
                         ';
                     } else if ($_SESSION['user_role'] == 'Operations') {
-                        $mrfUrl = "/recruitment/admin/add_job.php";
+                        $mrfUrl = "/recruitment/admin/add_mrf.php";
                         $href = $mrfUrl;
                         $isActive = ($_SERVER['REQUEST_URI'] == $mrfUrl || $_SERVER['REQUEST_URI'] == $mrfUrl . '/') ? ' text-dark fw-bold' : ' text-secondary';
                         echo '
