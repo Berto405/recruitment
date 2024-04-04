@@ -2,12 +2,12 @@
 session_start();
 include ("../dbconn.php");
 
+date_default_timezone_set('Asia/Manila');
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     $industry = $_POST["industry"];
     $mrfStatus = "Hold";
-    $agingDays = date("Y-m-d");//request date - today;
-
     $loc = $_POST["location"];
     $newRequest = $_POST['newRequest'];
     $classification = $_POST['classification'];
@@ -21,10 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $conn->begin_transaction();
 
     $query =
-        "INSERT INTO mrfs (industry, mrf_status, client, location, aging_days, new_request, head_count, job_position, contract_type, classification, job_description, qualification)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        "INSERT INTO mrfs (industry, mrf_status, client, location, new_request, head_count, job_position, contract_type, classification, job_description, qualification)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssssisssss", $industry, $mrfStatus, $client, $loc, $agingDays, $newRequest, $numberRequired, $jobPosition, $contractType, $classification, $jobDesc, $qualification);
+    $stmt->bind_param("sssssisssss", $industry, $mrfStatus, $client, $loc, $newRequest, $numberRequired, $jobPosition, $contractType, $classification, $jobDesc, $qualification);
     $stmt->execute();
 
     // Get the primary key of the new record
@@ -43,11 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
 
         // Prepare and execute UPDATE statement
+
         $stmt2 = $conn->prepare("UPDATE mrfs SET mrf_number = ? WHERE id = ?");
         $stmt2->bind_param("si", $mrfNumber, $id);
         if ($stmt2->execute()) {
             // Check if the UPDATE was successful
             if ($stmt2->affected_rows > 0) {
+
                 $_SESSION["success_message"] = "MRF Submitted";
             } else {
                 $_SESSION["error_message"] = "MRF Submission Failed. No rows were updated.";
@@ -62,9 +64,54 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // Commit the transaction
     $conn->commit();
+    udpateAgingDays($conn);
 
     // Redirect to appropriate page
     header("Location: ../admin/add_mrf.php");
     exit();
 }
+
+
+function udpateAgingDays($conn)
+{
+    // Get the current date
+    $currentDate = date("Y-m-d");
+
+    // Prepare the update statement
+    $updateSql = "UPDATE mrfs SET aging_days = ? WHERE id = ?";
+    $updateStmt = $conn->prepare($updateSql);
+
+    // Fetch the data from the database, including the request dates
+    $query = "SELECT id, request_date FROM mrfs WHERE mrf_status != ?";
+    $status = "Close";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $status);
+    $stmt->execute();
+    $stmt->bind_result($id, $requestDate);
+
+    // Store fetched data in an array
+    $rows = array();
+    while ($stmt->fetch()) {
+        $rows[] = array('id' => $id, 'request_date' => $requestDate);
+    }
+
+    // Close the result set
+    $stmt->close();
+
+    // Iterate through each row and calculate the aging days
+    foreach ($rows as $row) {
+        // Calculate aging days
+        $agingDays = floor((strtotime($currentDate) - strtotime($row['request_date'])) / (60 * 60 * 24));
+        $rowId = $row['id'];
+
+        // Bind parameters
+        $updateStmt->bind_param('ii', $agingDays, $rowId);
+
+        // Execute the update statement
+        $updateStmt->execute();
+    }
+}
+
+
+
 ?>
