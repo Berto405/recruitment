@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2024 at 11:33 AM
+-- Generation Time: Apr 04, 2024 at 05:20 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -197,7 +197,8 @@ INSERT INTO `jobs` (`id`, `job_name`, `number_required`, `job_type`, `shift_and_
 (13, 'Tech Support', 100, 'Full-time', '8 hours shift', 'Makati City', '<ul><li>sda</li></ul>', '<ul><li>aksjdhakj</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:15:12'),
 (14, 'Developer', 20, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asd</li></ul>', '<ul><li>asd</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:16:57'),
 (15, 'kjk', 0, 'Full-time', 'jdsalk', 'ojas', '<ol><li>ds</li><li>asd</li><li>sad</li></ol>', '<ul><li>adads</li><li><b>ada</b></li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 07:12:22'),
-(16, 'Test test', 20000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asdsada</li><li>asd</li></ul><p>as</p><p><br></p>', '<p><b>sdjaajdalkla</b></p>', 'Urgent Hiring', 'IT', '2024-03-19 05:27:16');
+(16, 'Test test', 20000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asdsada</li><li>asd</li></ul><p>as</p><p><br></p>', '<p><b>sdjaajdalkla</b></p>', 'Urgent Hiring', 'IT', '2024-03-19 05:27:16'),
+(17, 'test', 12, 'Project-based', 'asd', 'Makati', '<p>asdasas</p>', '<p>dsadadasd</p>', 'Non-urgent Hiring', 'Logistics', '2024-04-03 08:41:58');
 
 -- --------------------------------------------------------
 
@@ -224,21 +225,22 @@ INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `
 (6, 19, 1, 'Interview', '2024-03-20 18:20:00'),
 (8, 9, 7, 'Selected', '2024-03-19 17:26:00'),
 (10, 9, 11, 'Waiting for Start Date', NULL),
-(12, 9, 14, 'Onboarding', NULL),
+(12, 9, 14, 'For Initial Interview', '2024-04-25 17:16:00'),
 (13, 9, 1, 'Reviewed', '2024-03-28 05:32:00'),
 (14, 9, 7, 'Ongoing Requirements', NULL),
-(15, 9, 13, 'Waiting for Feedback', NULL),
-(16, 9, 9, 'For Initial Interview', NULL),
-(17, 9, 16, 'Waiting for Feedback', '2024-03-21 08:00:00'),
-(18, 9, 14, 'Waiting for Start Date', NULL),
+(15, 9, 13, 'For Final Interview', '2024-04-04 16:10:00'),
+(16, 9, 9, 'Waiting for Feedback', '2024-04-04 12:06:00'),
+(17, 9, 16, 'For Initial Interview', '2024-04-04 10:03:00'),
+(18, 9, 14, 'For Initial Interview', '2024-04-10 16:44:00'),
 (19, 9, 15, 'Placed', NULL),
 (20, 9, 13, 'Waiting for Start Date', NULL),
 (21, 9, 3, 'Waiting for Start Date', NULL),
-(23, 9, 10, 'Pending', NULL),
+(23, 9, 10, 'Ongoing Requirements', NULL),
 (25, 20, 3, 'Ongoing Requirements', NULL),
 (26, 20, 1, 'Pooling', NULL),
 (27, 20, 10, 'Pooled', NULL),
-(28, 20, 1, 'Pending', NULL);
+(28, 20, 1, 'Waiting for Feedback', NULL),
+(29, 20, 7, 'Pooling', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,6 +280,47 @@ CREATE TABLE `lectures_and_seminars_attended` (
 INSERT INTO `lectures_and_seminars_attended` (`id`, `user_id`, `title_one`, `title_one_from`, `title_one_to`, `title_one_venue`, `title_two`, `title_two_from`, `title_two_to`, `title_two_venue`, `title_three`, `title_three_from`, `title_three_to`, `title_three_venue`, `title_four`, `title_four_from`, `title_four_to`, `title_four_venue`, `title_five`, `title_five_from`, `title_five_to`, `title_five_venue`) VALUES
 (31, 9, 'das', '2024-03-26', '2024-03-26', '2024-03-26', 'asd', '2024-03-26', '2024-03-26', '2024-03-26', 'da', '2024-03-26', '2024-03-26', '2024-03-26', '', '2024-04-10', '0000-00-00', '', '', '2024-04-15', '0000-00-00', ''),
 (32, 20, 'asas', '0000-00-00', '2024-04-09', '2024-04-24', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mrfs`
+--
+
+CREATE TABLE `mrfs` (
+  `id` int(11) NOT NULL,
+  `industry` varchar(255) NOT NULL,
+  `mrf_status` varchar(255) NOT NULL,
+  `closed_date` date NOT NULL,
+  `request_date` date NOT NULL DEFAULT current_timestamp(),
+  `client` varchar(255) NOT NULL,
+  `location` varchar(255) NOT NULL,
+  `aging_days` varchar(255) NOT NULL,
+  `mrf_number` varchar(255) NOT NULL,
+  `new_request` varchar(255) NOT NULL,
+  `head_count` int(11) NOT NULL,
+  `job_position` varchar(255) NOT NULL,
+  `contract_type` varchar(255) NOT NULL,
+  `classification` varchar(255) NOT NULL,
+  `placed` int(11) NOT NULL,
+  `variance` int(11) NOT NULL,
+  `cancel` int(11) NOT NULL,
+  `job_description` text NOT NULL,
+  `qualification` text NOT NULL,
+  `remarks` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mrfs`
+--
+
+INSERT INTO `mrfs` (`id`, `industry`, `mrf_status`, `closed_date`, `request_date`, `client`, `location`, `aging_days`, `mrf_number`, `new_request`, `head_count`, `job_position`, `contract_type`, `classification`, `placed`, `variance`, `cancel`, `job_description`, `qualification`, `remarks`) VALUES
+(1, 'Food Services', 'Hold', '0000-00-00', '2024-04-04', 'McDo', 'Makati', '2024-04-04', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdaasd</li></ol>', '<ul><li>12312312312312</li></ul>', ''),
+(2, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'McDo', 'Makati', '2024-04-04', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdasdsa</li></ul>', '<ul><li>asdasdasda</li></ul>', ''),
+(3, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '2024-04-04', '0', 'Additional', 23, 'asdas', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
+(4, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '2024-04-04', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
+(5, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'Accenture', 'Makati', '2024-04-04', '0', 'Additional', 12, 'Tech Support', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdasda</li></ol>', '<ul><li>asdasdasd</li></ul>', ''),
+(6, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'McDo', 'Makati', '2024-04-04', 're_6', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdsadsa</li></ul>', '<ul><li>asdasdasdas</li></ul>', '');
 
 -- --------------------------------------------------------
 
@@ -396,6 +439,12 @@ ALTER TABLE `lectures_and_seminars_attended`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `mrfs`
+--
+ALTER TABLE `mrfs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -433,19 +482,25 @@ ALTER TABLE `employment_background`
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
 --
 ALTER TABLE `lectures_and_seminars_attended`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+
+--
+-- AUTO_INCREMENT for table `mrfs`
+--
+ALTER TABLE `mrfs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `user`
