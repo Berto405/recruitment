@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2024 at 11:04 AM
+-- Generation Time: Apr 05, 2024 at 04:51 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -214,34 +214,6 @@ CREATE TABLE `job_applicants` (
   `interview_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `job_applicants`
---
-
-INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
-(1, 9, 1, 'Selected', '2024-03-20 12:40:00'),
-(2, 9, 3, 'Onboarding', '2024-03-19 09:31:00'),
-(3, 9, 2, 'Placed', '2024-03-20 15:13:00'),
-(6, 19, 1, 'Interview', '2024-03-20 18:20:00'),
-(8, 9, 7, 'Selected', '2024-03-19 17:26:00'),
-(10, 9, 11, 'Waiting for Start Date', NULL),
-(12, 9, 14, 'For Initial Interview', '2024-04-25 17:16:00'),
-(13, 9, 1, 'Reviewed', '2024-03-28 05:32:00'),
-(14, 9, 7, 'Ongoing Requirements', NULL),
-(15, 9, 13, 'For Final Interview', '2024-04-04 16:10:00'),
-(16, 9, 9, 'Waiting for Feedback', '2024-04-04 12:06:00'),
-(17, 9, 16, 'For Initial Interview', '2024-04-04 10:03:00'),
-(18, 9, 14, 'For Initial Interview', '2024-04-10 16:44:00'),
-(19, 9, 15, 'Placed', NULL),
-(20, 9, 13, 'Waiting for Start Date', NULL),
-(21, 9, 3, 'Waiting for Start Date', NULL),
-(23, 9, 10, 'Ongoing Requirements', NULL),
-(25, 20, 3, 'Ongoing Requirements', NULL),
-(26, 20, 1, 'Pooling', NULL),
-(27, 20, 10, 'Pooled', NULL),
-(28, 20, 1, 'Waiting for Feedback', NULL),
-(29, 20, 7, 'Pooling', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -315,10 +287,10 @@ CREATE TABLE `mrfs` (
 --
 
 INSERT INTO `mrfs` (`id`, `industry`, `mrf_status`, `closed_date`, `request_date`, `client`, `location`, `aging_days`, `mrf_number`, `new_request`, `head_count`, `job_position`, `contract_type`, `classification`, `placed`, `variance`, `cancel`, `job_description`, `qualification`, `remarks`) VALUES
-(1, 'Food Services', 'Hold', '0000-00-00', '2024-04-04', 'McDo', 'Makati', '0', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdaasd</li></ol>', '<ul><li>12312312312312</li></ul>', ''),
-(2, 'Retail', 'Hold', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '1', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdasdsa</li></ul>', '<ul><li>asdasdasda</li></ul>', ''),
-(3, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '0', '0', 'Additional', 23, 'asdas', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
-(4, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '0', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
+(1, 'Maintenance', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Logistics', '0', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
+(2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '1', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
+(3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '0', '0', 'Additional', 23, 'asdas', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
+(4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '0', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
 (5, 'Retail', 'Close', '2024-04-04', '2024-04-01', 'Accenture', 'Makati', '2', '0', 'Additional', 12, 'Tech Support', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdasda</li></ol>', '<ul><li>asdasdasd</li></ul>', ''),
 (6, 'Retail', 'Close', '2024-04-04', '2024-04-04', 'McDo', 'Makati', '0', 're_6', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdsadsa</li></ul>', '<ul><li>asdasdasdas</li></ul>', ''),
 (8, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'iuo', 'Makati', '0', 're_8', 'Replacement', 67, 'jyh', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>kjhk</p>', '<p>hgjh</p>', ''),

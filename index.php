@@ -165,21 +165,12 @@ include ("components/header.php");
                     ?>
                     <div class="card shadow mb-3 ">
                         <div class="card-body rounded-1 border-2 border-top border-danger">
-                            <!-- Priority - Urgent or Not -->
-                            <?php
-                            if ($row['priority'] == 'Urgent Hiring') {
-                                ?>
-                                <span class="badge bg-danger">Urgent Hiring!</span>
-                                <?php
-
-                            }
-                            ?>
 
                             <a href="javascript:void(0)" onclick="showDetails(<?php echo $row['id'] ?>)"
                                 class="text-decoration-none">
-                                <!-- Job Name -->
+                                <!-- Job Position -->
                                 <h4 class="text-black mt-3 job-name">
-                                    <?php echo $row['job_name']; ?>
+                                    <?php echo $row['job_position']; ?>
                                 </h4>
                             </a>
 
@@ -194,16 +185,12 @@ include ("components/header.php");
 
                             <div class="row">
                                 <div class="col">
-                                    <!-- Job Type -->
+                                    <!-- Contract Type -->
                                     <span
                                         class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                        <?php echo $row['job_type']; ?>
+                                        <?php echo $row['contract_type']; ?>
                                     </span>
-                                    <!-- Shift & Schedule -->
-                                    <span
-                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                        <?php echo $row['shift_and_schedule']; ?>
-                                    </span>
+
                                 </div>
                             </div>
 
@@ -221,7 +208,7 @@ include ("components/header.php");
                             <div id="details_<?php echo $row['id']; ?>" class="d-none">
                                 <a href="/recruitment" class="text-muted"><i class="bi bi-backspace-fill"></i></a>
                                 <h1>
-                                    <?php echo $row['job_name']; ?>
+                                    <?php echo $row['job_position']; ?>
                                 </h1>
 
                                 <!-- Checks if user is logged or not -->
@@ -255,9 +242,6 @@ include ("components/header.php");
                                 }
                                 ?>
 
-
-
-
                                 <h4 class="mt-5">Job Details</h4>
 
                                 <div class="row">
@@ -266,18 +250,7 @@ include ("components/header.php");
                                         <i class="bi bi-briefcase-fill"></i>
                                         <span
                                             class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                            <?php echo $row['job_type']; ?>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col">
-                                        <!-- Shift and Schedule -->
-                                        <i class="bi bi-clock-fill"></i>
-                                        <span
-                                            class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                            <?php echo $row['shift_and_schedule']; ?>
+                                            <?php echo $row['contract_type']; ?>
                                         </span>
                                     </div>
                                 </div>
@@ -298,9 +271,9 @@ include ("components/header.php");
                                 <p>
                                     <?php echo $row['job_description']; ?>
                                 </p>
-                                <h4>Benefits</h4>
+                                <h4>Qualification</h4>
                                 <p>
-                                    <?php echo $row['benefits']; ?>
+                                    <?php echo $row['qualification']; ?>
                                 </p>
 
                             </div>

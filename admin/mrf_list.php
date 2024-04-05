@@ -87,31 +87,272 @@ include ('../components/header.php');
                                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i class="bi bi-list"></i>
                                         </a>
-                                        <form action="../admin/mrf_list_process.php" method="post">
-                                            <input type="hidden" name="mrf_id" value="<?php echo $row['id']; ?>">
 
 
-                                            <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
+                                            <li class="mb-1">
+
+                                                <button type="button" class="btn btn-success badge" data-bs-toggle="modal"
+                                                    data-bs-target="#postJobModal<?php echo $row['id'] ?>">
+                                                    <i class="bi bi-file-earmark-plus"></i> Post Job
+                                                </button>
+
+                                            </li>
+                                            <form action="../admin/mrf_list_process.php" method="post">
+                                                <input type="hidden" name="mrf_id" value="<?php echo $row['id']; ?>">
+
                                                 <li class="mb-1">
 
-                                                    <button type="submit" name="holdBtn" class="btn btn-success badge">
-                                                        <i class="bi bi-check-square"></i> Hold
+                                                    <button type="submit" name="holdBtn" class="btn btn-primary badge">
+                                                        <i class="bi bi-stop-circle"></i> Hold
                                                     </button>
 
                                                 </li>
                                                 <li class="mb-1">
-                                                    <button type="submit" name="cancelBtn" class="btn btn-primary badge">
-                                                        <i class="bi bi-x-square"></i> Cancel
+                                                    <button type="submit" name="cancelBtn" class="btn btn-warning badge">
+                                                        <i class="bi bi-dash-square"></i> Cancel
                                                     </button>
                                                 </li>
                                                 <li class="mb-1">
                                                     <button type="submit" name="closeBtn" class="btn btn-danger badge">
-                                                        <i class="bi bi-file-earmark-break"></i> Close
+                                                        <i class="bi bi-x-square"></i> Close
                                                     </button>
                                                 </li>
-                                            </ul>
-                                        </form>
+
+                                            </form>
+                                        </ul>
                                     </td>
+
+
+                                    <!-- Post Job Modal -->
+                                    <div class="modal fade" tabindex="-1" role="dialog"
+                                        id="postJobModal<?php echo $row['id'] ?>" aria-hidden="true">
+                                        <div class="modal-dialog " role="document" style="max-width: 60vw;">
+                                            <div class="modal-content rounded-4 shadow">
+                                                <div class="modal-header p-5 pb-4 border-bottom-0">
+                                                    <h1 class="fw-bold mb-0 fs-2">Post Job</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                </div>
+
+                                                <div class="modal-body p-5 pt-0">
+                                                    <form action="../admin/mrf_list_process.php" method="post">
+                                                        <input type="hidden" name="mrf_id"
+                                                            value="<?php echo $row['id']; ?>">
+
+                                                        <hr style="border-width: 3px;">
+                                                        <h4 class="fw-bold text-center">MANPOWER REQUEST FORM H.O</h4>
+                                                        <hr style="border-width: 3px;">
+
+                                                        <div class="row mt-3">
+
+                                                            <div class="col-sm-12 col-md-3 ">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select fw-bold mb-sm-3"
+                                                                        name="industry" id="industry" required>
+                                                                        <option disabled>Choose...</option>
+                                                                        <option value="Retail" <?php if ($row['industry'] == 'Retail')
+                                                                            echo 'selected'; ?>>
+                                                                            Retail
+                                                                        </option>
+                                                                        <option value="Logistics" <?php if ($row['industry'] == 'Logistics')
+                                                                            echo 'selected'; ?>>
+                                                                            Logistics
+                                                                        </option>
+                                                                        <option value="Maintenance" <?php if ($row['industry'] == 'Maintenance')
+                                                                            echo 'selected'; ?>>
+                                                                            Gen. Maintenance & Services
+                                                                        </option>
+                                                                        <option value="Food Services" <?php if ($row['industry'] == 'Food Services')
+                                                                            echo 'selected'; ?>>
+                                                                            Food Services
+                                                                        </option>
+                                                                    </select>
+                                                                    <label for="industry"
+                                                                        class="form-label fw-bold">Industry</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3 ">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select fw-bold mb-sm-3"
+                                                                        name="location" id="location" required>
+                                                                        <option disabled>Choose...</option>
+                                                                        <option value="Makati" <?php if ($row['location'] == 'Makati')
+                                                                            echo 'selected'; ?>>
+                                                                            Makati
+                                                                        </option>
+                                                                        <option value="Logistics" <?php if ($row['location'] == 'Logistics')
+                                                                            echo 'selected'; ?>>
+                                                                            Logistics
+                                                                        </option>
+                                                                        <option value="Maintenance" <?php if ($row['location'] == 'Maintenance')
+                                                                            echo 'selected'; ?>>
+                                                                            Gen. Maintenance & Services
+                                                                        </option>
+                                                                        <option value="Food Services" <?php if ($row['location'] == 'Food Services')
+                                                                            echo 'selected'; ?>>
+                                                                            Food Services
+                                                                        </option>
+                                                                    </select>
+                                                                    <label for="location"
+                                                                        class="form-label fw-bold">Location of
+                                                                        Deployment</label>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3 ">
+                                                                <div class="form-floating">
+                                                                    <select class="form-select fw-bold mb-sm-3"
+                                                                        name="newRequest" id="newRequest" required>
+                                                                        <option selected disabled>Choose...</option>
+                                                                        <option value="Additional" <?php if ($row['new_request'] == 'Additional')
+                                                                            echo 'selected'; ?>>
+                                                                            Additional
+                                                                        </option>
+                                                                        <option value="Replacement" <?php if ($row['new_request'] == 'Replacement')
+                                                                            echo 'selected'; ?>>
+                                                                            Replacement
+                                                                        </option>
+                                                                    </select>
+                                                                    <label for="newRequest" class="form-label fw-bold">
+                                                                        New Request
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3 ">
+                                                                <div class="form-floating mb-sm-3">
+                                                                    <select class="form-select fw-bold "
+                                                                        name="classification" id="classification" required>
+                                                                        <option selected disabled>Choose...</option>
+                                                                        <option value="Non-skilled" <?php if ($row['classification'] == 'Non-skilled')
+                                                                            echo 'selected'; ?>>
+                                                                            Non-skilled
+                                                                        </option>
+                                                                        <option value="Skilled" <?php if ($row['classification'] == 'Skilled')
+                                                                            echo 'selected'; ?>>
+                                                                            Skilled
+                                                                        </option>
+                                                                        <option value="Professional" <?php if ($row['classification'] == 'Professional')
+                                                                            echo 'selected'; ?>>
+                                                                            Professional
+                                                                        </option>
+                                                                    </select>
+                                                                    <label for="classification" class="form-label fw-bold">
+                                                                        Classification Type
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <hr style="border-width: 2px;">
+
+                                                        <div class="row mt-3">
+
+                                                            <div class="col-sm-12 col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text"
+                                                                        class="form-control rounded-3 fw-bold"
+                                                                        placeholder="12" name="client"
+                                                                        value="<?php echo $row['client']; ?>" required>
+                                                                    <label for="floatingInput"
+                                                                        class="fw-bold">Account/Client</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="text"
+                                                                        class="form-control rounded-3 fw-bold"
+                                                                        placeholder="12" name="jobPosition"
+                                                                        value="<?php echo $row['job_position']; ?>"
+                                                                        required>
+                                                                    <label for="floatingInput" class="fw-bold">
+                                                                        Job Position
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3">
+                                                                <div class="form-floating mb-3">
+                                                                    <input type="number"
+                                                                        class="form-control rounded-3 fw-bold"
+                                                                        placeholder="12" name="numberRequired"
+                                                                        value="<?php echo $row['head_count']; ?>" required>
+                                                                    <label for="floatingInput" class="fw-bold">Number
+                                                                        Required</label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-12 col-md-3">
+                                                                <div class="form-floating mb-sm-3">
+                                                                    <select class="form-select fw-bold " name="contractType"
+                                                                        id="contractType" required>
+                                                                        <option selected disabled>Choose...</option>
+                                                                        <option value="Probationary" <?php if ($row['contract_type'] == 'Probationary')
+                                                                            echo 'selected'; ?>>
+                                                                            Probationary
+                                                                        </option>
+                                                                        <option value="Project-based" <?php if ($row['contract_type'] == 'Project-based')
+                                                                            echo 'selected'; ?>>
+                                                                            Project-based
+                                                                        </option>
+                                                                        <option value="Fixed Term" <?php if ($row['contract_type'] == 'Fixed Term')
+                                                                            echo 'selected'; ?>>
+                                                                            Fixed Term
+                                                                        </option>
+                                                                        <option value="Regular On-call" <?php if ($row['contract_type'] == 'Regular On-call')
+                                                                            echo 'selected'; ?>>
+                                                                            Regular On-call
+                                                                        </option>
+                                                                    </select>
+                                                                    <label for="contractType"
+                                                                        class="form-label fw-bold">Contract Type</label>
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+
+                                                        <hr style="border-width: 2px;">
+
+                                                        <div class="row mt-3">
+                                                            <div class="col-12">
+                                                                <label for="jobDescription" class="form-label fw-bold">Job
+                                                                    Description</label>
+                                                                <textarea class="form-control summernote"
+                                                                    id="jobDescription" name="jobDescription" required>
+                                                                                    <?php echo $row['job_description']; ?>
+                                                                                </textarea>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-3 mb-3">
+                                                            <div class="col-12">
+                                                                <label for="benefits"
+                                                                    class="form-label fw-bold">Qualifications</label>
+                                                                <textarea class="form-control summernote" id="qualification"
+                                                                    name="qualification" required>
+                                                                                    <?php echo $row['qualification']; ?>
+                                                                                </textarea>
+                                                            </div>
+                                                        </div>
+
+                                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger"
+                                                            name="postBtn" type="submit">
+                                                            Submit
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <td class="nowrap text-center">
                                         <?php echo $row['industry']; ?>
                                     </td>
@@ -120,9 +361,16 @@ include ('../components/header.php');
                                         $status = $row['mrf_status'];
 
                                         switch ($status) {
-                                            case 'Hold':
+                                            case 'Post':
                                                 ?>
                                                 <span class=" badge badge border border-success text-success ">
+                                                    Posted
+                                                </span>
+                                                <?php
+                                                break;
+                                            case 'Hold':
+                                                ?>
+                                                <span class=" badge badge border border-primary text-primary ">
                                                     Hold
                                                 </span>
                                                 <?php
@@ -130,14 +378,14 @@ include ('../components/header.php');
                                             case 'Cancel':
                                                 ?>
                                                 <span class=" badge badge border border-primary text-primary ">
-                                                    Cancel
+                                                    Cancelled
                                                 </span>
                                                 <?php
                                                 break;
                                             case 'Close':
                                                 ?>
                                                 <span class=" badge badge border border-danger text-danger ">
-                                                    Close
+                                                    Closed
                                                 </span>
                                                 <?php
                                                 break;

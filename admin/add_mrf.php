@@ -51,6 +51,7 @@ include ('../components/header.php');
 
                 <div class="container mt-5 bg-white">
                     <form action="../admin/add_mrf_process.php" method="post">
+
                         <hr style="border-width: 3px;">
                         <h4 class="fw-bold text-center">MANPOWER REQUEST FORM H.O</h4>
                         <hr style="border-width: 3px;">

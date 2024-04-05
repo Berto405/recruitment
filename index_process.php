@@ -6,16 +6,15 @@ include ("dbconn.php");
 if (isset($_SESSION['user_id'])) {
     //Showing only the jobs that the currently logged in user has not applied
     $userId = $_SESSION['user_id'];
+    $mrf_status = "Post";
     $query =
-        "SELECT jobs.* 
-        FROM jobs
-        LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = ?
-        WHERE job_applicants.user_id is NULL
-        ORDER BY 
-            CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
-            CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
+        "SELECT mrfs.* 
+        FROM mrfs
+        LEFT JOIN job_applicants ON mrfs.id = job_applicants.job_id AND job_applicants.user_id = ?
+        WHERE mrfs.mrf_status = ? AND job_applicants.user_id IS NULL";
+
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $userId);
+    $stmt->bind_param("is", $userId, $mrf_status);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -27,8 +26,11 @@ if (isset($_SESSION['user_id'])) {
     $result2 = $stmt2->get_result();
 } else {
     //Showing all jobs for not logged in user
-    $query = "SELECT * FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+    $mrf_status = "Post";
+
+    $query = "SELECT * FROM mrfs WHERE mrf_status = ?";
     $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $mrf_status);
     $stmt->execute();
     $result = $stmt->get_result();
 }
