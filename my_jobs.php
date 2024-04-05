@@ -22,9 +22,9 @@ if (isset($_GET['status'])) {
     if ($status === 'Result') {
         // Include 'Selected' and 'Not Selected' statuses
         $query =
-            "SELECT jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, job_applicants.application_status 
-            FROM jobs 
-            INNER JOIN job_applicants ON jobs.id = job_applicants.job_id
+            "SELECT mrfs.job_position, mrfs.contract_type, mrfs.location, job_applicants.application_status 
+            FROM mrfs 
+            INNER JOIN job_applicants ON mrfs.id = job_applicants.job_id
             WHERE job_applicants.user_id = ? AND (job_applicants.application_status = ? OR job_applicants.application_status = ?)
             ORDER BY 
                 CASE WHEN job_applicants.application_status = 'Selected' THEN 0 ELSE 1 END";
@@ -37,9 +37,9 @@ if (isset($_GET['status'])) {
     } else {
         // Exclude 'Selected' and 'Not Selected' statuses
         $query =
-            "SELECT jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, job_applicants.application_status 
-            FROM jobs 
-            INNER JOIN job_applicants ON jobs.id = job_applicants.job_id
+            "SELECT  mrfs.job_position, mrfs.contract_type, mrfs.location, job_applicants.application_status 
+            FROM mrfs 
+            INNER JOIN job_applicants ON mrfs.id = job_applicants.job_id
             WHERE job_applicants.user_id = ? AND job_applicants.application_status = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param("is", $userId, $status);
@@ -122,7 +122,7 @@ if (isset($_GET['status'])) {
                     <div class="container-fluid bg-white shadow mb-3 mt-4 border-2 border-top border-danger">
                         <div class="row p-2">
                             <h4 class="fw-bold">
-                                <?php echo $row['job_name'] ?>
+                                <?php echo $row['job_position'] ?>
                             </h4>
 
                             <div class="row">
@@ -136,16 +136,13 @@ if (isset($_GET['status'])) {
 
                             <div class="row">
                                 <div class="col">
-                                    <!-- Job Type -->
+                                    <!-- Contract Type -->
+                                    <i class="bi bi-briefcase-fill"></i>
                                     <span
                                         class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                        <?php echo $row['job_type']; ?>
+                                        <?php echo $row['contract_type']; ?>
                                     </span>
-                                    <!-- Shift & Schedule -->
-                                    <span
-                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
-                                        <?php echo $row['shift_and_schedule']; ?>
-                                    </span>
+
                                 </div>
                             </div>
 

@@ -64,7 +64,7 @@ include ('../components/header.php');
                                         <option selected disabled>Choose...</option>
                                         <option value="Retail">Retail</option>
                                         <option value="Logistics">Logistics</option>
-                                        <option value="Maintenance">Gen. Maintenance & Services</option>
+                                        <option value="Maintenance">Maintenance & Services</option>
                                         <option value="Food Services">Food Services</option>
                                     </select>
                                     <label for="industry" class="form-label fw-bold">Industry</label>

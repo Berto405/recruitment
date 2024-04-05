@@ -24,6 +24,9 @@ if (isset($_SESSION['user_id'])) {
     $stmt2->bind_param("i", $userId);
     $stmt2->execute();
     $result2 = $stmt2->get_result();
+
+
+
 } else {
     //Showing all jobs for not logged in user
     $mrf_status = "Post";
@@ -40,21 +43,16 @@ if (isset($_GET['loc'])) {
     $location = $_GET['loc'];
     if (isset($_SESSION['user_id'])) {
         //Sorting location for logged in user
-        $query = "SELECT jobs.* 
-        FROM jobs
-        LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
-        WHERE job_applicants.user_id IS NULL AND jobs.location LIKE '%$location%'
-        ORDER BY 
-            CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
-            CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
+        $query = "SELECT mrfs.* 
+        FROM mrfs
+        LEFT JOIN job_applicants ON mrfs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
+        WHERE  mrfs.mrf_status = 'Post' AND job_applicants.user_id IS NULL AND mrfs.location LIKE '%$location%'";
         $result = mysqli_query($conn, $query);
     } else {
         //Sorting location for not logged in user
         $query =
-            "SELECT * FROM jobs 
-            WHERE jobs.location LIKE '%$location%'
-            ORDER BY 
-                CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+            "SELECT * FROM mrfs 
+            WHERE mrfs.location LIKE '%$location%'";
         $result = mysqli_query($conn, $query);
     }
 }
@@ -64,23 +62,38 @@ if (isset($_GET['type'])) {
     if (isset($_SESSION['user_id'])) {
 
         //Sorting location for logged in user
-        $query = "SELECT jobs.* 
-        FROM jobs
-        LEFT JOIN job_applicants ON jobs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
-        WHERE job_applicants.user_id IS NULL AND jobs.job_type LIKE '%$jobType%'
-        ORDER BY 
-            CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END,
-            CASE WHEN jobs.priority = 'Non-urgent Hiring' THEN jobs.created_at END DESC";
+        $query = "SELECT mrfs.* 
+        FROM mrfs
+        LEFT JOIN job_applicants ON mrfs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
+        WHERE mrfs.mrf_status = 'Post' AND job_applicants.user_id IS NULL AND mrfs.contract_type LIKE '%$jobType%'";
         $result = mysqli_query($conn, $query);
     } else {
         //Sorting location for not logged in user
         $query =
-            "SELECT * FROM jobs 
-            WHERE jobs.job_type LIKE '%$jobType%'
-            ORDER BY 
-                CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+            "SELECT * FROM mrfs 
+            WHERE mrfs.job_type LIKE '%$jobType%'";
         $result = mysqli_query($conn, $query);
     }
 }
+
+if (isset($_GET['industry'])) {
+    $industry = $_GET['industry'];
+    if (isset($_SESSION['user_id'])) {
+
+        //Sorting location for logged in user
+        $query = "SELECT mrfs.* 
+        FROM mrfs
+        LEFT JOIN job_applicants ON mrfs.id = job_applicants.job_id AND job_applicants.user_id = '$userId'
+        WHERE mrfs.mrf_status = 'Post' AND job_applicants.user_id IS NULL AND mrfs.industry LIKE '%$industry%'";
+        $result = mysqli_query($conn, $query);
+    } else {
+        //Sorting location for not logged in user
+        $query =
+            "SELECT * FROM mrfs 
+            WHERE mrfs.job_type LIKE '%$industry%'";
+        $result = mysqli_query($conn, $query);
+    }
+}
+
 
 ?>
