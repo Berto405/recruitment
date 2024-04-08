@@ -139,14 +139,14 @@
                         break;
                     case 'For Initial Interview':
                         ?>
-                        <span class=" badge badge border border-warning text-warning ">
-                            <i class="bi bi-exclamation-diamond-fill me-1"></i>For Initial Interview
+                        <span class=" badge badge border border-info text-info ">
+                            <i class="bi bi-calendar-check-fill me-1"></i>For Initial Interview
                         </span>
                         <?php
                         break;
                     case 'For Final Interview':
                         ?>
-                        <span class=" badge badge border border-danger text-danger ">
+                        <span class=" badge badge border border-dark text-dark ">
                             <i class="bi bi-calendar-check-fill me-1"></i>For Final Interview
                         </span>
                         <?php
@@ -162,6 +162,20 @@
                         ?>
                         <span class=" badge badge border border-secondary text-secondary ">
                             <i class="bi bi-check-square-fill me-1"></i>Hired
+                        </span>
+                        <?php
+                        break;
+                    case 'Back to Pooling':
+                        ?>
+                        <span class=" badge badge border border-dark text-dark ">
+                            <i class="bi bi-exclamation-diamond-fill me-1"></i>Back to Pooling
+                        </span>
+                        <?php
+                        break;
+                    case 'Failed':
+                        ?>
+                        <span class=" badge badge border border-danger text-danger ">
+                            <i class="bi bi-x-square"></i>Failed
                         </span>
                         <?php
                         break;
@@ -210,6 +224,12 @@
                 </button>
             </td>
             <td>
+                <button type="button" class="btn btn-primary badge " data-bs-toggle="modal"
+                    data-bs-target="#viewRemarksModal<?php echo $row['id']; ?>">
+                    View Remarks
+                </button>
+            </td>
+            <td>
                 <a href="#" class="link-danger text-decoration-none dropdown-toggle text-dark" id="dropdownUser2"
                     data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="bi bi-list"></i>
@@ -218,7 +238,7 @@
                     <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
                     <?php
                     //Actions for Pooling Applicants Sidebar
-                    if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling' || $row['application_status'] == 'Pooled') {
+                    if ($row['application_status'] == 'Pending' || $row['application_status'] == 'Pooling' || $row['application_status'] == 'Pooled' || $row['application_status'] == 'Back to Pooling') {
                         ?>
 
                         <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
@@ -249,13 +269,13 @@
 
                             <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                 <li class="mb-1">
-                                    <button type="button" class="btn btn-warning badge" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-info badge" data-bs-toggle="modal"
                                         data-bs-target="#initialInterviewModal<?php echo $row['id'] ?>">
                                         <i class="bi bi-calendar-check me-1"></i> For Initial Interview
                                     </button>
                                 </li>
                                 <li class="mb-1">
-                                    <button type="button" class="btn btn-danger badge" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-dark badge" data-bs-toggle="modal"
                                         data-bs-target="#finalInterviewModal<?php echo $row['id'] ?>">
                                         <i class="bi bi-calendar-check me-1"></i> For Final Interview
                                     </button>
@@ -270,9 +290,21 @@
                                         <i class="bi bi-check-square me-1"></i> Hired
                                     </button>
                                 </li>
+                                <li class="mb-1">
+                                    <button type="button" class="btn btn-warning badge" data-bs-toggle="modal"
+                                        data-bs-target="#backToPoolingModal<?php echo $row['id'] ?>">
+                                        <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
+                                    </button>
+                                </li>
+                                <li class="mb-1">
+                                    <button type="button" class="btn btn-danger badge" data-bs-toggle="modal"
+                                        data-bs-target="#failModal<?php echo $row['id'] ?>">
+                                        <i class="bi bi-x-square"></i> Failed
+                                    </button>
+                                </li>
                             </ul>
                         <?php
-                    } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date' || $row['application_status'] == 'Placed') {
+                    } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date') {
                         ?>
 
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
@@ -298,11 +330,128 @@
                                     </li>
                                 </ul>
                         <?php
+                    } else if ($row['application_status'] == 'Placed') {
+
                     }
                     ?>
                 </form>
             </td>
         </tr>
+
+
+        <!-- Fail Remark Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="failModal<?php echo $row['id']; ?>" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                            Remark
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form action="../admin/applicant_process.php" method="POST" class="">
+                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                            <div class="mb-3">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="hidden" class="form-control" name="applicant_id"
+                                            value="<?php echo $row['id'] ?>">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" placeholder="remark" name="remark"
+                                                required>
+                                            <label class=" form-label fw-bold">Remark</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="failBtn" type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Back to Pooling Remark Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="backToPoolingModal<?php echo $row['id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                            Remark
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <form action="../admin/applicant_process.php" method="POST" class="">
+                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                            <div class="mb-3">
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <input type="hidden" class="form-control" name="applicant_id"
+                                            value="<?php echo $row['id'] ?>">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" placeholder="remark" name="remark"
+                                                required>
+                                            <label class=" form-label fw-bold">Remark</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="backToPoolingBtn"
+                                type="submit">
+                                Submit
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Remark Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="viewRemarksModal<?php echo $row['id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                            Remarks
+                        </h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+                        <div class="mb-3">
+                            <div class="row mb-3">
+                                <div class="col">
+                                    <ul class="list-group list-group-flush ">
+                                        <?php
+                                        $remarks = explode(', ', $row['remark']);
+
+                                        foreach ($remarks as $remark) {
+                                            ?>
+                                            <li class="list-group-item fw-bold ">
+                                                <i class="bi bi-exclamation-square-fill text-danger"></i>
+                                                <?php echo $remark; ?>
+                                            </li>
+                                            <?php
+                                        }
+                                        ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Schedule Initial Interview Modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="initialInterviewModal<?php echo $row['id']; ?>"

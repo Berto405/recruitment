@@ -79,14 +79,14 @@ include ('../components/header.php');
                                         <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                             <li class="mb-1">
                                                 <button type="submit" name="multi_initial_interviewBtn"
-                                                    class="btn btn-warning badge">
-                                                    <i class="bi bi-exclamation-diamond me-1 "></i> For Initial
+                                                    class="btn btn-info badge">
+                                                    <i class="bi bi-calendar-check-fill me-1"></i> For Initial
                                                     Interview
                                                 </button>
                                             </li>
                                             <li class="mb-1">
                                                 <button type="submit" name="multi_final_interviewBtn"
-                                                    class="btn btn-danger badge">
+                                                    class="btn btn-dark badge">
                                                     <i class="bi bi-calendar-check me-1"></i> For Final Interview
                                                 </button>
                                             </li>
@@ -102,24 +102,90 @@ include ('../components/header.php');
                                                     <i class="bi bi-check-square me-1"></i> Hired
                                                 </button>
                                             </li>
+                                            <li class="mb-1">
+                                                <button type="button" id="backBtn" class="btn btn-warning badge"
+                                                    data-bs-toggle="modal" data-bs-target="#remarkModal">
+                                                    <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
+                                                </button>
+                                            </li>
+                                            <li class="mb-1">
+                                                <button type="button" id="failedBtn" class="btn btn-danger badge"
+                                                    data-bs-toggle="modal" data-bs-target="#remarkModal">
+                                                    <i class="bi bi-x-square"></i> Failed
+                                                </button>
+                                            </li>
+
+
                                         </ul>
                                     </th>
+
                                     <th class="bg-danger text-white text-center">Applicant Name</th>
                                     <th class="bg-danger text-white text-center">Job Position</th>
                                     <th class="bg-danger text-white text-center">Location</th>
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Remarks</th>
                                     <th class="bg-danger text-white text-center">Action</th>
+
                                 </tr>
                             </thead>
                             <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
                             <?php include ('../components/applicants_table.php'); ?>
                         </table>
+                        <!-- Back to Pooling Remark Modal -->
+                        <div class="modal fade" tabindex="-1" role="dialog" id="remarkModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content rounded-4 shadow">
+                                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                                            Remark
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body p-5 pt-0">
+
+                                        <div class="mb-3">
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <input type="hidden" class="form-control" name="applicant_id"
+                                                        value="<?php echo $row['id'] ?>">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" placeholder="rekamr"
+                                                            name="remark" required>
+                                                        <label class=" form-label fw-bold">Remark</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" id="action"
+                                            type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            // JavaScript to update the action of the form based on the button clicked
+                            document.getElementById('backBtn').addEventListener('click', function () {
+                                document.getElementById('action').setAttribute('name', 'multiBackToPoolingBtn');
+                            });
+
+                            document.getElementById('failedBtn').addEventListener('click', function () {
+                                document.getElementById('action').setAttribute('name', 'multiFailBtn');
+                            });
+                        </script>
+
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
 
 </body>
 

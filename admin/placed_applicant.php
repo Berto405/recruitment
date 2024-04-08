@@ -21,7 +21,7 @@ $query =
     FROM ((job_applicants
     INNER JOIN jobs ON job_applicants.job_id = jobs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status = 'Pending' OR  job_applicants.application_status = 'Pooling' OR  job_applicants.application_status = 'Pooled' OR  job_applicants.application_status = 'Back to Pooling'
+    WHERE job_applicants.application_status = 'Placed'
     ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
 
 $result = mysqli_query($conn, $query);
@@ -60,7 +60,7 @@ include ('../components/header.php');
                 <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
-                <h4 class=" mt-1 mb-5 ">Pooling Applicants</h4>
+                <h4 class=" mt-1 mb-5 ">Placed Applicants</h4>
 
 
 
@@ -70,6 +70,7 @@ include ('../components/header.php');
 
                         <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
                             <thead class="bg-danger ">
+
                                 <tr>
                                     <th class="bg-danger text-white text-center">
                                         <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
@@ -102,7 +103,6 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Location</th>
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
-                                    <th class="bg-danger text-white text-center">Remarks</th>
                                     <th class="bg-danger text-white text-center">Action</th>
                                 </tr>
                             </thead>

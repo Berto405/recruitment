@@ -14,6 +14,8 @@ define("STATUS_ONGOING_REQUIREMENTS", "Ongoing Requirements");
 define("STATUS_ONBOARDING", "Onboarding");
 define("STATUS_WAITING_START_DATE", "Waiting for Start Date");
 define("STATUS_PLACED", "Placed");
+define("STATUS_BACK_TO_POOLING", "Back to Pooling");
+define("STATUS_FAILED", "Failed");
 
 // Check if POST request is made
 if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
@@ -21,11 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         updateApplicantStatus($conn, STATUS_PASSED);
 
     } else if (isset($_POST['failBtn'])) {
-        // Handle failed applicant
-
+        updateApplicantStatus($conn, STATUS_FAILED);
 
     } else if (isset($_POST['poolBtn'])) {
         updateApplicantStatus($conn, STATUS_POOLING);
+
+    } else if (isset($_POST['backToPoolingBtn'])) {
+        updateApplicantStatus($conn, STATUS_BACK_TO_POOLING);
 
     } else if (isset($_POST['initial_interviewBtn'])) {
         // Handle initial interview
@@ -59,10 +63,13 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         updateMultiApplicants($conn, STATUS_PASSED);
 
     } else if (isset($_POST['multiFailBtn'])) {
-        //Handle failed applicant
+        updateMultiApplicants($conn, STATUS_FAILED);
+
+    } else if (isset($_POST['multiBackToPoolingBtn'])) {
+        updateMultiApplicants($conn, STATUS_BACK_TO_POOLING);
 
     } else if (isset($_POST['multiPoolBtn'])) {
-        updateApplicantStatus($conn, STATUS_POOLING);
+        updateMultiApplicants($conn, STATUS_POOLING);
 
     } else if (isset($_POST['multi_initial_interviewBtn'])) {
 
@@ -103,10 +110,26 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 function updateApplicantStatus($conn, $status)
 {
     $applicantId = $_POST['applicant_id'];
+    $newRemark = "Remarked by: " . $_SESSION['user_name'] . $_POST['remark']; // 'backToPooling_remark' contains the new remark
 
-    $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+    // Fetch existing remark from the database
+    $query = "SELECT remark FROM job_applicants WHERE id = ?";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("si", $status, $applicantId);
+    $stmt->bind_param("i", $applicantId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+    $existingRemark = $row['remark'];
+
+    // Concatenate existing remark with new remark, separated by a comma
+    if (!empty($existingRemark)) {
+        $newRemark = $existingRemark . ', ' . $newRemark;
+    }
+
+    // Update the database with the new remark
+    $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
@@ -119,6 +142,7 @@ function updateApplicantStatus($conn, $status)
 
 
 
+
 //Function to update multiple rows 
 function updateMultiApplicants($conn, $status)
 {
@@ -126,9 +150,26 @@ function updateMultiApplicants($conn, $status)
 
         foreach ($_POST['checkbox_value'] as $applicantId) {
 
-            $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+            $newRemark = $_POST['remark']; // 'backToPooling_remark' contains the new remark
+
+            // Fetch existing remark from the database
+            $query = "SELECT remark FROM job_applicants WHERE id = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("si", $status, $applicantId);
+            $stmt->bind_param("i", $applicantId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $row = $result->fetch_assoc();
+            $existingRemark = $row['remark'];
+
+            // Concatenate existing remark with new remark, separated by a comma
+            if (!empty($existingRemark)) {
+                $newRemark = $existingRemark . ', ' . $newRemark;
+            }
+
+            // Update the database with the new remark
+            $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
             $stmt->execute();
 
             if ($stmt->affected_rows > 0) {
