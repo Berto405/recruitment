@@ -110,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 function updateApplicantStatus($conn, $status)
 {
     $applicantId = $_POST['applicant_id'];
-    $newRemark = "Remarked by: " . $_SESSION['user_name'] . $_POST['remark']; // 'backToPooling_remark' contains the new remark
+    $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name']; // 'backToPooling_remark' contains the new remark
 
     // Fetch existing remark from the database
     $query = "SELECT remark FROM job_applicants WHERE id = ?";
@@ -150,7 +150,7 @@ function updateMultiApplicants($conn, $status)
 
         foreach ($_POST['checkbox_value'] as $applicantId) {
 
-            $newRemark = $_POST['remark']; // 'backToPooling_remark' contains the new remark
+            $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name']; // 'backToPooling_remark' contains the new remark
 
             // Fetch existing remark from the database
             $query = "SELECT remark FROM job_applicants WHERE id = ?";
