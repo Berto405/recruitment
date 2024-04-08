@@ -4,7 +4,7 @@
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
 
 
-<tbody>
+<tbody style="height: 250px;">
     <?php
     while ($row = mysqli_fetch_assoc($result)) {
 
@@ -175,7 +175,7 @@
                     case 'Failed':
                         ?>
                         <span class=" badge badge border border-danger text-danger ">
-                            <i class="bi bi-x-square"></i>Failed
+                            <i class="bi bi-x-square-fill me-1"></i>Failed
                         </span>
                         <?php
                         break;
@@ -188,7 +188,7 @@
                         break;
                     case 'Onboarding':
                         ?>
-                        <span class=" badge badge border border-danger text-danger ">
+                        <span class=" badge badge border border-info text-info ">
                             <i class="bi bi-hand-thumbs-up-fill me-1"></i>Onboarding
                         </span>
                         <?php
@@ -204,6 +204,27 @@
                         ?>
                         <span class=" badge badge border border-success text-success ">
                             <i class="bi bi-check-square-fill me-1"></i>Placed
+                        </span>
+                        <?php
+                        break;
+                    case 'Placed with Ongoing Req.':
+                        ?>
+                        <span class=" badge badge border border-success text-success ">
+                            <i class="bi bi-arrow-clockwise me-1"></i>Placed with Ongoing Req.
+                        </span>
+                        <?php
+                        break;
+                    case 'Placed with Onboarding':
+                        ?>
+                        <span class=" badge badge border border-success text-success ">
+                            <i class="bi bi-hand-thumbs-up-fill me-1"></i>Placed with Onboarding
+                        </span>
+                        <?php
+                        break;
+                    case 'Backout':
+                        ?>
+                        <span class=" badge badge border border-danger text-danger ">
+                            <i class="bi bi-back me-1"></i>Backout
                         </span>
                         <?php
                         break;
@@ -250,7 +271,8 @@
 
                             </li>
                             <li class="mb-1">
-                                <button type="submit" name="failBtn" class="btn btn-danger badge">
+                                <button type="button" class="btn btn-danger badge" data-bs-toggle="modal"
+                                    data-bs-target="#failModal<?php echo $row['id'] ?>">
                                     <i class="bi bi-x-square"></i> Failed
                                 </button>
                             </li>
@@ -304,7 +326,8 @@
                                 </li>
                             </ul>
                         <?php
-                    } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date') {
+                        //For Identified Appplicants Sidebar
+                    } else if ($row['application_status'] == 'Hired' || $row['application_status'] == 'Ongoing Requirements' || $row['application_status'] == 'Onboarding' || $row['application_status'] == 'Waiting for Start Date' || $row['application_status'] == 'Placed with Ongoing Req.' || $row['application_status'] == 'Placed with Onboarding') {
                         ?>
 
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
@@ -314,7 +337,7 @@
                                         </button>
                                     </li>
                                     <li class="mb-1">
-                                        <button type="submit" name="onbaordingBtn" class="btn btn-danger badge">
+                                        <button type="submit" name="onbaordingBtn" class="btn btn-info badge">
                                             <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
                                         </button>
                                     </li>
@@ -328,9 +351,22 @@
                                             <i class="bi bi-check-square me-1"></i> Placed
                                         </button>
                                     </li>
+                                    <li class="mb-1">
+                                        <button type="button" class="btn btn-danger badge" data-bs-toggle="modal"
+                                            data-bs-target="#failModal<?php echo $row['id'] ?>">
+                                            <i class="bi bi-x-square"></i> Failed
+                                        </button>
+                                    </li>
+                                    <li class="mb-1">
+                                        <button type="submit" name="backoutBtn" class="btn btn-danger badge">
+                                            <i class="bi bi-back me-1"></i> Backout
+                                        </button>
+                                    </li>
                                 </ul>
                         <?php
                     } else if ($row['application_status'] == 'Placed') {
+
+                    } else if ($row['application_status'] == 'Failed') {
 
                     }
                     ?>

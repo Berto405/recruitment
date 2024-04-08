@@ -132,7 +132,7 @@ include ('../components/header.php');
                             <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
                             <?php include ('../components/applicants_table.php'); ?>
                         </table>
-                        <!-- Back to Pooling Remark Modal -->
+                        <!-- Remark Modal -->
                         <div class="modal fade" tabindex="-1" role="dialog" id="remarkModal" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content rounded-4 shadow">
@@ -152,8 +152,8 @@ include ('../components/header.php');
                                                     <input type="hidden" class="form-control" name="applicant_id"
                                                         value="<?php echo $row['id'] ?>">
                                                     <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="rekamr"
-                                                            name="remark" required>
+                                                        <input type="text" id="remark" class="form-control"
+                                                            placeholder="rekamr" name="remark">
                                                         <label class=" form-label fw-bold">Remark</label>
                                                     </div>
                                                 </div>
@@ -170,13 +170,15 @@ include ('../components/header.php');
                         </div>
 
                         <script>
-                            // JavaScript to update the action of the form based on the button clicked
+                            // JavaScript to update the action of the form based on the button clicked and put required on input in modal 
                             document.getElementById('backBtn').addEventListener('click', function () {
                                 document.getElementById('action').setAttribute('name', 'multiBackToPoolingBtn');
+                                document.getElementById('remark').setAttribute('required', 'required');
                             });
 
                             document.getElementById('failedBtn').addEventListener('click', function () {
                                 document.getElementById('action').setAttribute('name', 'multiFailBtn');
+                                document.getElementById('remark').setAttribute('required', 'required');
                             });
                         </script>
 

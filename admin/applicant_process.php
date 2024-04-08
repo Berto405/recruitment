@@ -16,6 +16,9 @@ define("STATUS_WAITING_START_DATE", "Waiting for Start Date");
 define("STATUS_PLACED", "Placed");
 define("STATUS_BACK_TO_POOLING", "Back to Pooling");
 define("STATUS_FAILED", "Failed");
+define("STATUS_BACKOUT", "Backout");
+define("STATUS_PLACED_WITH_ONGOING", "Placed with Ongoing Req.");
+define("STATUS_PLACED_WITH_ONBOARDING", "Placed with Onboarding");
 
 // Check if POST request is made
 if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
@@ -57,6 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
     } else if (isset($_POST['placedBtn'])) {
         updateApplicantStatus($conn, STATUS_PLACED);
 
+    } else if (isset($_POST['backoutBtn'])) {
+        updateApplicantStatus($conn, STATUS_BACKOUT);
+
     }
     //For Checkboxes
     else if (isset($_POST['multiPassBtn'])) {
@@ -94,6 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 
     } else if (isset($_POST['multiPlacedBtn'])) {
         updateMultiApplicants($conn, STATUS_PLACED);
+
+    } else if (isset($_POST['multiPlacedWithOngoingBtn'])) {
+        updateMultiApplicants($conn, STATUS_PLACED_WITH_ONGOING);
+
+    } else if (isset($_POST['multiPlacedWithOnboardingBtn'])) {
+        updateMultiApplicants($conn, STATUS_PLACED_WITH_ONBOARDING);
+
+    } else if (isset($_POST['multiBackoutBtn'])) {
+        updateMultiApplicants($conn, STATUS_BACKOUT);
 
     } else if (isset($_POST['assignJobBtn'])) {
         assignJob($conn);

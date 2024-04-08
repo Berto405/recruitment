@@ -72,30 +72,36 @@ include ('../components/header.php');
                             <thead class="bg-danger ">
                                 <tr>
                                     <th class="bg-danger text-white text-center">
-                                        <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
-                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-list"></i>
-                                        </a>
+                                        <div class="dropdown">
+                                            <a href="#"
+                                                class="link-dark text-decoration-none dropdown-toggle text-white"
+                                                id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-list"></i>
+                                            </a>
+                                            <ul class="dropdown-menu text-center shadow"
+                                                aria-labelledby="dropdownUser2">
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multiPassBtn"
+                                                        class="dropdown-item text-success mb-1">
+                                                        <i class="bi bi-check-square"></i> Passed
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="button" id="failedBtn"
+                                                        class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#remarkModal">
+                                                        <i class="bi bi-x-square"></i> Failed
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multiPoolBtn"
+                                                        class="dropdown-item text-primary mb-1">
+                                                        <i class="bi bi-file-earmark-break"></i> Pooling
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </div>
 
-                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
-                                            <li class="mb-1">
-
-                                                <button type="submit" name="multiPassBtn" class="btn btn-success badge">
-                                                    <i class="bi bi-check-square"></i> Passed
-                                                </button>
-
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="submit" name="multiFailBtn" class="btn btn-danger badge">
-                                                    <i class="bi bi-x-square"></i> Failed
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="submit" name="multiPoolBtn" class="btn btn-primary badge">
-                                                    <i class="bi bi-file-earmark-break"></i> Pooling
-                                                </button>
-                                            </li>
-                                        </ul>
                                     </th>
                                     <th class="bg-danger text-white text-center">Applicant Name</th>
                                     <th class="bg-danger text-white text-center">Job Position</th>
@@ -109,6 +115,59 @@ include ('../components/header.php');
                             <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
                             <?php include ('../components/applicants_table.php'); ?>
                         </table>
+                        <!-- Remark Modal -->
+                        <div class="modal fade" tabindex="-1" role="dialog" id="remarkModal" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content rounded-4 shadow">
+                                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                                            Remark
+                                        </h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+
+                                    <div class="modal-body p-5 pt-0">
+
+                                        <div class="mb-3">
+                                            <div class="row mb-3">
+                                                <div class="col">
+                                                    <input type="hidden" class="form-control" name="applicant_id"
+                                                        value="<?php echo $row['id'] ?>">
+                                                    <div class="form-floating">
+                                                        <input type="text" class="form-control" placeholder="rekamr"
+                                                            id="remark" name="remark">
+                                                        <label class=" form-label fw-bold">Remark</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="multiFailBtn"
+                                            type="submit">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            // JavaScript to the put required on input in modal 
+                            document.getElementById('failedBtn').addEventListener('click', function () {
+                                document.getElementById('remark').setAttribute('required', 'required');
+
+                            });
+
+                            // Add event listeners to other buttons to remove the "required" attribute
+                            var otherButtons = document.querySelectorAll('.dropdown-item:not(#failedBtn)');
+                            otherButtons.forEach(function (button) {
+                                button.addEventListener('click', function () {
+                                    document.getElementById('remark').removeAttribute('required');
+                                });
+                            });
+
+                        </script>
                     </form>
                 </div>
             </div>
