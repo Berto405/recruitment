@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2024 at 11:25 AM
+-- Generation Time: Apr 08, 2024 at 12:37 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -211,15 +211,17 @@ CREATE TABLE `job_applicants` (
   `user_id` int(12) NOT NULL,
   `job_id` int(12) NOT NULL,
   `application_status` varchar(255) NOT NULL,
-  `interview_date` datetime DEFAULT NULL
+  `interview_date` datetime DEFAULT NULL,
+  `remark` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job_applicants`
 --
 
-INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`) VALUES
-(31, 20, 2, 'Pending', NULL);
+INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`) VALUES
+(31, 20, 2, 'Pooling', '2024-04-18 10:30:00', 'Sheesh, No idea, azxczxczxczc, 312313123, Failed, dashutyryr, 123, kjhakjhkjh, Remarked by: Berto Berto jjjjjj, sheeshdssssssssssssssssssssss.  Remark by: Berto Berto, asdasdghdfgfdsfdg.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, jkfhgkjfdhgkjdfhgkjhroitureoituoeriutoeiutoeutoeruotiu.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, sadssssss.  <br> Remark by: Berto Berto, 00000000000000.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdsadas.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdaFAILEEEEEEEEDDDDDDDDD.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto'),
+(32, 9, 1, 'Pooling', NULL, 'No appearance, lack of requirements, No idea, test, No way, dasdasd, azxczxczxczc, 312313123, Failed, dasdasd, 123, kjhakjhkjh, dsadasdas, sheesh.  <br> Remark by: Berto Berto, asdasdghdfgfdsfdg.  <br> Remark by: Berto Berto, FailedFAILED.  <br> Remark by: Berto Berto, jkfhgkjfdhgkjdfhgkjhroitureoituoeriutoeiutoeutoeruotiu.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, sadssssss.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdsadas.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, FAILEDDDDDDDDDDDDDDDDD.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto');
 
 -- --------------------------------------------------------
 
@@ -339,7 +341,8 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`
 (27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati'),
 (28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati'),
 (29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati'),
-(31, 'test', 'super', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati');
+(31, 'test', 'super', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati'),
+(32, 'djhab', 'sfbdj', 'gagokka@gmail.com', '$2y$10$xhhOxk.YHAcyw8C2pKy5o.Um.Q8XrejX36tLXz0kgiX0FDXij8/8K', 'user', '', '');
 
 -- --------------------------------------------------------
 
@@ -474,7 +477,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
@@ -492,7 +495,7 @@ ALTER TABLE `mrfs`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `user_resumes`
