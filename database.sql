@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2024 at 05:59 AM
+-- Generation Time: Apr 11, 2024 at 11:48 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -30,20 +30,41 @@ SET time_zone = "+00:00";
 CREATE TABLE `applicant_logs` (
   `id` int(11) NOT NULL,
   `applicant_id` int(11) NOT NULL,
-  `log` text NOT NULL
+  `log` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `applicant_logs`
 --
 
-INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`) VALUES
-(1, 32, '11:11AM Apr 11, 2024, Berto Berto changed status to  Waiting for Start Date'),
-(2, 32, '11:12AM Apr 11, 2024, Berto Berto changed status to  Ongoing Requirements'),
-(3, 32, '11:17AM Apr 11, 2024: Berto Berto changed status to  Waiting for Start Date'),
-(4, 31, '11:45AM Apr 11, 2024: Berto Berto changed status to  Waiting for Feedback'),
-(5, 31, '11:46AM Apr 11, 2024: Berto Berto changed status to  Pooling'),
-(6, 31, '11:56AM Apr 11, 2024: Berto Berto changed status to  Failed');
+INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`, `created_at`) VALUES
+(14, 31, 'Berto Berto changed status to  Onboarding', '2024-04-11 06:08:59'),
+(15, 31, 'Berto Berto changed status to  Waiting for Start Date', '2024-04-11 06:10:24'),
+(16, 32, 'Berto Berto changed status to  Pooling', '2024-04-11 06:20:32'),
+(17, 0, 'Berto Berto assigned MRF', '2024-04-11 06:23:47'),
+(18, 0, 'Berto Berto assigned MRF', '2024-04-11 06:23:57'),
+(19, 0, 'Berto Berto assigned MRF', '2024-04-11 06:41:42'),
+(20, 0, 'Berto Berto assigned MRF', '2024-04-11 06:42:09'),
+(21, 32, 'Berto Berto assigned MRF', '2024-04-11 06:49:32'),
+(22, 31, 'Berto Berto changed status to  Pooling', '2024-04-11 06:50:22'),
+(23, 31, 'Berto Berto assigned MRF', '2024-04-11 07:31:18'),
+(24, 31, 'Berto Berto changed status to  Pooling', '2024-04-11 07:32:35'),
+(25, 31, 'Berto Berto assigned MRF', '2024-04-11 07:37:55'),
+(26, 31, 'Berto Berto changed status to  Pooling', '2024-04-11 07:38:20'),
+(27, 31, 'Berto Berto assigned MRF', '2024-04-11 07:38:23'),
+(28, 31, 'Berto Berto changed status to  Pooling', '2024-04-11 07:42:25'),
+(29, 31, 'Berto Berto assigned MRF: Crew', '2024-04-11 07:42:28'),
+(30, 31, 'Berto Berto changed status to  Passed', '2024-04-11 07:46:41'),
+(31, 31, 'Berto Berto scheduled an interview at 03:46PM Apr 24, 2024', '2024-04-11 07:46:50'),
+(32, 31, 'Berto Berto scheduled an interview on 03:51PM May 03, 2024', '2024-04-11 07:51:35'),
+(33, 31, 'Berto Berto changed status to  Waiting for Feedback', '2024-04-11 07:51:47'),
+(34, 31, 'Berto Berto changed status to  Back to Pooling', '2024-04-11 07:52:06'),
+(35, 31, 'Berto Berto changed status to  Pooling', '2024-04-11 07:56:25'),
+(36, 32, 'Berto Berto changed status to  Pooling', '2024-04-11 07:56:25'),
+(37, 31, 'Berto Berto changed status to  Passed', '2024-04-11 08:00:55'),
+(38, 31, 'Berto Berto changed status to Passed', '2024-04-11 08:02:54'),
+(39, 31, 'Berto Berto changed status to Passed', '2024-04-11 08:03:39');
 
 -- --------------------------------------------------------
 
@@ -188,45 +209,6 @@ INSERT INTO `employment_background` (`id`, `user_id`, `company_one`, `company_on
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jobs`
---
-
-CREATE TABLE `jobs` (
-  `id` int(12) NOT NULL,
-  `job_name` varchar(255) NOT NULL,
-  `number_required` int(12) NOT NULL,
-  `job_type` varchar(255) NOT NULL,
-  `shift_and_schedule` varchar(255) NOT NULL,
-  `location` varchar(255) NOT NULL,
-  `job_description` text NOT NULL,
-  `qualification` text NOT NULL,
-  `priority` varchar(255) NOT NULL,
-  `industry` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `jobs`
---
-
-INSERT INTO `jobs` (`id`, `job_name`, `number_required`, `job_type`, `shift_and_schedule`, `location`, `job_description`, `qualification`, `priority`, `industry`, `created_at`) VALUES
-(1, 'Tech Support', 20, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join  team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Free lunch', 'Urgent Hiring', 'Legal', '2024-03-19 08:48:52'),
-(2, 'Human Resource', 50, 'Full-time', '8 hours shift', 'Makati City', 'Ready to join Accenture’s team of empowered people? We’re looking for candidates with the following skills and experience for this role. Do you fit the profile? If you do, we’d love to hear from you!\r\n\r\nOn Wednesdays we wear Purple at Accenture! Join us celebrate women\'s boundless potential for Purple Wednesdays on March 6, 13, 20 & 27!\r\n\r\nPurple is Women. Purple is Accenture.\r\n\r\n#AccentureWomen #InternationalWomensMonth\r\n\r\nWhat you’ll do:\r\n\r\nAs a S/4HANA Finance Lead Consultant, you will be the part of our team of experts responsible for creating a detailed blueprint for the development requirements of S/4HANA, and for providing business and functional support around SAP modules, particularly for ECC Migration or conversion from legacy SAP systems to SAP S/4HANA. You will also be in charge of the configuration and functions for any of the following areas:\r\n\r\nGeneral Accounting\r\nControlling\r\nProduct Costing\r\nAsset Accounting & Project Systems\r\nFinancial Supply Chain Management\r\nTreasury & Banking\r\nBusiness Planning & Consolidation\r\nKey Responsibilities\r\n\r\nProvide business and functional support on SAP modules, particularly for conversions from legacy SAP systems to SAP S/4HANA.\r\nAssess impact and gaps in the current business processes and configuration for the SAP module vs. the equivalent in SAP S/4HANA, and provide alternatives and recommendations on the delta design.\r\nProvide technology consulting expertise and develop functional and technical specifications for the delta design, and for tools to support the SAP S/4HANA conversion.\r\nExecute the necessary system configuration to enable to SAP S/4HANA conversion.\r\nLead testing and defect resolution in the context of SAP S/4HANA conversions.\r\nHere’s what you’ll need:\r\n\r\nMinimum Requirements:\r\n\r\nMust possess at least a Bachelor\'s/College Degree\r\n2+ Years of Experience in SAP ERP as Finance functional consultant is an advantage\r\nAbility to demonstrate understanding of end-to-end business process of record to report\r\nMust demonstrate the dependencies and integration with other SAP modules (e.g. FI, CO, etc.).\r\nTechnology consulting expertise, and ability to drive workshops and training sessions\r\nECC Practitioners will be given upskilling training, to be job ready for S/4HANA implementations\r\nWilling to travel for possible onshore requirements\r\nKey Skills\r\n\r\nGood interpersonal skills, including strong verbal and written communication.\r\nAble to work under pressure without any supervision, and a good team player.', 'Wala', 'Non-urgent Hiring', 'Operations', '2024-03-19 09:03:20'),
-(3, 'IT Specialist', 900, 'Intern', '8 hours shift', 'Makati City', '<p>Sheesh</p><p>sd</p><ul><li>dasda</li><li>asd</li><li>a</li></ul>', '<p>Wala</p><p>sd</p>', 'Urgent Hiring', 'IT', '2024-03-20 02:37:32'),
-(7, 'Waiter', 10000, 'Full-time', '8 hours shift', 'Manila', '<ul><li>SSSSSSHHHHHHHHHEEEEEEEEEESSSSSSHHHHHHH</li></ul>', '<ul><li>WLAA</li></ul>', 'Urgent Hiring', 'IT', '2024-03-13 02:50:52'),
-(9, 'SAP', 10000, 'Part-time', '8 hours shift', 'Parañaque', '<ul><li>asdads</li></ul>', '<ul><li>asdaaa</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-15 08:28:20'),
-(10, 'Finance', 10000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>das</li></ul>', '<ol><li>2313</li></ol>', 'Non-urgent Hiring', 'Operations', '2024-03-13 02:50:52'),
-(11, 'SHESSH', 1000, 'Full-time', '9 hours shift', 'Makati', '<p>asda</p>', '<p>asda</p><p>asdsd</p>', 'Non-urgent Hiring', 'IT', '2024-03-13 02:51:41'),
-(12, '', 0, 'Full-time', '', '', '<span style=\"background-color: rgb(247, 173, 107);\">sdsada</span>', '', 'Non-urgent Hiring', 'IT', '2024-03-15 02:08:42'),
-(13, 'Tech Support', 100, 'Full-time', '8 hours shift', 'Makati City', '<ul><li>sda</li></ul>', '<ul><li>aksjdhakj</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:15:12'),
-(14, 'Developer', 20, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asd</li></ul>', '<ul><li>asd</li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 03:16:57'),
-(15, 'kjk', 0, 'Full-time', 'jdsalk', 'ojas', '<ol><li>ds</li><li>asd</li><li>sad</li></ol>', '<ul><li>adads</li><li><b>ada</b></li></ul>', 'Non-urgent Hiring', 'IT', '2024-03-18 07:12:22'),
-(16, 'Test test', 20000, 'Full-time', '8 hours shift', 'Makati', '<ul><li>asdsada</li><li>asd</li></ul><p>as</p><p><br></p>', '<p><b>sdjaajdalkla</b></p>', 'Urgent Hiring', 'IT', '2024-03-19 05:27:16'),
-(17, 'test', 12, 'Project-based', 'asd', 'Makati', '<p>asdasas</p>', '<p>dsadadasd</p>', 'Non-urgent Hiring', 'Logistics', '2024-04-03 08:41:58');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `job_applicants`
 --
 
@@ -237,16 +219,16 @@ CREATE TABLE `job_applicants` (
   `application_status` varchar(255) NOT NULL,
   `interview_date` datetime DEFAULT NULL,
   `remark` text NOT NULL,
-  `log` text NOT NULL
+  `employee_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job_applicants`
 --
 
-INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `log`) VALUES
-(31, 20, 2, 'Failed', '2024-04-17 10:10:00', 'Berto Berto changed status to  Onboarding, dasdsad.  <br> Remark by: Berto Berto, wews.  <br> Remark by: Berto Berto', ''),
-(32, 9, 1, 'Failed', NULL, '.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, Sheessh.  <br> Remark by: Berto Berto', '');
+INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
+(31, 20, 4, 'Pooling', '2024-05-03 15:51:00', 'Berto Berto changed status to  Onboarding, dasdsad.  <br> Remark by: Berto Berto, wews.  <br> Remark by: Berto Berto, asdasdasdadadadasd.  <br> Remark by: Berto Berto', 2),
+(32, 9, 3, 'Pooling', NULL, '', 29);
 
 -- --------------------------------------------------------
 
@@ -441,12 +423,6 @@ ALTER TABLE `employment_background`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `jobs`
---
-ALTER TABLE `jobs`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
@@ -484,7 +460,7 @@ ALTER TABLE `user_resumes`
 -- AUTO_INCREMENT for table `applicant_logs`
 --
 ALTER TABLE `applicant_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `character_references`
@@ -503,12 +479,6 @@ ALTER TABLE `educational_attainment`
 --
 ALTER TABLE `employment_background`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
--- AUTO_INCREMENT for table `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`
