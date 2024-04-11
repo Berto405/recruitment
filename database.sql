@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2024 at 12:37 PM
+-- Generation Time: Apr 11, 2024 at 05:59 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `recruitment`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `applicant_logs`
+--
+
+CREATE TABLE `applicant_logs` (
+  `id` int(11) NOT NULL,
+  `applicant_id` int(11) NOT NULL,
+  `log` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `applicant_logs`
+--
+
+INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`) VALUES
+(1, 32, '11:11AM Apr 11, 2024, Berto Berto changed status to  Waiting for Start Date'),
+(2, 32, '11:12AM Apr 11, 2024, Berto Berto changed status to  Ongoing Requirements'),
+(3, 32, '11:17AM Apr 11, 2024: Berto Berto changed status to  Waiting for Start Date'),
+(4, 31, '11:45AM Apr 11, 2024: Berto Berto changed status to  Waiting for Feedback'),
+(5, 31, '11:46AM Apr 11, 2024: Berto Berto changed status to  Pooling'),
+(6, 31, '11:56AM Apr 11, 2024: Berto Berto changed status to  Failed');
 
 -- --------------------------------------------------------
 
@@ -212,16 +236,17 @@ CREATE TABLE `job_applicants` (
   `job_id` int(12) NOT NULL,
   `application_status` varchar(255) NOT NULL,
   `interview_date` datetime DEFAULT NULL,
-  `remark` text NOT NULL
+  `remark` text NOT NULL,
+  `log` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `job_applicants`
 --
 
-INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`) VALUES
-(31, 20, 2, 'Pooling', '2024-04-18 10:30:00', 'Sheesh, No idea, azxczxczxczc, 312313123, Failed, dashutyryr, 123, kjhakjhkjh, Remarked by: Berto Berto jjjjjj, sheeshdssssssssssssssssssssss.  Remark by: Berto Berto, asdasdghdfgfdsfdg.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, jkfhgkjfdhgkjdfhgkjhroitureoituoeriutoeiutoeutoeruotiu.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, sadssssss.  <br> Remark by: Berto Berto, 00000000000000.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdsadas.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdaFAILEEEEEEEEDDDDDDDDD.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto'),
-(32, 9, 1, 'Pooling', NULL, 'No appearance, lack of requirements, No idea, test, No way, dasdasd, azxczxczxczc, 312313123, Failed, dasdasd, 123, kjhakjhkjh, dsadasdas, sheesh.  <br> Remark by: Berto Berto, asdasdghdfgfdsfdg.  <br> Remark by: Berto Berto, FailedFAILED.  <br> Remark by: Berto Berto, jkfhgkjfdhgkjdfhgkjhroitureoituoeriutoeiutoeutoeruotiu.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, sadssssss.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, asdsadas.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, FAILEDDDDDDDDDDDDDDDDD.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto');
+INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `log`) VALUES
+(31, 20, 2, 'Failed', '2024-04-17 10:10:00', 'Berto Berto changed status to  Onboarding, dasdsad.  <br> Remark by: Berto Berto, wews.  <br> Remark by: Berto Berto', ''),
+(32, 9, 1, 'Failed', NULL, '.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, Sheessh.  <br> Remark by: Berto Berto', '');
 
 -- --------------------------------------------------------
 
@@ -392,6 +417,12 @@ INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `f
 --
 
 --
+-- Indexes for table `applicant_logs`
+--
+ALTER TABLE `applicant_logs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `character_references`
 --
 ALTER TABLE `character_references`
@@ -448,6 +479,12 @@ ALTER TABLE `user_resumes`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `applicant_logs`
+--
+ALTER TABLE `applicant_logs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `character_references`

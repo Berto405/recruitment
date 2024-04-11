@@ -81,51 +81,51 @@ include ('../components/header.php');
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
                                                 <li>
                                                     <button type="submit" name="multiOngoingBtn"
-                                                        class="dropdown-item bg-warning text-dark mb-1">
+                                                        class="dropdown-item text-warning mb-1">
                                                         <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiOnbaordingBtn"
-                                                        class="dropdown-item bg-info text-dark mb-1">
+                                                        class="dropdown-item text-info mb-1">
                                                         <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiStartDateBtn"
-                                                        class="dropdown-item bg-primary text-light mb-1">
+                                                        class="dropdown-item text-primary mb-1">
                                                         <i class="bi bi-clock me-1"></i> Waiting for Start Date
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiPlacedBtn"
-                                                        class="dropdown-item bg-success text-light mb-1">
+                                                        class="dropdown-item text-success mb-1">
                                                         <i class="bi bi-check-square me-1"></i> Placed
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiPlacedWithOngoingBtn"
-                                                        class="dropdown-item bg-success text-light mb-1">
+                                                        class="dropdown-item text-success mb-1">
                                                         <i class="bi bi-arrow-clockwise me-1"></i> Placed with Ongoing
                                                         Req
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiPlacedWithOnboardingBtn"
-                                                        class="dropdown-item  bg-success text-light mb-1">
+                                                        class="dropdown-item  text-success mb-1">
                                                         <i class="bi bi-hand-thumbs-up me-1"></i> Placed with Onboarding
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="button" id="failedBtn"
-                                                        class="dropdown-item bg-danger text-light mb-1"
-                                                        data-bs-toggle="modal" data-bs-target="#remarkModal">
+                                                        class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#remarkModal">
                                                         <i class="bi bi-x-square"></i> Failed
                                                     </button>
                                                 </li>
                                                 <li>
                                                     <button type="submit" name="multiBackoutBtn"
-                                                        class="dropdown-item  bg-danger text-light  mb-1">
+                                                        class="dropdown-item  text-danger  mb-1">
                                                         <i class="bi bi-back me-1"></i> Backout
                                                     </button>
                                                 </li>
@@ -139,6 +139,7 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
                                     <th class="bg-danger text-white text-center">Remarks</th>
+                                    <th class="bg-danger text-white text-center">Logs</th>
                                     <th class="bg-danger text-white text-center">Action</th>
                                 </tr>
                             </thead>

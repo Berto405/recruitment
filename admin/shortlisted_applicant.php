@@ -71,52 +71,59 @@ include ('../components/header.php');
                             <thead class="bg-danger ">
                                 <tr>
                                     <th class="bg-danger text-white text-center">
-                                        <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
-                                            id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-list"></i>
-                                        </a>
+                                        <div class="dropdown">
+                                            <a href="#"
+                                                class="link-dark text-decoration-none dropdown-toggle text-white"
+                                                id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="bi bi-list"></i>
+                                            </a>
 
-                                        <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
-                                            <li class="mb-1">
-                                                <button type="submit" name="multi_initial_interviewBtn"
-                                                    class="btn btn-info badge">
-                                                    <i class="bi bi-calendar-check-fill me-1"></i> For Initial
-                                                    Interview
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="submit" name="multi_final_interviewBtn"
-                                                    class="btn btn-dark badge">
-                                                    <i class="bi bi-calendar-check me-1"></i> For Final Interview
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="submit" name="multiFeedbackBtn"
-                                                    class="btn btn-primary badge">
-                                                    <i class="bi bi-clock me-1"></i> Waiting for Feedback
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="submit" name="multiHiredBtn"
-                                                    class="btn btn-success badge">
-                                                    <i class="bi bi-check-square me-1"></i> Hired
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="button" id="backBtn" class="btn btn-warning badge"
-                                                    data-bs-toggle="modal" data-bs-target="#remarkModal">
-                                                    <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
-                                                </button>
-                                            </li>
-                                            <li class="mb-1">
-                                                <button type="button" id="failedBtn" class="btn btn-danger badge"
-                                                    data-bs-toggle="modal" data-bs-target="#remarkModal">
-                                                    <i class="bi bi-x-square"></i> Failed
-                                                </button>
-                                            </li>
+                                            <ul class="dropdown-menu text-center shadow"
+                                                aria-labelledby="dropdownUser2">
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multi_initial_interviewBtn"
+                                                        class="dropdown-item text-info mb-1">
+                                                        <i class="bi bi-calendar-check-fill me-1"></i> For Initial
+                                                        Interview
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multi_final_interviewBtn"
+                                                        class="dropdown-item text-dark mb-1">
+                                                        <i class="bi bi-calendar-check me-1"></i> For Final Interview
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multiFeedbackBtn"
+                                                        class="dropdown-item text-primary mb-1">
+                                                        <i class="bi bi-clock me-1"></i> Waiting for Feedback
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="submit" name="multiHiredBtn"
+                                                        class="dropdown-item text-success mb-1">
+                                                        <i class="bi bi-check-square me-1"></i> Hired
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="button" id="backBtn"
+                                                        class="dropdown-item text-warning mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#remarkModal">
+                                                        <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to
+                                                        Pooling
+                                                    </button>
+                                                </li>
+                                                <li class="mb-1">
+                                                    <button type="button" id="failedBtn"
+                                                        class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
+                                                        data-bs-target="#remarkModal">
+                                                        <i class="bi bi-x-square"></i> Failed
+                                                    </button>
+                                                </li>
 
 
-                                        </ul>
+                                            </ul>
+                                        </div>
                                     </th>
 
                                     <th class="bg-danger text-white text-center">Applicant Name</th>
@@ -125,6 +132,7 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
                                     <th class="bg-danger text-white text-center">Remarks</th>
+                                    <th class="bg-danger text-white text-center">Logs</th>
                                     <th class="bg-danger text-white text-center">Action</th>
 
                                 </tr>

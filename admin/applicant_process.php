@@ -2,6 +2,7 @@
 session_start();
 include ('../dbconn.php');
 
+date_default_timezone_set('Asia/Manila');
 
 // Define application status constants
 define("STATUS_PASSED", "Passed");
@@ -59,6 +60,12 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 
     } else if (isset($_POST['placedBtn'])) {
         updateApplicantStatus($conn, STATUS_PLACED);
+
+    } else if (isset($_POST['placedWithOngoingBtn'])) {
+        updateApplicantStatus($conn, STATUS_PLACED_WITH_ONGOING);
+
+    } else if (isset($_POST['placedWithOnboardingBtn'])) {
+        updateApplicantStatus($conn, STATUS_PLACED_WITH_ONBOARDING);
 
     } else if (isset($_POST['backoutBtn'])) {
         updateApplicantStatus($conn, STATUS_BACKOUT);
@@ -124,11 +131,15 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
 // Function to update applicant status
 function updateApplicantStatus($conn, $status)
 {
+    $currentDateTime = date('h:iA M d, Y');
     $applicantId = $_POST['applicant_id'];
+
+
     $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name']; // 'backToPooling_remark' contains the new remark
+    $newLog = $currentDateTime . ': ' . $_SESSION['user_name'] . ' changed status to ' . ' ' . $status;
 
     // Fetch existing remark from the database
-    $query = "SELECT remark FROM job_applicants WHERE id = ?";
+    $query = "SELECT remark, log FROM job_applicants WHERE id = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $applicantId);
     $stmt->execute();
@@ -141,11 +152,26 @@ function updateApplicantStatus($conn, $status)
         $newRemark = $existingRemark . ', ' . $newRemark;
     }
 
-    // Update the database with the new remark
-    $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-    $stmt->execute();
+    if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn'])) {
+        // Update the database with the new remark
+        $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+        $stmt->execute();
+    } else {
+        // Update the database 
+        $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("si", $status, $applicantId);
+        $stmt->execute();
+
+
+    }
+    $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
+    $logStmt = $conn->prepare($logQuery);
+    $logStmt->bind_param("is", $applicantId, $newLog);
+    $logStmt->execute();
+
 
     if ($stmt->affected_rows > 0) {
         $_SESSION['success_message'] = "Applicant status updated successfully";
@@ -162,11 +188,12 @@ function updateApplicantStatus($conn, $status)
 function updateMultiApplicants($conn, $status)
 {
     if (isset($_POST['checkbox_value'])) {
+        $currentDateTime = date('h:iA M d, Y');
 
         foreach ($_POST['checkbox_value'] as $applicantId) {
 
             $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name']; // 'backToPooling_remark' contains the new remark
-
+            $newLog = $currentDateTime . ': ' . $_SESSION['user_name'] . ' changed status to ' . ' ' . $status;
             // Fetch existing remark from the database
             $query = "SELECT remark FROM job_applicants WHERE id = ?";
             $stmt = $conn->prepare($query);
@@ -181,11 +208,25 @@ function updateMultiApplicants($conn, $status)
                 $newRemark = $existingRemark . ', ' . $newRemark;
             }
 
-            // Update the database with the new remark
-            $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-            $stmt->execute();
+
+            if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn'])) {
+                // Update the database with the new remark
+                $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+                $stmt->execute();
+            } else {
+                // Update the database 
+                $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("si", $status, $applicantId);
+                $stmt->execute();
+
+            }
+            $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
+            $logStmt = $conn->prepare($logQuery);
+            $logStmt->bind_param("is", $applicantId, $newLog);
+            $logStmt->execute();
 
             if ($stmt->affected_rows > 0) {
                 $_SESSION['success_message'] = "Applicants status updated successfully";

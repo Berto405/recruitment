@@ -104,6 +104,7 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
                                     <th class="bg-danger text-white text-center">Remarks</th>
+                                    <th class="bg-danger text-white text-center">Logs</th>
                                     <th class="bg-danger text-white text-center">Action</th>
                                 </tr>
                             </thead>
