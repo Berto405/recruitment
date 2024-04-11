@@ -26,37 +26,37 @@
                 <li class="my-1  bg-container text-white">
                     <a href="../admin/pooling_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/pooling_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-people-fill me-2"></i>Pooling
+                        Pooling
                     </a>
                 </li>
                 <li class="my-1 menu_">
                     <a href="../admin/shortlisted_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/shortlisted_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-file-plus-fill me-2"></i>Shortlisted
+                        Shortlisted
                     </a>
                 </li>
                 <li class="my-1 ">
                     <a href="../admin/identified_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/identified_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-file-earmark-check-fill me-2"></i>Identified
+                        Identified
                     </a>
                 </li>
                 <li class="my-1 ">
                     <a href="../admin/placed_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/placed_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-file-earmark-check-fill me-2"></i>Placed
+                        Placed
                     </a>
                 </li>
                 <li class="my-1 ">
                     <a href="../admin/failed_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/failed_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-file-earmark-check-fill me-2"></i>Failed
+                        Failed
                     </a>
                 </li>
                 <li class="my-1 ">
                     <a href="../admin/backout_applicant.php"
                         class="nav-link p-2 ps-4 ps-5 <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/admin/backout_applicant.php') ? 'border-end border-danger border-5 bg-danger text-white' : 'text-danger'; ?>">
-                        <i class="bi bi-file-earmark-check-fill me-2"></i>Backout
+                        Backout
                     </a>
                 </li>
             </ul>

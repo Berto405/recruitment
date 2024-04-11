@@ -17,12 +17,12 @@ if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') 
 }
 
 $query =
-    "SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, jobs.priority, user.first_name, user.last_name, user.resume
+    "SELECT job_applicants.*, mrfs.job_position, mrfs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
-    INNER JOIN jobs ON job_applicants.job_id = jobs.id)
+    INNER JOIN mrfs ON job_applicants.job_id = mrfs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
     WHERE job_applicants.application_status = 'Failed'
-    ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+    ";
 
 $result = mysqli_query($conn, $query);
 
@@ -36,7 +36,7 @@ include ('../components/header.php');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pooling Applicants</title>
+    <title>Failed Applicants</title>
     <style>
         #imagePreview {
             width: 1in;
@@ -60,7 +60,7 @@ include ('../components/header.php');
                 <?php include ("../admin/admin_sidebar.php"); ?>
             </div>
             <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
-                <h4 class=" mt-1 mb-5 ">Placed Applicants</h4>
+                <h4 class=" mt-1 mb-5 ">Failed Applicants</h4>
 
 
 

@@ -46,17 +46,12 @@
                     ?>
                     <button type="button" class="btn btn-primary badge" data-bs-toggle="modal"
                         data-bs-target="#viewMRFModal<?php echo $row['id']; ?>">
-                        View MRF List
+                        Select MRF List
                     </button>
                     <?php
                 } else {
-                    // Otherwise, display the job name with appropriate icon based on priority
-                    if ($row['priority'] == 'Urgent Hiring') {
-                        ?>
-                        <i class="bi bi-exclamation-circle-fill text-danger"></i>
-                        <?php
-                    }
-                    echo $row['job_name'];
+
+                    echo $row['job_position'];
                 }
                 ?>
             </td>
@@ -67,18 +62,18 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content rounded-4 shadow">
                         <div class="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 class="fw-bold mb-0 fs-2">Jobs/MRFs List</h1>
+                            <h1 class="fw-bold mb-0 fs-2">MRFs List</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
 
                         <div class="modal-body p-5 pt-0">
                             <form action="" method="POST" class="">
-                                <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
+                                <input type="hidden" name="mrf_applicant_id" value="<?php echo $row['id']; ?>">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" name="jobSelect" id="jobSelect" required>
                                         <option selected disabled>Choose...</option>
                                         <?php
-                                        $jobListQuery = "SELECT id, job_name FROM jobs ORDER BY CASE WHEN jobs.priority = 'Urgent Hiring' THEN 0 ELSE 1 END";
+                                        $jobListQuery = "SELECT * FROM mrfs WHERE mrf_status = 'Post'";
                                         $stmt = $conn->prepare($jobListQuery);
                                         $stmt->execute();
                                         $jobListResult = $stmt->get_result();
@@ -86,13 +81,13 @@
                                         while ($jobListRow = $jobListResult->fetch_assoc()) {
                                             ?>
                                             <option value="<?php echo $jobListRow['id']; ?>">
-                                                <?php echo $jobListRow['job_name']; ?>
+                                                <?php echo $jobListRow['job_position']; ?>
                                             </option>
                                             <?php
                                         }
                                         ?>
                                     </select>
-                                    <label for="priority" class="form-label fw-bold">Job/MRF</label>
+                                    <label for="jobSelect" class="form-label fw-bold">MRF</label>
                                 </div>
 
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="assignJobBtn"
@@ -505,18 +500,25 @@
                                 <div class="col">
                                     <ul class="list-group list-group-flush">
                                         <?php
-                                        $logQuery = "SELECT * FROM applicant_logs WHERE applicant_id = ?";
+                                        $logQuery = "SELECT * FROM applicant_logs WHERE applicant_id = ? ORDER BY created_at DESC";
                                         $logStmt = $conn->prepare($logQuery);
                                         $logStmt->bind_param("i", $row['id']);
                                         $logStmt->execute();
                                         $logResult = $logStmt->get_result();
 
                                         while ($logRow = $logResult->fetch_assoc()) {
+                                            // Convert 'created_at' to a DateTime object
+                                            $created_at = new DateTime($logRow['created_at']);
+                                            // Format the DateTime object
+                                            $logTime = $created_at->format('h:iA M d, Y');
                                             ?>
                                             <li class="list-group-item">
                                                 <p>
                                                     <i class="bi bi-exclamation-square-fill text-danger"></i>
-                                                    <?php echo $logRow['log']; ?>
+                                                    <span class="fw-bold">
+                                                        <?php echo $logTime; ?>
+                                                    </span>
+                                                    <?php echo ': ' . $logRow['log']; ?>
                                                 </p>
                                             </li>
                                             <?php
