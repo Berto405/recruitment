@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2024 at 08:22 AM
+-- Generation Time: Apr 12, 2024 at 11:47 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -259,8 +259,8 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(36, 9, 2, 'Passed', '2024-04-16 13:40:00', 'dasdasd5767576.  <br> Remark by: Berto Berto, jjjjjjjjjjjj.  <br> Remark by: Berto Berto, lllllllllllllllllllllllllllll.  <br> Remark by: Berto Berto, lllllllllllllll123.  <br> Remark by: Berto Berto', 0),
-(39, 20, 2, 'Backout', '2024-04-25 14:06:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto', 2);
+(36, 9, 2, 'Pending', '2024-04-16 13:40:00', 'dasdasd5767576.  <br> Remark by: Berto Berto, jjjjjjjjjjjj.  <br> Remark by: Berto Berto, lllllllllllllllllllllllllllll.  <br> Remark by: Berto Berto, lllllllllllllll123.  <br> Remark by: Berto Berto', 0),
+(39, 20, 2, 'Pending', '2024-04-25 14:06:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto', 2);
 
 -- --------------------------------------------------------
 
