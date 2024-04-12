@@ -133,8 +133,6 @@ include ('../components/header.php');
                                         <div class="mb-3">
                                             <div class="row mb-3">
                                                 <div class="col">
-                                                    <input type="hidden" class="form-control" name="applicant_id"
-                                                        value="<?php echo $row['id'] ?>">
                                                     <div class="form-floating">
                                                         <input type="text" class="form-control" placeholder="rekamr"
                                                             id="remark" name="remark">

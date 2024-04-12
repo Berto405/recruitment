@@ -44,8 +44,8 @@
                 if ($row['application_status'] == 'Pooling') {
                     // Show the button if job_id is 0
                     ?>
-                    <button type="button" class="btn btn-primary badge" data-bs-toggle="modal"
-                        data-bs-target="#viewMRFModal<?php echo $row['id']; ?>">
+                    <button type="button" class="btn btn-primary badge" data-bs-toggle="modal" data-bs-target="#viewMRFModal"
+                        data-applicantId="<?php echo $row['id']; ?>">
                         Select MRF List
                     </button>
                     <?php
@@ -56,47 +56,7 @@
                 ?>
             </td>
 
-            <!-- MRF List Modal -->
-            <div class="modal fade" tabindex="-1" role="dialog" id="viewMRFModal<?php echo $row['id']; ?>"
-                aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content rounded-4 shadow">
-                        <div class="modal-header p-5 pb-4 border-bottom-0">
-                            <h1 class="fw-bold mb-0 fs-2">MRFs List</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
 
-                        <div class="modal-body p-5 pt-0">
-                            <form action="../admin/applicant_process.php" method="POST" class="">
-                                <input type="hidden" name="mrf_applicant_id" value="<?php echo $row['id']; ?>">
-                                <div class="form-floating mb-3">
-                                    <select class="form-select" name="jobSelect" id="jobSelect" required>
-                                        <option selected disabled>Choose...</option>
-                                        <?php
-                                        $jobListQuery = "SELECT * FROM mrfs WHERE mrf_status = 'Post'";
-                                        $stmt = $conn->prepare($jobListQuery);
-                                        $stmt->execute();
-                                        $jobListResult = $stmt->get_result();
-
-                                        while ($jobListRow = $jobListResult->fetch_assoc()) {
-                                            ?>
-                                            <option value="<?php echo $jobListRow['id']; ?>">
-                                                <?php echo $jobListRow['job_position']; ?>
-                                            </option>
-                                            <?php
-                                        }
-                                        ?>
-                                    </select>
-                                    <label for="jobSelect" class="form-label fw-bold">MRF</label>
-                                </div>
-
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="assignJobBtn"
-                                    type="submit">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!-- Location -->
             <td>
@@ -290,8 +250,9 @@
 
                                 </li>
                                 <li class="mb-1">
-                                    <button type="button" class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
-                                        data-bs-target="#failModal<?php echo $row['id'] ?>">
+                                    <button type="button" class="dropdown-item text-danger mb-1 failModalBtn"
+                                        data-bs-toggle="modal" data-bs-target="#failModal"
+                                        data-applicantId="<?php echo $row['id']; ?>">
                                         <i class="bi bi-x-square"></i> Failed
                                     </button>
                                 </li>
@@ -311,13 +272,13 @@
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
                                     <li class="mb-1">
                                         <button type="button" class="dropdown-item text-info mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#initialInterviewModal<?php echo $row['id'] ?>">
+                                            data-bs-target="#initialInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
                                             <i class="bi bi-calendar-check me-1"></i> For Initial Interview
                                         </button>
                                     </li>
                                     <li class="mb-1">
                                         <button type="button" class="dropdown-item text-dark mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#finalInterviewModal<?php echo $row['id'] ?>">
+                                            data-bs-target="#finalInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
                                             <i class="bi bi-calendar-check me-1"></i> For Final Interview
                                         </button>
                                     </li>
@@ -333,13 +294,14 @@
                                     </li>
                                     <li class="mb-1">
                                         <button type="button" class="dropdown-item text-warning mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#backToPoolingModal<?php echo $row['id'] ?>">
+                                            data-bs-target="#backToPoolingModal" data-applicantId="<?php echo $row['id']; ?>">
                                             <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
                                         </button>
                                     </li>
                                     <li class="mb-1">
-                                        <button type="button" class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#failModal<?php echo $row['id'] ?>">
+                                        <button type="button" class="dropdown-item text-danger mb-1 failModalBtn"
+                                            data-bs-toggle="modal" data-bs-target="#failModal"
+                                            data-applicantId="<?php echo $row['id']; ?>">
                                             <i class="bi bi-x-square"></i> Failed
                                         </button>
                                     </li>
@@ -382,8 +344,9 @@
                                             </button>
                                         </li>
                                         <li class="mb-1">
-                                            <button type="button" class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
-                                                data-bs-target="#failModal<?php echo $row['id'] ?>">
+                                            <button type="button" class="dropdown-item text-danger mb-1 failModalBtn"
+                                                data-bs-toggle="modal" data-bs-target="#failModal"
+                                                data-applicantId="<?php echo $row['id']; ?>">
                                                 <i class="bi bi-x-square"></i> Failed
                                             </button>
                                         </li>
@@ -407,81 +370,7 @@
         </tr>
 
 
-        <!-- Fail Remark Modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="failModal<?php echo $row['id']; ?>" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content rounded-4 shadow">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
-                            Remark
-                        </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
 
-                    <div class="modal-body p-5 pt-0">
-                        <form action="../admin/applicant_process.php" method="POST" class="">
-                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
-                            <div class="mb-3">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <input type="hidden" class="form-control" name="applicant_id"
-                                            value="<?php echo $row['id'] ?>">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="remark" name="remark"
-                                                required>
-                                            <label class=" form-label fw-bold">Remark</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="failBtn" type="submit">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Back to Pooling Remark Modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="backToPoolingModal<?php echo $row['id']; ?>"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content rounded-4 shadow">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
-                            Remark
-                        </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body p-5 pt-0">
-                        <form action="../admin/applicant_process.php" method="POST" class="">
-                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
-                            <div class="mb-3">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <input type="hidden" class="form-control" name="applicant_id"
-                                            value="<?php echo $row['id'] ?>">
-                                        <div class="form-floating">
-                                            <input type="text" class="form-control" placeholder="remark" name="remark"
-                                                required>
-                                            <label class=" form-label fw-bold">Remark</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="backToPoolingBtn"
-                                type="submit">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- View Log Modal -->
         <div class="modal fade" tabindex="-1" role="dialog" id="viewLogsModal<?php echo $row['id']; ?>" aria-hidden="true">
@@ -567,76 +456,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Schedule Initial Interview Modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="initialInterviewModal<?php echo $row['id']; ?>"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content rounded-4 shadow">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
-                            Schedule Initial Interview
-                        </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body p-5 pt-0">
-                        <form action="../admin/applicant_process.php" method="POST" class="">
-                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
-                            <div class="mb-3">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <input type="hidden" class="form-control" name="applicant_id"
-                                            value="<?php echo $row['id'] ?>">
-                                        <input type="datetime-local" class="form-control" name="interview_date" id="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="initial_interviewBtn"
-                                type="submit">
-                                Submit
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Schedule Final Interview Modal -->
-        <div class="modal fade" tabindex="-1" role="dialog" id="finalInterviewModal<?php echo $row['id']; ?>"
-            aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content rounded-4 shadow">
-                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
-                            Schedule Final Interview
-                        </h4>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-
-                    <div class="modal-body p-5 pt-0">
-                        <form action="../admin/applicant_process.php" method="POST" class="">
-                            <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
-                            <div class="mb-3">
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <input type="hidden" class="form-control" name="applicant_id"
-                                            value="<?php echo $row['id'] ?>">
-                                        <input type="datetime-local" class="form-control" name="interview_date" id="">
-                                    </div>
-                                </div>
-                            </div>
-
-                            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="final_interviewBtn"
-                                type="submit">
-                                Submit
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -1857,7 +1676,268 @@
 
 </tbody>
 
+<!-- MRF List Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="viewMRFModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">MRFs List</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="mrf_applicant_id" id="applicant_id">
+                    <div class="form-floating mb-3">
+                        <select class="form-select" name="jobSelect" id="jobSelect" required>
+                            <option selected disabled>Choose...</option>
+                            <?php
+                            $jobListQuery = "SELECT * FROM mrfs WHERE mrf_status = 'Post'";
+                            $stmt = $conn->prepare($jobListQuery);
+                            $stmt->execute();
+                            $jobListResult = $stmt->get_result();
+
+                            while ($jobListRow = $jobListResult->fetch_assoc()) {
+                                ?>
+                                <option value="<?php echo $jobListRow['id']; ?>">
+                                    <?php echo $jobListRow['job_position']; ?>
+                                </option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <label for="jobSelect" class="form-label fw-bold">MRF</label>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="assignJobBtn"
+                        type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Fail Remark Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="failModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                    Remark
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="applicant_id" id="fail_applicant_id">
+                    <div class="mb-3">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" placeholder="remark" name="remark" required>
+                                    <label class=" form-label fw-bold">Remark</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="failBtn" type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Pooling Remark Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="backToPoolingModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                    Remark
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="applicant_id" id="back_applicant_id">
+                    <div class="mb-3">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" placeholder="remark" name="remark" required>
+                                    <label class=" form-label fw-bold">Remark</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="backToPoolingBtn" type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Schedule Initial Interview Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="initialInterviewModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                    Schedule Initial Interview
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="applicant_id" id="initial_applicant_id">
+                    <div class="mb-3">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="datetime-local" class="form-control" name="interview_date" id="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="initial_interviewBtn"
+                        type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Schedule Final Interview Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="finalInterviewModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                    Schedule Final Interview
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="applicant_id" id="final_applicant_id">
+                    <div class="mb-3">
+                        <div class="row mb-3">
+                            <div class="col">
+                                <input type="datetime-local" class="form-control" name="interview_date" id="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="final_interviewBtn" type="submit">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+    // Select the modal element
+    var viewMRFModal = document.getElementById('viewMRFModal');
+
+    // Add an event listener for when the modal is shown
+    viewMRFModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Retrieve data-applicantId from the button
+        var applicantId = button.getAttribute('data-applicantId');
+
+        // Get the input element inside the modal
+        var applicantIdInput = document.getElementById('applicant_id');
+
+        // Populate the input with the applicantId
+        applicantIdInput.value = applicantId;
+    });
+
+    var failModal = document.getElementById('failModal');
+
+    failModal.addEventListener('shown.bs.modal', function (event) {
+
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Retrieve data-applicantId from the button
+        var applicantId = button.getAttribute('data-applicantId');
+
+        // Get the input element inside the modal
+        var applicantIdInput = document.getElementById('fail_applicant_id');
+
+        // Populate the input with the applicantId
+        applicantIdInput.value = applicantId;
+    });
+
+    var backToPoolingModal = document.getElementById('backToPoolingModal');
+
+    backToPoolingModal.addEventListener('shown.bs.modal', function (event) {
+
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Retrieve data-applicantId from the button
+        var applicantId = button.getAttribute('data-applicantId');
+
+        // Get the input element inside the modal
+        var applicantIdInput = document.getElementById('back_applicant_id');
+
+        // Populate the input with the applicantId
+        applicantIdInput.value = applicantId;
+    });
+
+    var initialInterviewModal = document.getElementById('initialInterviewModal');
+
+    initialInterviewModal.addEventListener('shown.bs.modal', function (event) {
+
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Retrieve data-applicantId from the button
+        var applicantId = button.getAttribute('data-applicantId');
+
+        // Get the input element inside the modal
+        var applicantIdInput = document.getElementById('initial_applicant_id');
+
+        // Populate the input with the applicantId
+        applicantIdInput.value = applicantId;
+    });
+
+
+    var finalInterviewModal = document.getElementById('finalInterviewModal');
+
+    finalInterviewModal.addEventListener('shown.bs.modal', function (event) {
+
+        // Button that triggered the modal
+        var button = event.relatedTarget;
+
+        // Retrieve data-applicantId from the button
+        var applicantId = button.getAttribute('data-applicantId');
+
+        // Get the input element inside the modal
+        var applicantIdInput = document.getElementById('final_applicant_id');
+
+        // Populate the input with the applicantId
+        applicantIdInput.value = applicantId;
+    });
+
     $('#applicantTable').DataTable({
         "columnDefs": [
             { "orderable": false, "targets": [0] } // Disabling sorting for the first column (index 0)

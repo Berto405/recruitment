@@ -244,11 +244,11 @@ function udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $a
     if ($applicationStatus == 'Pooling') {
         $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
     } else {
-        if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn'])) {
+        if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn']) || isset($_POST['multiFailBtn']) || isset($_POST['multiBackToPoolingBtn'])) {
             // Proceed with updating the applicant status with remark 
             $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
             $stmt = $conn->prepare($query);
-            $stmt->bind_param("ssi", $status, $newRemark, $newLog, $applicantId);
+            $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
 
 
         } else {
