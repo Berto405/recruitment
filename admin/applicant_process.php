@@ -245,17 +245,34 @@ function udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $a
         $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
     } else {
         if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn']) || isset($_POST['multiFailBtn']) || isset($_POST['multiBackToPoolingBtn'])) {
-            // Proceed with updating the applicant status with remark 
-            $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
 
+            //Checks if back to pooling btn is clicked and then remove the employee_id on database table
+            if (isset($_POST['backToPoolingBtn'])) {
+                $query = "UPDATE job_applicants SET application_status = ?, remark = ?, employee_id = 0 WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+            } else {
+                // Proceed with updating the applicant status with remark 
+                $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+            }
 
         } else {
-            // Proceed with updating the applicant status 
-            $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("si", $status, $applicantId);
+
+            //Check if pass btn is click and assigned the currently logged in user's id on employee_id
+            if (isset($_POST['passBtn'])) {
+                $empId = $_SESSION['user_id'];
+                $query = "UPDATE job_applicants SET application_status = ?, employee_id = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("sii", $status, $empId, $applicantId);
+            } else {
+                // Proceed with updating the applicant status 
+                $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("si", $status, $applicantId);
+            }
+
 
         }
 

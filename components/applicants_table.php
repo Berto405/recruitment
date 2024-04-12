@@ -1851,92 +1851,32 @@
 </div>
 
 <script>
-    // Select the modal element
-    var viewMRFModal = document.getElementById('viewMRFModal');
+    // Function to populate applicantId input field in modal
+    function populateApplicantId(modalId, inputId) {
+        var modal = document.getElementById(modalId);
 
-    // Add an event listener for when the modal is shown
-    viewMRFModal.addEventListener('show.bs.modal', function (event) {
-        // Button that triggered the modal
-        var button = event.relatedTarget;
+        modal.addEventListener('shown.bs.modal', function (event) {
+            // Button that triggered the modal
+            var button = event.relatedTarget;
 
-        // Retrieve data-applicantId from the button
-        var applicantId = button.getAttribute('data-applicantId');
+            // Retrieve data-applicantId from the button
+            var applicantId = button.getAttribute('data-applicantId');
 
-        // Get the input element inside the modal
-        var applicantIdInput = document.getElementById('applicant_id');
+            // Get the input element inside the modal
+            var applicantIdInput = document.getElementById(inputId);
 
-        // Populate the input with the applicantId
-        applicantIdInput.value = applicantId;
-    });
+            // Populate the input with the applicantId
+            applicantIdInput.value = applicantId;
+        });
+    }
 
-    var failModal = document.getElementById('failModal');
+    // Call the function for each modal
+    populateApplicantId('viewMRFModal', 'applicant_id');
+    populateApplicantId('failModal', 'fail_applicant_id');
+    populateApplicantId('backToPoolingModal', 'back_applicant_id');
+    populateApplicantId('initialInterviewModal', 'initial_applicant_id');
+    populateApplicantId('finalInterviewModal', 'final_applicant_id');
 
-    failModal.addEventListener('shown.bs.modal', function (event) {
-
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Retrieve data-applicantId from the button
-        var applicantId = button.getAttribute('data-applicantId');
-
-        // Get the input element inside the modal
-        var applicantIdInput = document.getElementById('fail_applicant_id');
-
-        // Populate the input with the applicantId
-        applicantIdInput.value = applicantId;
-    });
-
-    var backToPoolingModal = document.getElementById('backToPoolingModal');
-
-    backToPoolingModal.addEventListener('shown.bs.modal', function (event) {
-
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Retrieve data-applicantId from the button
-        var applicantId = button.getAttribute('data-applicantId');
-
-        // Get the input element inside the modal
-        var applicantIdInput = document.getElementById('back_applicant_id');
-
-        // Populate the input with the applicantId
-        applicantIdInput.value = applicantId;
-    });
-
-    var initialInterviewModal = document.getElementById('initialInterviewModal');
-
-    initialInterviewModal.addEventListener('shown.bs.modal', function (event) {
-
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Retrieve data-applicantId from the button
-        var applicantId = button.getAttribute('data-applicantId');
-
-        // Get the input element inside the modal
-        var applicantIdInput = document.getElementById('initial_applicant_id');
-
-        // Populate the input with the applicantId
-        applicantIdInput.value = applicantId;
-    });
-
-
-    var finalInterviewModal = document.getElementById('finalInterviewModal');
-
-    finalInterviewModal.addEventListener('shown.bs.modal', function (event) {
-
-        // Button that triggered the modal
-        var button = event.relatedTarget;
-
-        // Retrieve data-applicantId from the button
-        var applicantId = button.getAttribute('data-applicantId');
-
-        // Get the input element inside the modal
-        var applicantIdInput = document.getElementById('final_applicant_id');
-
-        // Populate the input with the applicantId
-        applicantIdInput.value = applicantId;
-    });
 
     $('#applicantTable').DataTable({
         "columnDefs": [
