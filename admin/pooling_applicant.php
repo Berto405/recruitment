@@ -63,6 +63,19 @@ include ('../components/header.php');
                 <h4 class=" mt-1 mb-5 ">Pooling Applicants</h4>
 
 
+                <div class="row">
+                    <div class="col-md-6 col-lg-9">
+                        <div class="float-start mb-2">
+                            <form action="../components/export_to_excel.php" method="post">
+                                <button type="submit" class="btn btn-success" name="poolingExportBtn"
+                                    style="border-radius: 0;">
+                                    <i class="bi bi-file-earmark-arrow-down"></i> Export
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="table-responsive">
 
