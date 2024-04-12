@@ -117,12 +117,11 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
     } else if (isset($_POST['multiBackoutBtn'])) {
         updateMultiApplicants($conn, STATUS_BACKOUT);
 
-    } else if (isset($_POST['assignJobBtn']) && isset($_POST['mrf_applicant_id'])) {
-        assignJob($conn);
-
-
-
     }
+
+}
+if (isset($_POST['assignJobBtn']) && isset($_POST['mrf_applicant_id'])) {
+    assignJob($conn);
 }
 
 
@@ -151,90 +150,42 @@ function updateApplicantStatus($conn, $status)
         $newRemark = $existingRemark . ', ' . $newRemark;
     }
 
-    // Check if application status is Pooling
-    if ($applicationStatus == 'Pooling') {
-        $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
-    } else {
-        // Proceed with updating the applicant status
-        $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-        $stmt->execute();
-
-        // Check if update was successful
-        if ($stmt->affected_rows > 0) {
-            // Insert log regardless of status update
-            $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
-            $logStmt = $conn->prepare($logQuery);
-            $logStmt->bind_param("is", $applicantId, $newLog);
-            $logStmt->execute();
-
-            $_SESSION['success_message'] = "Applicant status updated successfully";
-        } else {
-            $_SESSION['error_message'] = "Failed to update applicant status";
-        }
-    }
+    udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $applicantId);
 
     redirectBack();
 }
 
 
-
-
-//Function to update multiple rows 
+// Function to update multiple rows
 function updateMultiApplicants($conn, $status)
 {
     if (isset($_POST['checkbox_value'])) {
 
         foreach ($_POST['checkbox_value'] as $applicantId) {
 
-            $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name']; // 'backToPooling_remark' contains the new remark
-            $newLog = $_SESSION['user_name'] . ' changed status to ' . ' ' . $status;
-            // Fetch existing remark from the database
-            $query = "SELECT remark FROM job_applicants WHERE id = ?";
+            // Fetch existing remark and application status from the database
+            $query = "SELECT remark, application_status FROM job_applicants WHERE id = ?";
             $stmt = $conn->prepare($query);
             $stmt->bind_param("i", $applicantId);
             $stmt->execute();
             $result = $stmt->get_result();
             $row = $result->fetch_assoc();
             $existingRemark = $row['remark'];
+            $applicationStatus = $row['application_status'];
+
+            $newRemark = $_POST['remark'] . '. ' . " <br> Remark by: " . $_SESSION['user_name'];
+            $newLog = $_SESSION['user_name'] . ' changed status to ' . ' ' . $status;
 
             // Concatenate existing remark with new remark, separated by a comma
             if (!empty($existingRemark)) {
                 $newRemark = $existingRemark . ', ' . $newRemark;
             }
 
+            udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $applicantId);
 
-            if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn'])) {
-                // Update the database with the new remark
-                $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-                $stmt->execute();
-            } else {
-                // Update the database 
-                $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("si", $status, $applicantId);
-                $stmt->execute();
-
-            }
-            $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
-            $logStmt = $conn->prepare($logQuery);
-            $logStmt->bind_param("is", $applicantId, $newLog);
-            $logStmt->execute();
-
-            if ($stmt->affected_rows > 0) {
-                $_SESSION['success_message'] = "Applicants status updated successfully";
-            } else {
-                $_SESSION['error_message'] = "Failed to update applicant status";
-            }
         }
-
-
     } else {
         $_SESSION['error_message'] = "Select at least 1 data.";
-
     }
     redirectBack();
 }
@@ -287,6 +238,44 @@ function assignJob($conn)
 
 
 
+function udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $applicantId)
+{
+    // Check if application status is Pooling. Returns an error if user did not select MRF before doing any action
+    if ($applicationStatus == 'Pooling') {
+        $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
+    } else {
+        if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn'])) {
+            // Proceed with updating the applicant status with remark 
+            $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("ssi", $status, $newRemark, $newLog, $applicantId);
+
+
+        } else {
+            // Proceed with updating the applicant status 
+            $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("si", $status, $applicantId);
+
+        }
+
+        $stmt->execute();
+
+        // Check if update was successful
+        if ($stmt->affected_rows > 0) {
+            //Insert a log
+            $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
+            $logStmt = $conn->prepare($logQuery);
+            $logStmt->bind_param("is", $applicantId, $newLog);
+            $logStmt->execute();
+
+            $_SESSION['success_message'] = "Applicant status updated successfully";
+        } else {
+            $_SESSION['error_message'] = "Failed to update applicant status";
+        }
+
+    }
+}
 
 //Function to schedule initial interview
 function schedule_interview($conn, $status)

@@ -19,9 +19,9 @@ if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') 
 
 //For displaying interview schedules
 $query = "
-    SELECT job_applicants.*, jobs.job_name, jobs.job_type, jobs.shift_and_schedule, jobs.location, user.first_name, user.last_name, user.resume
+    SELECT job_applicants.*, mrfs.job_position, mrfs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
-    INNER JOIN jobs ON job_applicants.job_id = jobs.id)
+    INNER JOIN mrfs ON job_applicants.job_id = mrfs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
     ORDER BY job_applicants.interview_date ASC
 ";
@@ -35,7 +35,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         $formatTime = $datetime->format('H:i:s');
 
         $user_name = $row['first_name'] . ' ' . $row['last_name'];
-        $position = $row['job_name'];
+        $position = $row['job_position'];
 
         $time = $datetime->format('h:m A');
         if ($row['application_status'] == 'For Initial Interview') {

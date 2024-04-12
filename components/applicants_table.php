@@ -35,7 +35,7 @@
 
             <!-- Applicant's Name -->
             <td>
-                <?php echo $row['first_name'] . ' ' . $row['first_name']; ?>
+                <?php echo $row['first_name'] . ' ' . $row['last_name']; ?>
             </td>
 
             <!-- Job Position -->
@@ -67,7 +67,7 @@
                         </div>
 
                         <div class="modal-body p-5 pt-0">
-                            <form action="" method="POST" class="">
+                            <form action="../admin/applicant_process.php" method="POST" class="">
                                 <input type="hidden" name="mrf_applicant_id" value="<?php echo $row['id']; ?>">
                                 <div class="form-floating mb-3">
                                     <select class="form-select" name="jobSelect" id="jobSelect" required>
