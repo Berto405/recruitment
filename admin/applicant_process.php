@@ -241,44 +241,40 @@ function assignJob($conn)
 function udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $applicantId)
 {
     // Check if application status is Pooling. Returns an error if user did not select MRF before doing any action
-    if ($applicationStatus == 'Pooling') {
+    if ($applicationStatus == 'Pooling' && (isset($_POST['passBtn']) || isset($_POST['multiPassBtn']) || isset($_POST['failBtn']) || isset($_POST['multiFailBtn']))) {
         $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
     } else {
-        if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn']) || isset($_POST['multiFailBtn']) || isset($_POST['multiBackToPoolingBtn'])) {
-
-            //Checks if back to pooling btn is clicked and then remove the employee_id on database table
-            if (isset($_POST['backToPoolingBtn'])) {
-                $query = "UPDATE job_applicants SET application_status = ?, remark = ?, employee_id = 0 WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-            } else {
-                // Proceed with updating the applicant status with remark 
-                $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
-            }
-
-        } else {
-
-            //Check if pass btn is click and assigned the currently logged in user's id on employee_id
-            if (isset($_POST['passBtn'])) {
+        switch ($status) {
+            case 'Passed':
                 $empId = $_SESSION['user_id'];
                 $query = "UPDATE job_applicants SET application_status = ?, employee_id = ? WHERE id = ?";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("sii", $status, $empId, $applicantId);
-            } else {
-                // Proceed with updating the applicant status 
+                break;
+            case 'Pooling':
                 $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param("si", $status, $applicantId);
-            }
+                break;
+            case 'Back to Pooling':
+                $query = "UPDATE job_applicants SET application_status = ?, remark = ?, employee_id = null WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+                break;
+            case 'Failed':
 
+                $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+                break;
+            default:
+                $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("si", $status, $applicantId);
+                break;
 
         }
-
         $stmt->execute();
-
-        // Check if update was successful
         if ($stmt->affected_rows > 0) {
             //Insert a log
             $logQuery = "INSERT INTO applicant_logs (applicant_id, log) VALUES (?, ?)";
@@ -290,8 +286,52 @@ function udpateQuery($conn, $newRemark, $newLog, $applicationStatus, $status, $a
         } else {
             $_SESSION['error_message'] = "Failed to update applicant status";
         }
-
     }
+
+
+
+    // Check if application status is Pooling. Returns an error if user did not select MRF before doing any action
+    // if ($applicationStatus == 'Pooling') {
+    //     $_SESSION['error_message'] = "You can't proceed without selecting an MRF for this applicant.";
+    // } else {
+    //     if (isset($_POST['failBtn']) || isset($_POST['backToPoolingBtn']) || isset($_POST['multiFailBtn']) || isset($_POST['multiBackToPoolingBtn'])) {
+
+    //         //Checks if back to pooling btn is clicked and then remove the employee_id on database table
+    //         if (isset($_POST['backToPoolingBtn'])) {
+    //             $query = "UPDATE job_applicants SET application_status = ?, remark = ?, employee_id = null WHERE id = ?";
+    //             $stmt = $conn->prepare($query);
+    //             $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+    //         } else {
+    //             // Proceed with updating the applicant status with remark 
+    //             $query = "UPDATE job_applicants SET application_status = ?, remark = ? WHERE id = ?";
+    //             $stmt = $conn->prepare($query);
+    //             $stmt->bind_param("ssi", $status, $newRemark, $applicantId);
+    //         }
+
+    //     } else {
+
+    //         //Check if pass btn is click and assigned the currently logged in user's id on employee_id
+    //         if (isset($_POST['passBtn'])) {
+    //             $empId = $_SESSION['user_id'];
+    //             $query = "UPDATE job_applicants SET application_status = ?, employee_id = ? WHERE id = ?";
+    //             $stmt = $conn->prepare($query);
+    //             $stmt->bind_param("sii", $status, $empId, $applicantId);
+    //         } else {
+    //             // Proceed with updating the applicant status 
+    //             $query = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+    //             $stmt = $conn->prepare($query);
+    //             $stmt->bind_param("si", $status, $applicantId);
+    //         }
+
+
+    //     }
+
+    //     $stmt->execute();
+
+    // Check if update was successful
+
+
+    // }
 }
 
 //Function to schedule initial interview

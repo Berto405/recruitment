@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2024 at 11:47 AM
+-- Generation Time: Apr 15, 2024 at 11:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -96,7 +96,64 @@ INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`, `created_at`) VALUES
 (133, 39, 'Berto Berto changed status to Placed', '2024-04-12 06:13:36'),
 (134, 39, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-04-12 06:13:51'),
 (135, 39, 'Berto Berto changed status to Placed with Onboarding', '2024-04-12 06:13:53'),
-(136, 39, 'Berto Berto changed status to Backout', '2024-04-12 06:13:57');
+(136, 39, 'Berto Berto changed status to Backout', '2024-04-12 06:13:57'),
+(137, 36, 'Berto Berto changed status to  Passed', '2024-04-15 02:46:41'),
+(138, 39, 'Berto Berto changed status to  Passed', '2024-04-15 02:46:41'),
+(139, 36, 'Berto Berto changed status to  Passed', '2024-04-15 03:15:37'),
+(140, 39, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:15:49'),
+(141, 39, 'Berto Berto changed status to Passed', '2024-04-15 03:15:54'),
+(142, 36, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:18:02'),
+(143, 36, 'Berto Berto changed status to Passed', '2024-04-15 03:18:10'),
+(144, 39, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:18:21'),
+(145, 36, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:18:25'),
+(146, 36, 'Berto Berto changed status to  Passed', '2024-04-15 03:18:43'),
+(147, 39, 'Berto Berto changed status to  Passed', '2024-04-15 03:18:43'),
+(148, 36, 'Berto Berto changed status to Passed', '2024-04-15 03:27:44'),
+(149, 39, 'Berto Berto changed status to Failed', '2024-04-15 03:32:16'),
+(150, 39, 'Berto Berto changed status to  Pooling', '2024-04-15 03:34:07'),
+(151, 39, 'Berto Berto changed status to  Passed', '2024-04-15 03:35:25'),
+(152, 39, 'Berto Berto changed status to  Passed', '2024-04-15 03:39:47'),
+(153, 39, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:39:56'),
+(154, 39, 'Berto Berto changed status to Passed', '2024-04-15 03:40:39'),
+(155, 36, 'Berto Berto changed status to Back to Pooling', '2024-04-15 03:40:45'),
+(156, 36, 'Berto Berto changed status to Pooling', '2024-04-15 03:44:51'),
+(157, 36, 'Berto Berto changed status to Pooling', '2024-04-15 03:49:44'),
+(158, 36, 'Berto Berto changed status to Pooling', '2024-04-15 03:50:44'),
+(159, 36, 'Berto Berto changed status to Passed', '2024-04-15 03:50:47'),
+(160, 36, 'Berto Berto changed status to Pooling', '2024-04-15 03:51:50'),
+(161, 36, 'Berto Berto changed status to Failed', '2024-04-15 03:51:54'),
+(162, 36, 'Berto Berto changed status to Passed', '2024-04-15 03:53:29'),
+(163, 36, 'Berto Berto changed status to Passed', '2024-04-15 06:34:27'),
+(164, 36, 'Berto Berto changed status to Pooling', '2024-04-15 06:35:27'),
+(165, 36, 'Berto Berto changed status to Passed', '2024-04-15 06:35:30'),
+(166, 36, 'Berto Berto assigned MRF: Waiter', '2024-04-15 06:37:10'),
+(167, 36, 'Berto Berto changed status to Passed', '2024-04-15 06:37:15'),
+(168, 39, 'Berto Berto changed status to Back to Pooling', '2024-04-15 06:37:28'),
+(169, 39, 'Berto Berto changed status to Passed', '2024-04-15 06:37:39'),
+(170, 39, 'Berto Berto scheduled an interview on 02:37PM Apr 17, 2024', '2024-04-15 06:37:51'),
+(171, 39, 'Berto Berto scheduled an interview on 02:37PM Apr 18, 2024', '2024-04-15 06:38:00'),
+(172, 39, 'Berto Berto changed status to Waiting for Feedback', '2024-04-15 06:38:03'),
+(173, 39, 'Berto Berto changed status to Hired', '2024-04-15 06:38:10'),
+(174, 39, 'Berto Berto changed status to Ongoing Requirements', '2024-04-15 06:38:17'),
+(175, 39, 'Berto Berto changed status to Onboarding', '2024-04-15 06:38:19'),
+(176, 39, 'Berto Berto changed status to Waiting for Start Date', '2024-04-15 06:38:21'),
+(177, 39, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-04-15 06:38:29'),
+(178, 39, 'Berto Berto changed status to Placed with Onboarding', '2024-04-15 06:38:34'),
+(179, 39, 'Berto Berto changed status to Backout', '2024-04-15 06:38:43'),
+(180, 39, 'Berto Berto changed status to  Passed', '2024-04-15 06:38:49'),
+(181, 39, 'Berto Berto changed status to Waiting for Feedback', '2024-04-15 06:39:48'),
+(182, 39, 'Berto Berto changed status to Hired', '2024-04-15 06:39:51'),
+(183, 36, 'Berto Berto changed status to Back to Pooling', '2024-04-15 06:42:30'),
+(184, 36, 'Berto Berto changed status to  Passed', '2024-04-15 07:02:00'),
+(185, 39, 'Berto Berto changed status to  Passed', '2024-04-15 07:02:04'),
+(186, 39, 'Berto Berto changed status to Back to Pooling', '2024-04-15 07:02:30'),
+(187, 39, 'test admin changed status to Passed', '2024-04-15 07:03:03'),
+(188, 36, 'Berto Berto changed status to Hired', '2024-04-15 07:07:02'),
+(189, 36, 'Berto Berto changed status to Placed', '2024-04-15 07:14:19'),
+(190, 36, 'Berto Berto changed status to  Failed', '2024-04-15 07:19:08'),
+(191, 39, 'test admin changed status to Hired', '2024-04-15 07:22:44'),
+(192, 39, 'test admin changed status to Backout', '2024-04-15 07:22:48'),
+(193, 36, 'Berto Berto changed status to  Failed', '2024-04-15 07:25:29');
 
 -- --------------------------------------------------------
 
@@ -259,8 +316,8 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(36, 9, 2, 'Pending', '2024-04-16 13:40:00', 'dasdasd5767576.  <br> Remark by: Berto Berto, jjjjjjjjjjjj.  <br> Remark by: Berto Berto, lllllllllllllllllllllllllllll.  <br> Remark by: Berto Berto, lllllllllllllll123.  <br> Remark by: Berto Berto', 0),
-(39, 20, 2, 'Pending', '2024-04-25 14:06:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto', 2);
+(36, 9, 2, 'Passed', '2024-04-16 13:40:00', 'dasdasd5767576.  <br> Remark by: Berto Berto, jjjjjjjjjjjj.  <br> Remark by: Berto Berto, lllllllllllllllllllllllllllll.  <br> Remark by: Berto Berto, lllllllllllllll123.  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, DDSA.  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, asd.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dasdadadasdasdasd.  <br> Remark by: Berto Berto', 2),
+(39, 20, 2, 'Backout', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 29);
 
 -- --------------------------------------------------------
 
@@ -492,7 +549,7 @@ ALTER TABLE `user_resumes`
 -- AUTO_INCREMENT for table `applicant_logs`
 --
 ALTER TABLE `applicant_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=194;
 
 --
 -- AUTO_INCREMENT for table `character_references`
