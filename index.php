@@ -107,6 +107,7 @@ include ("components/header.php");
                                         <div class="dropdown-menu" style="width: 100%;"
                                             aria-labelledby="dropdownMenuButton2">
                                             <a class="dropdown-item" href="index.php?industry=Retail">Retail</a>
+                                            <a class="dropdown-item" href="index.php?industry=Logistics">Logistics</a>
                                             <a class="dropdown-item" href="index.php?industry=Maintenance">
                                                 Maintenance & Services
                                             </a>

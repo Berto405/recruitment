@@ -17,13 +17,29 @@ if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') 
     exit();
 }
 
-$emp_id = $_SESSION['user_id'];
+
+$empId = $_SESSION['user_id'];
+$empQuery = "SELECT industry_access FROM user WHERE id = ?";
+$stmt = $conn->prepare($empQuery);
+$stmt->bind_param("i", $empId);
+$stmt->execute();
+$empResult = $stmt->get_result();
+$empRow = $empResult->fetch_assoc();
+
+//$industryAccessArray contains the array of industry access values
+$industryAccessArray = explode(', ', $empRow['industry_access']);
+
+// Convert the array into a comma-separated string
+$industryAccessString = "'" . implode("', '", $industryAccessArray) . "'";
+
 $query =
     "SELECT job_applicants.*, mrfs.job_position, mrfs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
     INNER JOIN mrfs ON job_applicants.job_id = mrfs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status IN ('Hired', 'Ongoing Requirements', 'Onboarding', 'Waiting for Start Date', 'Placed with Ongoing Req.', 'Placed with Onboarding') AND job_applicants.employee_id = $emp_id
+    WHERE job_applicants.application_status IN ('Hired', 'Ongoing Requirements', 'Onboarding', 'Waiting for Start Date', 'Placed with Ongoing Req.', 'Placed with Onboarding') 
+    AND job_applicants.employee_id = $empId
+    AND (mrfs.industry IN ($industryAccessString) OR mrfs.industry IS NULL)
     ";
 
 $result = mysqli_query($conn, $query);

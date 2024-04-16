@@ -35,21 +35,28 @@ function addUser($conn)
         exit();
 
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        //Checks if there an industry access is checked
+        if (isset($_POST['industry_access'])) {
+            $industryAccess = implode(', ', $_POST['industry_access']);
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, branch) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $branch);
+            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, branch, industry_access) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssss", $fName, $lName, $email, $hashedPassword, $role, $branch, $industryAccess);
 
-        if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Added User.";
-            header("Location: ../admin/manage_user.php");
-            exit();
+            if ($stmt->execute()) {
+                $_SESSION['success_message'] = "Added User.";
+                header("Location: ../admin/manage_user.php");
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Failed to Add User.";
+                header("Location: ../admin/manage_user.php");
+                exit();
+            }
         } else {
-            $_SESSION['errror_message'] = "Failed to Add User.";
+            $_SESSION['error_message'] = "No intustry selected. Try again.";
             header("Location: ../admin/manage_user.php");
             exit();
         }
-
     }
 
 }
@@ -64,26 +71,31 @@ function editUser($conn)
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPass'];
 
+    //If user does not want to edit password
     if (empty($password) || empty($confirm_password)) {
+        //Checks if there an industry access is checked
+        if (isset($_POST['industry_access'])) {
+            $industryAccess = implode(', ', $_POST['industry_access']);
 
-        //If user does not want to edit password
-        $query = "UPDATE user 
+            $query = "UPDATE user 
             SET first_name = ?,
             last_name = ?,
             email = ?,
-            branch = ?
+            branch = ?,
+            industry_access = ?
             WHERE id = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("ssssi", $fName, $lName, $email, $branch, $emp_id);
+            $stmt = $conn->prepare($query);
+            $stmt->bind_param("sssssi", $fName, $lName, $email, $branch, $industryAccess, $emp_id);
 
-        if ($stmt->execute()) {
-            $_SESSION['success_message'] = "Updated Employee.";
-            header("Location: ../admin/manage_user.php");
-            exit();
-        } else {
-            $_SESSION['error_message'] = "Failed to Edit Employee.";
-            header("Location: ../admin/manage_user.php");
-            exit();
+            if ($stmt->execute()) {
+                $_SESSION['success_message'] = "Updated Employee.";
+                header("Location: ../admin/manage_user.php");
+                exit();
+            } else {
+                $_SESSION['error_message'] = "Failed to Edit Employee.";
+                header("Location: ../admin/manage_user.php");
+                exit();
+            }
         }
 
     } else {
@@ -96,24 +108,33 @@ function editUser($conn)
             exit();
 
         } else {
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            //Checks if there an industry access is checked
+            if (isset($_POST['industry_access'])) {
+                $industryAccess = implode(', ', $_POST['industry_access']);
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $query = "UPDATE user 
-                SET first_name = ?,
-                last_name = ?,
-                email = ?,
-                branch = ?,
-                password = ?
-                WHERE id = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param("sssssi", $fName, $lName, $email, $branch, $hashedPassword, $emp_id);
+                $query = "UPDATE user 
+                    SET first_name = ?,
+                    last_name = ?,
+                    email = ?,
+                    branch = ?,
+                    industry_access = ?,
+                    password = ?
+                    WHERE id = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param("ssssssi", $fName, $lName, $email, $branch, $industryAccess, $hashedPassword, $emp_id);
 
-            if ($stmt->execute()) {
-                $_SESSION['success_message'] = "Updated Employee Account.";
-                header("Location: ../admin/manage_user.php");
-                exit();
+                if ($stmt->execute()) {
+                    $_SESSION['success_message'] = "Updated Employee Account.";
+                    header("Location: ../admin/manage_user.php");
+                    exit();
+                } else {
+                    $_SESSION['error_message'] = "Failed to Edit Employee Account.";
+                    header("Location: ../admin/manage_user.php");
+                    exit();
+                }
             } else {
-                $_SESSION['error_message'] = "Failed to Edit Employee Account.";
+                $_SESSION['error_message'] = "No intustry selected. Try again.";
                 header("Location: ../admin/manage_user.php");
                 exit();
             }
