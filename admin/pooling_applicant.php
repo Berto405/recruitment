@@ -19,8 +19,8 @@ if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') 
 $query =
     "SELECT job_applicants.*, mrfs.job_position, mrfs.location, user.first_name, user.last_name, user.resume
     FROM ((job_applicants
-    INNER JOIN mrfs ON job_applicants.job_id = mrfs.id)
-    INNER JOIN user ON job_applicants.user_id = user.id)
+    LEFT JOIN mrfs ON job_applicants.job_id = mrfs.id)
+    LEFT JOIN user ON job_applicants.user_id = user.id)
     WHERE job_applicants.application_status = 'Pending' OR  job_applicants.application_status = 'Pooling' OR  job_applicants.application_status = 'Pooled' OR  job_applicants.application_status = 'Back to Pooling'
    ";
 

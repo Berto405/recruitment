@@ -105,6 +105,11 @@ if (isset($_SESSION['success_message'])) {
                                 My Resume
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/recruitment/submit_application.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/submit_application.php' || $_SERVER['REQUEST_URI'] == '/recruitment/submit_application.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                                Submit Application
+                            </a>
+                        </li>
                         ';
                 }
                 ?>
