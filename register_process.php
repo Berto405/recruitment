@@ -10,9 +10,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPassword'];
 
-    if ($password != $confirm_password) {
+    $checkQuery = "SELECT email FROM user WHERE email = ? LIMIT 1";
+    $stmt = $conn->prepare($checkQuery);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
+    if ($result->num_rows > 0) {
 
+        $_SESSION['error_message'] = "Email already exist. Pick another.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
+
+    } else if ($password != $confirm_password) {
+
+        $_SESSION['error_message'] = "Password does not match. Try again.";
         header("Location: register.php");
         exit();
 
