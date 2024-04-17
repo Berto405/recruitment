@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2024 at 10:32 AM
+-- Generation Time: Apr 17, 2024 at 12:01 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -324,8 +324,7 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(39, 20, 2, 'Placed', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2),
-(43, 9, 1, 'Placed with Ongoing Req.', NULL, '', 2);
+(39, 20, 2, 'Pending', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2);
 
 -- --------------------------------------------------------
 
@@ -400,7 +399,7 @@ CREATE TABLE `mrfs` (
 --
 
 INSERT INTO `mrfs` (`id`, `industry`, `mrf_status`, `closed_date`, `request_date`, `client`, `location`, `aging_days`, `mrf_number`, `new_request`, `head_count`, `job_position`, `contract_type`, `classification`, `placed`, `variance`, `cancel`, `job_description`, `qualification`, `remarks`) VALUES
-(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Logistics', '1', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
+(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Makati', '1', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
 (2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '2', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
 (3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '1', '0', 'Additional', 23, 'asdas', 'Fixed Term', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
 (4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '1', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
@@ -429,27 +428,31 @@ CREATE TABLE `user` (
   `role` varchar(255) NOT NULL,
   `resume` varchar(255) NOT NULL,
   `branch` varchar(255) NOT NULL,
-  `industry_access` varchar(255) NOT NULL
+  `industry_access` varchar(255) NOT NULL,
+  `verify_token` varchar(255) NOT NULL,
+  `verify_status` tinyint(2) NOT NULL DEFAULT 0 COMMENT '0=not verified, 1=verified'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`, `industry_access`) VALUES
-(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila', 'Retail, Maintenance & Services'),
-(9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', '', ''),
-(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', ''),
-(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', ''),
-(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', ''),
-(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', ''),
-(27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati', ''),
-(28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati', 'Food Services'),
-(29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati', 'Retail, Logistics, Maintenance & Services'),
-(31, 'test', 'super', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati', 'Retail, Maintenance & Services'),
-(32, 'djhab', 'sfbdj', 'gagokka@gmail.com', '$2y$10$xhhOxk.YHAcyw8C2pKy5o.Um.Q8XrejX36tLXz0kgiX0FDXij8/8K', 'user', '', '', ''),
-(33, 'test', 'access', 'access@gmail.com', '$2y$10$C1SmDPAHs2/A408krSR8R.WCQLJmlMj7.oG3ZGfPHaX.M1/u7v.Vq', 'Admin', '', 'Makati', 'Retail, Logistics'),
-(35, 'test', 'test', 'tes@gmail.com', '$2y$10$p80/I6gIzQf3d9aIna8eJuk2IApIhlSZ/EcPirDkzHpPoESBn7qza', 'Admin', '', 'Makati', 'Retail, Logistics');
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`, `industry_access`, `verify_token`, `verify_status`) VALUES
+(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila', 'Retail, Maintenance & Services', '', 1),
+(9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', '', '', '', 0),
+(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', '', '', 0),
+(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', '', '', 0),
+(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', '', '', 0),
+(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', '', '', 0),
+(27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati', '', '', 0),
+(28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati', 'Food Services', '', 0),
+(29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati', 'Retail, Logistics, Maintenance & Services', '', 0),
+(31, 'test', 'super', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati', 'Retail, Maintenance & Services', '', 0),
+(32, 'djhab', 'sfbdj', 'gagokka@gmail.com', '$2y$10$xhhOxk.YHAcyw8C2pKy5o.Um.Q8XrejX36tLXz0kgiX0FDXij8/8K', 'user', '', '', '', '', 0),
+(33, 'test', 'access', 'access@gmail.com', '$2y$10$C1SmDPAHs2/A408krSR8R.WCQLJmlMj7.oG3ZGfPHaX.M1/u7v.Vq', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
+(35, 'test', 'test', 'tes@gmail.com', '$2y$10$p80/I6gIzQf3d9aIna8eJuk2IApIhlSZ/EcPirDkzHpPoESBn7qza', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
+(36, 'Test', 'Berto', 'advinculaberto@gmail.com', '$2y$10$mRv2GspaNOfi6kEitrHgs.3lc//O4mq60pNshyVHlDXUhri6f.zbi', 'user', '', '', '', '08fb62f296fd5ade363a884e56c343e0', 1),
+(37, 'test', 'one', 'one@gmail.com', '$2y$10$eEDjbZQmjzJX0dw69yYcyO4i1PbDsvYCmC5a8OF0munNzNctPOh9i', 'Admin', '', 'Makati', 'Retail, Logistics', '', 1);
 
 -- --------------------------------------------------------
 
@@ -584,7 +587,7 @@ ALTER TABLE `employment_background`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
@@ -602,7 +605,7 @@ ALTER TABLE `mrfs`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `user_resumes`

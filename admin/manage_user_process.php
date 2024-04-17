@@ -28,6 +28,7 @@ function addUser($conn)
     $role = $_POST['role'];
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPass'];
+    $verify_status = 1;
 
     if ($password != $confirm_password) {
 
@@ -40,8 +41,8 @@ function addUser($conn)
             $industryAccess = implode(', ', $_POST['industry_access']);
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, branch, industry_access) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("sssssss", $fName, $lName, $email, $hashedPassword, $role, $branch, $industryAccess);
+            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, branch, industry_access, verify_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssssi", $fName, $lName, $email, $hashedPassword, $role, $branch, $industryAccess, $verify_status);
 
             if ($stmt->execute()) {
                 $_SESSION['success_message'] = "Added User.";
