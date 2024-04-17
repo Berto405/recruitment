@@ -1,73 +1,8 @@
 <?php
-session_start();
-include ("dbconn.php");
+include ('my_jobs_process.php');
+
+
 include ("components/header.php");
-
-
-if ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php') {
-    header("Location: index.php");
-    exit();
-}
-if ($_SESSION['user_role'] !== 'user') {
-
-    $_SESSION['error_message'] = "Sorry. You don't have the permission to access this page.";
-    header("Location: index.php");
-    exit();
-}
-
-if (isset($_GET['status'])) {
-    $status = $_GET['status'];
-    $userId = $_SESSION['user_id'];
-
-    if ($status === 'Result') {
-        // Include 'Selected' and 'Not Selected' statuses
-        $query =
-            "SELECT mrfs.job_position, mrfs.contract_type, mrfs.location, job_applicants.application_status 
-            FROM mrfs 
-            INNER JOIN job_applicants ON mrfs.id = job_applicants.job_id
-            WHERE job_applicants.user_id = ? AND (job_applicants.application_status = ? OR job_applicants.application_status = ?)
-            ORDER BY 
-                CASE WHEN job_applicants.application_status = 'Selected' THEN 0 ELSE 1 END";
-
-        $stmt = $conn->prepare($query);
-        $status1 = 'Selected';
-        $status2 = 'Not Selected';
-        $stmt->bind_param("iss", $userId, $status1, $status2);
-        $stmt->execute();
-    } else {
-        // Exclude 'Selected' and 'Not Selected' statuses
-        $query =
-            "SELECT  mrfs.job_position, mrfs.contract_type, mrfs.location, job_applicants.application_status 
-            FROM mrfs 
-            INNER JOIN job_applicants ON mrfs.id = job_applicants.job_id
-            WHERE job_applicants.user_id = ? AND job_applicants.application_status = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param("is", $userId, $status);
-        $stmt->execute();
-    }
-    $result = $stmt->get_result();
-
-    //Determine the text color of application status
-    function getStatusClass($status)
-    {
-        switch ($status) {
-            case 'Pending':
-                return 'text-secondary';
-            case 'Reviewed':
-                return 'text-primary';
-            case 'Interview':
-                return 'text-warning';
-            case 'Selected':
-                return 'text-success';
-            case 'Not Selected':
-                return 'text-danger';
-            default:
-                return ' ';
-        }
-    }
-}
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,36 +19,7 @@ if (isset($_GET['status'])) {
             <h4 class=" mt-1 mb-1 fw-bold">My Jobs</h4>
         </div>
 
-        <div class="d-flex flex-row mb-2 overflow-x-auto w-100 bg-white px-2 shadow" style="overflow: hidden;">
-            <div class="nav-item mx-2 text-dark px-3  py-2 mx-auto ">
-                <a href="my_jobs.php?status=Pending"
-                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending/') ? 'text-dark fw-bold' : 'text-secondary'; ?>">
-                    Pending
-                </a>
-            </div>
 
-            <div class="nav-item mx-2 text-dark px-3  py-2 mx-auto">
-                <a href="my_jobs.php?status=Reviewed"
-                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed/') ? 'text-dark fw-bold' : 'text-secondary'; ?>">
-                    Reviewed
-                </a>
-            </div>
-
-            <div class="nav-item mx-2 text-dark px-3  py-2 mx-auto">
-                <a href="my_jobs.php?status=Interview"
-                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview/') ? 'text-dark fw-bold' : 'text-secondary'; ?>">
-                    Interview
-                </a>
-            </div>
-
-            <div class="nav-item mx-2 text-dark px-3  py-2 mx-auto">
-                <a href="my_jobs.php?status=Result"
-                    class="nav-link <?php echo ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result/') ? 'text-dark fw-bold' : 'text-secondary'; ?>">
-                    Result
-                </a>
-            </div>
-
-        </div>
         <?php
         while ($row = mysqli_fetch_assoc($result)) {
             ?>
@@ -122,8 +28,64 @@ if (isset($_GET['status'])) {
                     <div class="container-fluid bg-white shadow mb-3 mt-4 border-2 border-top border-danger">
                         <div class="row p-2">
                             <h4 class="fw-bold">
-                                <?php echo $row['job_position'] ?>
+                                <a href="" data-bs-toggle="modal"
+                                    data-bs-target="#viewJobDetails<?php echo $row['mrf_id']; ?>"
+                                    class="text-decoration-none text-dark"><?php echo $row['job_position'] ?></a>
                             </h4>
+
+                            <!-- Job Details Modal -->
+                            <div class="modal fade" tabindex="-1" role="dialog"
+                                id="viewJobDetails<?php echo $row['mrf_id']; ?>" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content rounded-4 shadow">
+                                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                                            <h1 class=" mb-0 fs-2">Job Details</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body p-5 pt-0">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <h1>
+                                                        <?php echo $row['job_position']; ?>
+                                                    </h1>
+
+
+                                                    <!-- Contract Type -->
+                                                    <i class="bi bi-briefcase-fill"></i>
+                                                    <span
+                                                        class="badge bg-secondary-subtle border border-secondary-subtle text-secondary-emphasis rounded-pill mt-3">
+                                                        <?php echo $row['contract_type']; ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <h4 class="mt-4">Location</h4>
+
+                                            <div class="row">
+                                                <div class="col">
+                                                    <!-- Location -->
+                                                    <i class="bi bi-geo-alt-fill"></i><span>
+                                                        <?php echo $row['location']; ?>
+                                                    </span>
+                                                </div>
+                                            </div>
+
+                                            <h4 class="mt-4">Job Description</h4>
+
+                                            <p>
+                                                <?php echo $row['job_description']; ?>
+                                            </p>
+                                            <h4>Qualifications</h4>
+                                            <p>
+                                                <?php echo $row['qualification']; ?>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col">
@@ -146,13 +108,35 @@ if (isset($_GET['status'])) {
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row mt-3">
+                                <?php
+                                if ($row['application_status'] == 'Pending') {
+                                    ?>
+                                    <div class="col d-flex justify-content-start">
+                                        <form id="cancelAppForm<?php echo $row['applicant_id']; ?>" action="my_jobs_process.php"
+                                            method="post">
+
+                                            <input type="hidden" name="applicantId" value="<?php echo $row['applicant_id']; ?>">
+                                            <button type="button" class=" btn btn-danger " name="cancelApplicationBtn"
+                                                onclick="confirmCancel(<?php echo $row['applicant_id']; ?>)">
+                                                Cancel Application
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+
                                 <div class="col d-flex justify-content-end">
                                     <div
                                         class="fw-bold rounded-1 <?php echo getStatusClass($row['application_status']); ?>">
                                         <?php echo $row['application_status']; ?>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div>
+
                             </div>
 
 
@@ -168,6 +152,30 @@ if (isset($_GET['status'])) {
         ?>
 
     </div>
+
+    <script>
+
+        function confirmCancel(applicant_id) {
+            swal({
+                title: "Are you sure?",
+                text: "Once you cancel your application, the employee won't be able to process you.",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        //If user clicked "Ok" button.
+                        document.getElementById("cancelAppForm" + applicant_id).submit();
+                    } else {
+                        //If user clicked "Cancel" button.
+                        return false;
+                    }
+                });
+        }
+
+
+    </script>
 </body>
 
 </html>

@@ -92,11 +92,8 @@ if (isset($_SESSION['success_message'])) {
                 if (isset($_SESSION['user_id']) && $_SESSION['user_role'] == 'user') {
                     echo '
                         <li class="nav-item">
-                            <a href="/recruitment/my_jobs.php?status=Pending" class="nav-link link-dark  '
-                        . ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Pending/' ||
-                            $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Reviewed/' ||
-                            $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Interview/' ||
-                            $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php?status=Result/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                            <a href="/recruitment/my_jobs.php" class="nav-link link-dark  '
+                        . ($_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php' || $_SERVER['REQUEST_URI'] == '/recruitment/my_jobs.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
                                 My Jobs
                             </a>
                         </li>
