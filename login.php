@@ -50,14 +50,26 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
                                 <?php echo $_GET['error']; ?>
                             </div>
                         <?php } ?>
-                        <div class="mb-1 d-flex justify-content-center mt-3">
+                        <div class="mb-2 d-flex justify-content-center mt-3">
                             <button class="btn btn-danger btn-fluid rounded-1 w-100 text-light" type="submit">
                                 Login
                             </button>
                         </div>
+                        <div class="text-center mb-2">
+                            <small>
+                                Don't have account?
+                                <a href="register.php" class="text-decoration-none">
+                                    Sign up
+                                </a>
+                            </small>
+                        </div>
                         <div class="text-center">
-                            <small>Don't have account? <a href="register.php" class="text-decoration-none">Sign
-                                    up</a></small>
+                            <small>
+                                Doesn't received email verification?
+                                <a href="resend_verify_email.php" class="text-decoration-none">
+                                    Resend
+                                </a>
+                            </small>
                         </div>
                     </form>
                 </div>

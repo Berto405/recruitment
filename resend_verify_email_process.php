@@ -1,6 +1,6 @@
 <?php
 session_start();
-include ("dbconn.php");
+include ('dbconn.php');
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -9,63 +9,60 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $email = $_POST["email"];
-    $password = $_POST["password"];
-    $confirm_password = $_POST['confirmPassword'];
-    $verify_token = md5(rand());
+//User wont be able to access login page when logged in
+// Check if user is not logged in
+if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
+    // Redirect users who are not logged in to the login page
+    header("Location: /recruitment/index.php");
+    exit();
+}
 
 
-    $checkQuery = "SELECT email FROM user WHERE email = ? LIMIT 1";
-    $stmt = $conn->prepare($checkQuery);
+if ($_SERVER['REQUEST_METHOD'] == "POST") {
+    if (isset($_POST['resendEmailBtn'])) {
+        resendVerification($conn);
+    }
+}
+
+function resendVerification($conn)
+{
+    $email = $_POST['email'];
+
+    $query = "SELECT * FROM user WHERE email = ? LIMIT 1";
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
 
-        $_SESSION['error_message'] = "Email already exist. Pick another.";
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        exit();
+        //Checks if email is already verified or not
+        if ($row['verify_status'] == 0) {
 
-    } else if ($password != $confirm_password) {
+            $name = $row['first_name'] . ' ' . $row['last_name'];
+            $email = $row['email'];
+            $verify_token = $row['verify_token'];
 
-        $_SESSION['error_message'] = "Password does not match. Try again.";
-        header("Location: register.php");
-        exit();
+            resendEmail($name, $email, $verify_token);
 
-    } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $role = "user";
-        $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, verify_token) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $verify_token);
-        $result = $stmt->execute();
-
-        if ($result) {
-            $name = $fName . ' ' . $lName;
-            send_email_verification($name, $email, $verify_token);
-
-
-            unset($_SESSION['first_name']);
-            unset($_SESSION['last_name']);
-            unset($_SESSION['email']);
-            unset($_SESSION['error']);
-
-            $_SESSION['success_message'] = "Registration Success. Please verify your email address.";
+            $_SESSION['success_message'] = "Email Verification Link Sent.";
             header("Location: login.php");
             exit();
         } else {
-            header("Location: register.php?error=Invalid email or password");
+            $_SESSION['error_message'] = "This email is already verified. Please login.";
+            header("Location: login.php");
             exit();
         }
 
+    } else {
+        $_SESSION['error_message'] = "Email not found. Try again.";
+        header("Location: resend_verify_email.php");
+        exit();
     }
 }
 
-function send_email_verification($name, $email, $verify_token)
+function resendEmail($name, $email, $verify_token)
 {
     $mail = new PHPMailer(true);
 
@@ -87,7 +84,7 @@ function send_email_verification($name, $email, $verify_token)
 
     //Content
     $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Email Verification from Topserve Recruitment';
+    $mail->Subject = 'Resend - Email Verification from Topserve Recruitment';
 
     $email_template = "
         <h2>You have registered with Topserve Recruitment</h2>
@@ -100,6 +97,5 @@ function send_email_verification($name, $email, $verify_token)
     $mail->Body = $email_template;
 
     $mail->send();
-
 }
 ?>

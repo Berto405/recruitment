@@ -107,6 +107,11 @@ if (isset($_SESSION['success_message'])) {
                                 Submit Application
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/recruitment/verify_phone.php" class="nav-link link-dark ' . ($_SERVER['REQUEST_URI'] == '/recruitment/verify_phone.php' || $_SERVER['REQUEST_URI'] == '/recruitment/verify_phone.php/' ? 'text-dark fw-bold' : 'text-secondary') . '">
+                                Verify Phone Number
+                            </a>
+                        </li>
                         ';
                 }
                 ?>
