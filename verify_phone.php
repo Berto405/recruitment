@@ -30,12 +30,12 @@ include ('components/header.php');
 
 
 
-                    <form action="resend_verify_email_process.php" method="POST">
+                    <form action="verify_phone_process.php" method="POST">
                         <div class="col w-100 ">
                             <div class="mb-2">
                                 <label for="phoneNumer" class="form-label mt-3">Phone Number</label>
-                                <input type="phoneNumer" class="form-control"
-                                    value="<?php echo $row['contact_number'] ?>" name="phoneNumer" disabled>
+                                <input type="text" class="form-control" value="<?php echo $row['contact_number'] ?>"
+                                    name="phoneNumer" disabled>
                             </div>
                         </div>
 
@@ -50,7 +50,7 @@ include ('components/header.php');
                                 <div class="row">
                                     <button
                                         class="btn btn-danger btn-fluid rounded-1 w-100 text-light  d-flex justify-content-center"
-                                        type="submit" name="resendEmailBtn">
+                                        type="submit" name="sentOtpBtn">
                                         Send OTP
                                     </button>
                                 </div>
@@ -72,6 +72,28 @@ include ('components/header.php');
         </div>
     </div>
 
+    <script>
+
+        document.getElementById("sentOtpBtn").addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent the default form submission
+
+            // Submit the form programmatically
+            document.getElementById("phoneVerificationForm").submit();
+
+            // Once the form is submitted, disable the button
+            disableButton();
+        });
+        function disableButton() {
+            var button = document.getElementById("sentOtpBtn");
+            button.disabled = true; // Disable the button
+
+            // Enable the button after 5 minutes
+            setTimeout(function () {
+                button.disabled = false; // Enable the button
+            }, 5 * 60 * 1000); // 5 minutes in milliseconds
+        }
+
+    </script>
 </body>
 
 </html>
