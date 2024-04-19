@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt->execute();
 
         if ($stmt->affected_rows > 0) {
-            // sendOTP($phone, $generateOtp);
+            //sendOTP($phone, $generateOtp);
 
             $_SESSION['success_message'] = "OTP Sent.";
             header("Location: " . $_SERVER['HTTP_REFERER']);

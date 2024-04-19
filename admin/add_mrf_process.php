@@ -64,7 +64,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
     // Commit the transaction
     $conn->commit();
-    udpateAgingDays($conn);
 
     // Redirect to appropriate page
     header("Location: ../admin/add_mrf.php");
@@ -72,45 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 }
 
 
-function udpateAgingDays($conn)
-{
-    // Get the current date
-    $currentDate = date("Y-m-d");
-
-    // Prepare the update statement
-    $updateSql = "UPDATE mrfs SET aging_days = ? WHERE id = ?";
-    $updateStmt = $conn->prepare($updateSql);
-
-    // Fetch the data from the database, including the request dates
-    $query = "SELECT id, request_date FROM mrfs WHERE mrf_status != ?";
-    $status = "Close";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("s", $status);
-    $stmt->execute();
-    $stmt->bind_result($id, $requestDate);
-
-    // Store fetched data in an array
-    $rows = array();
-    while ($stmt->fetch()) {
-        $rows[] = array('id' => $id, 'request_date' => $requestDate);
-    }
-
-    // Close the result set
-    $stmt->close();
-
-    // Iterate through each row and calculate the aging days
-    foreach ($rows as $row) {
-        // Calculate aging days
-        $agingDays = floor((strtotime($currentDate) - strtotime($row['request_date'])) / (60 * 60 * 24));
-        $rowId = $row['id'];
-
-        // Bind parameters
-        $updateStmt->bind_param('ii', $agingDays, $rowId);
-
-        // Execute the update statement
-        $updateStmt->execute();
-    }
-}
 
 
 

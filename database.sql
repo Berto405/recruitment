@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2024 at 05:24 AM
+-- Generation Time: Apr 19, 2024 at 07:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -399,19 +399,19 @@ CREATE TABLE `mrfs` (
 --
 
 INSERT INTO `mrfs` (`id`, `industry`, `mrf_status`, `closed_date`, `request_date`, `client`, `location`, `aging_days`, `mrf_number`, `new_request`, `head_count`, `job_position`, `contract_type`, `classification`, `placed`, `variance`, `cancel`, `job_description`, `qualification`, `remarks`) VALUES
-(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Makati', '1', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
-(2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '2', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
-(3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '1', '0', 'Additional', 23, 'asdas', 'Fixed Term', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
-(4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '1', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
+(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Makati', '15', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
+(2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '16', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
+(3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', '0', 'Additional', 23, 'asdas', 'Fixed Term', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
+(4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '15', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
 (5, 'Retail', 'Close', '2024-04-04', '2024-04-01', 'Accenture', 'Makati', '2', '0', 'Additional', 12, 'Tech Support', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdasda</li></ol>', '<ul><li>asdasdasd</li></ul>', ''),
 (6, 'Retail', 'Close', '2024-04-04', '2024-04-04', 'McDo', 'Makati', '0', 're_6', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdsadsa</li></ul>', '<ul><li>asdasdasdas</li></ul>', ''),
-(8, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'iuo', 'Makati', '1', 're_8', 'Replacement', 67, 'jyh', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>kjhk</p>', '<p>hgjh</p>', ''),
-(10, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '1', 're_10', 'Replacement', 32, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdasd</p>', '<p><br></p>aasdasd', ''),
+(8, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'iuo', 'Makati', '15', 're_8', 'Replacement', 67, 'jyh', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>kjhk</p>', '<p>hgjh</p>', ''),
+(10, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', 're_10', 'Replacement', 32, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdasd</p>', '<p><br></p>aasdasd', ''),
 (11, 'Retail', 'Close', '2024-04-05', '2024-04-04', 'asdasd', 'Logistics', '1', 're_11', 'Replacement', 2, 'asd', 'Project-based', 'Skilled', 0, 0, 0, '<p>sadda</p>', '<p>sadasdasdfgds</p>', ''),
-(12, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asdasda', 'Logistics', '1', 're_12', 'Additional', 2, 'asda', 'Project-based', 'Non-skilled', 0, 0, 0, '<p>asdasdas</p>', '<p>asdasda</p>', ''),
-(13, 'Maintenance', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '1', 'main_13', 'Replacement', 23, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdas</p>', '<p>asdas</p>', ''),
-(14, 'Logistics', 'Hold', '0000-00-00', '2024-04-04', 'sdsada', 'Food Services', '1', 'log_14', 'Replacement', 2, 'sada', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>hvcbcvb</p>', '<p>asdasdas</p>', ''),
-(15, 'Logistics', 'Hold', '0000-00-00', '2024-04-05', 'Popeyes', 'Makati', '0', 'log_15', 'Additional', 5, 'Seller', 'Probationary', 'Skilled', 0, 0, 0, '<p>asdassdadsaa</p>', '<p>dsatretertreterter</p>', '');
+(12, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asdasda', 'Logistics', '15', 're_12', 'Additional', 2, 'asda', 'Project-based', 'Non-skilled', 0, 0, 0, '<p>asdasdas</p>', '<p>asdasda</p>', ''),
+(13, 'Maintenance', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', 'main_13', 'Replacement', 23, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdas</p>', '<p>asdas</p>', ''),
+(14, 'Logistics', 'Hold', '0000-00-00', '2024-04-04', 'sdsada', 'Food Services', '15', 'log_14', 'Replacement', 2, 'sada', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>hvcbcvb</p>', '<p>asdasdas</p>', ''),
+(15, 'Logistics', 'Hold', '0000-00-00', '2024-04-05', 'Popeyes', 'Makati', '14', 'log_15', 'Additional', 5, 'Seller', 'Probationary', 'Skilled', 0, 0, 0, '<p>asdassdadsaa</p>', '<p>dsatretertreterter</p>', '');
 
 -- --------------------------------------------------------
 
@@ -481,8 +481,10 @@ CREATE TABLE `user_resumes` (
   `pagibig_number` int(12) NOT NULL,
   `philhealth_number` int(12) NOT NULL,
   `tin_number` int(12) NOT NULL,
-  `contact_number` int(12) NOT NULL,
+  `contact_number` varchar(255) NOT NULL,
   `phone_verified` tinyint(2) NOT NULL DEFAULT 0 COMMENT '0=not verified, 1=verified',
+  `otp` int(11) NOT NULL,
+  `otp_timestamp` datetime NOT NULL,
   `reference` varchar(255) NOT NULL,
   `additional_info_q1` varchar(255) NOT NULL,
   `additional_info_q2` varchar(255) NOT NULL,
@@ -494,9 +496,9 @@ CREATE TABLE `user_resumes` (
 -- Dumping data for table `user_resumes`
 --
 
-INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `phone_verified`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, 23121, 0, 'Job Fair: ', 'asd', 'ads', 'agreed', ''),
-(6, 20, '660a232e498ef_default-profile-picture1.jpg', 'askdj@gmail.com', 'Seesshh', 'asdhh', 'aksjdh', 'askduhg', 'sadhgkjg', '2024-04-24', 'Male', 231, 312, 'dkjashf', 'asd', 'Single', 321, 31232, 13123, 312, 132, 0, 'Job Fair, Newspaper / Magazines, Walk-in: ', 'adas', 'asd', 'agreed', '');
+INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `phone_verified`, `otp`, `otp_timestamp`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-18 17:52:01', 'Job Fair: ', 'das', 'dasd', 'agreed', ''),
+(6, 20, '660a232e498ef_default-profile-picture1.jpg', 'askdj@gmail.com', 'Seesshh', 'asdhh', 'aksjdh', 'askduhg', 'sadhgkjg', '2024-04-24', 'Male', 231, 312, 'dkjashf', 'asd', 'Single', 321, 31232, 13123, 312, '132', 0, 0, '2024-04-18 14:17:17', 'Job Fair, Newspaper / Magazines, Walk-in: ', 'adas', 'asd', 'agreed', '');
 
 --
 -- Indexes for dumped tables
