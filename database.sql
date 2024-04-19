@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2024 at 07:11 AM
+-- Generation Time: Apr 19, 2024 at 11:46 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -324,7 +324,8 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(39, 20, 2, 'Pending', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2);
+(39, 20, 2, 'Pending', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2),
+(45, 9, 0, 'Pooling', NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -497,7 +498,7 @@ CREATE TABLE `user_resumes` (
 --
 
 INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `phone_verified`, `otp`, `otp_timestamp`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-18 17:52:01', 'Job Fair: ', 'das', 'dasd', 'agreed', ''),
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-19 15:11:15', 'Job Fair: ', 'das', 'dasd', 'agreed', ''),
 (6, 20, '660a232e498ef_default-profile-picture1.jpg', 'askdj@gmail.com', 'Seesshh', 'asdhh', 'aksjdh', 'askduhg', 'sadhgkjg', '2024-04-24', 'Male', 231, 312, 'dkjashf', 'asd', 'Single', 321, 31232, 13123, 312, '132', 0, 0, '2024-04-18 14:17:17', 'Job Fair, Newspaper / Magazines, Walk-in: ', 'adas', 'asd', 'agreed', '');
 
 --
@@ -590,7 +591,7 @@ ALTER TABLE `employment_background`
 -- AUTO_INCREMENT for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
-  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`

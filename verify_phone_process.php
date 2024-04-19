@@ -45,7 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             exit();
         }
 
+    } else if (isset($_POST['validateBtn'])) {
+        verifyOTP($conn);
     }
+
 }
 
 function sendOTP($phoneNumber, $otp)
@@ -54,7 +57,7 @@ function sendOTP($phoneNumber, $otp)
     $parameters = array(
         'apikey' => '915677606adb184be28e959a2f3dcfed', //API KEY
         'number' => $phoneNumber,
-        'message' => 'Welcome to Topserve Recruitment. Your One Time Password is: {otp}.',
+        'message' => 'Welcome to Topserve Recruitment. Your One Time Password is: {otp}. Please use it within 5 minutes.',
         'code' => $otp,
         'sendername' => 'Aquahub'
     );
@@ -70,5 +73,49 @@ function sendOTP($phoneNumber, $otp)
     curl_close($ch);
 
     echo $output;
+}
+
+
+function verifyOTP($conn)
+{
+    $userId = $_SESSION['user_id'];
+    $num1 = $_POST['firstNum'];
+    $num2 = $_POST['secondNum'];
+    $num3 = $_POST['thirdNum'];
+    $num4 = $_POST['fourthNum'];
+    $num5 = $_POST['fifthNum'];
+    $num6 = $_POST['sixthNum'];
+
+    $otpInputs = $num1 . $num2 . $num3 . $num4 . $num5 . $num6;
+
+    $query = "SELECT otp FROM user_resumes WHERE user_id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
+
+    if ($row['otp'] == $otpInputs) {
+        $verified = 1;
+        $otp = 0;
+        $updateQuery = "UPDATE user_resumes SET phone_verified = ?, otp = ? WHERE user_id =?";
+        $udpateStmt = $conn->prepare($updateQuery);
+        $udpateStmt->bind_param("iii", $verified, $otp, $userId);
+        $udpateStmt->execute();
+
+        if ($udpateStmt->affected_rows > 0) {
+            $_SESSION['success_message'] = "Phone number has been verified.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
+        } else {
+            $_SESSION['error_message'] = "Failed to verify phone number.";
+            header("Location: " . $_SERVER['HTTP_REFERER']);
+            exit();
+        }
+    } else {
+        $_SESSION['error_message'] = "OTP not match. Try again.";
+        header("Location: " . $_SERVER['HTTP_REFERER']);
+        exit();
+    }
 }
 ?>
