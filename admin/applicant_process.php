@@ -117,6 +117,8 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
     } else if (isset($_POST['multiBackoutBtn'])) {
         updateMultiApplicants($conn, STATUS_BACKOUT);
 
+    } else if (isset($_POST['assessmentBtn'])) {
+        initial_interview_assessment($conn);
     }
 
 }
@@ -375,6 +377,37 @@ function schedule_interview($conn, $status)
         $_SESSION['success_message'] = "Interview Scheduled";
         header("Location: ../admin/shortlisted_applicant.php");
         exit();
+    }
+}
+
+function initial_interview_assessment($conn)
+{
+    $applicant_id = $_POST["applicant_id"];
+    $appearance_grade = $_POST["appearance_grade"];
+    $appearance_comments = $_POST["appearance_comments"];
+    $communication_grade = $_POST["communication_grade"];
+    $communication_comments = $_POST["communication_comments"];
+    $personal_relations_grade = $_POST["personal_relations_grade"];
+    $personal_relations_comments = $_POST["personal_relations_comments"];
+    $behavior_grade = $_POST["behavior_grade"];
+    $behavior_comments = $_POST["behavior_comments"];
+    $integrity_grade = $_POST["integrity_grade"];
+    $integrity_comments = $_POST["integrity_comments"];
+    $job_skill_grade = $_POST["job_skill_grade"];
+    $job_skill_comments = $_POST["job_skill_comments"];
+
+
+    $query = "INSERT INTO initial_interview_assessments (job_applicant_id, appearance_grade, appearance_comment, communication_grade, communication_comment, personal_relation_grade, personal_relation_comment, behavior_grade, behavior_comment, integrity_grade, integrity_comment, job_skill_grade, job_skill_comment) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("issssssssssss", $applicant_id, $appearance_grade, $appearance_comments, $communication_grade, $communication_comments, $personal_relations_grade, $personal_relations_comments, $behavior_grade, $behavior_comments, $integrity_grade, $integrity_comments, $job_skill_grade, $job_skill_comments);
+
+    if ($stmt->execute()) {
+        $_SESSION['success_message'] = "You assessed this applicant.";
+        redirectBack();
+    } else {
+        $_SESSION['error_message'] = "Something went wrong. Try again.";
+        redirectBack();
     }
 }
 

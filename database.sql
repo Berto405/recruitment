@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 19, 2024 at 11:46 AM
+-- Generation Time: Apr 22, 2024 at 05:29 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -161,7 +161,9 @@ INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`, `created_at`) VALUES
 (198, 43, 'Berto Berto changed status to Passed', '2024-04-16 08:27:34'),
 (199, 43, 'Berto Berto changed status to Hired', '2024-04-16 08:27:39'),
 (200, 39, 'Berto Berto changed status to Placed', '2024-04-16 08:28:34'),
-(201, 43, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-04-16 08:28:37');
+(201, 43, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-04-16 08:28:37'),
+(202, 39, 'Berto Berto changed status to Passed', '2024-04-22 01:50:16'),
+(203, 39, 'Berto Berto scheduled an interview on 09:52AM Apr 23, 2024', '2024-04-22 01:52:30');
 
 -- --------------------------------------------------------
 
@@ -306,6 +308,36 @@ INSERT INTO `employment_background` (`id`, `user_id`, `company_one`, `company_on
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `initial_interview_assessments`
+--
+
+CREATE TABLE `initial_interview_assessments` (
+  `id` int(11) NOT NULL,
+  `job_applicant_id` int(11) NOT NULL,
+  `appearance_grade` int(11) NOT NULL,
+  `appearance_comment` text NOT NULL,
+  `communication_grade` int(11) NOT NULL,
+  `communication_comment` text NOT NULL,
+  `personal_relation_grade` int(11) NOT NULL,
+  `personal_relation_comment` text NOT NULL,
+  `behavior_grade` int(11) NOT NULL,
+  `behavior_comment` text NOT NULL,
+  `integrity_grade` int(11) NOT NULL,
+  `integrity_comment` text NOT NULL,
+  `job_skill_grade` int(11) NOT NULL,
+  `job_skill_comment` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `initial_interview_assessments`
+--
+
+INSERT INTO `initial_interview_assessments` (`id`, `job_applicant_id`, `appearance_grade`, `appearance_comment`, `communication_grade`, `communication_comment`, `personal_relation_grade`, `personal_relation_comment`, `behavior_grade`, `behavior_comment`, `integrity_grade`, `integrity_comment`, `job_skill_grade`, `job_skill_comment`) VALUES
+(1, 39, 4, 'dsa', 3, 'dsa', 2, 'das', 1, 'dasd', 2, 'dsa', 3, 'das');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `job_applicants`
 --
 
@@ -324,7 +356,7 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(39, 20, 2, 'Pending', '2024-04-18 14:37:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2),
+(39, 20, 2, 'For Initial Interview', '2024-04-23 09:52:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2),
 (45, 9, 0, 'Pooling', NULL, '', 0);
 
 -- --------------------------------------------------------
@@ -530,6 +562,12 @@ ALTER TABLE `employment_background`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `initial_interview_assessments`
+--
+ALTER TABLE `initial_interview_assessments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `job_applicants`
 --
 ALTER TABLE `job_applicants`
@@ -567,7 +605,7 @@ ALTER TABLE `user_resumes`
 -- AUTO_INCREMENT for table `applicant_logs`
 --
 ALTER TABLE `applicant_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=202;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT for table `character_references`
@@ -586,6 +624,12 @@ ALTER TABLE `educational_attainment`
 --
 ALTER TABLE `employment_background`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+
+--
+-- AUTO_INCREMENT for table `initial_interview_assessments`
+--
+ALTER TABLE `initial_interview_assessments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`

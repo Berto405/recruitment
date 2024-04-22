@@ -270,41 +270,59 @@
                             ?>
 
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
-                                    <li class="mb-1">
-                                        <button type="button" class="dropdown-item text-info mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#initialInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
-                                            <i class="bi bi-calendar-check me-1"></i> For Initial Interview
-                                        </button>
-                                    </li>
-                                    <li class="mb-1">
-                                        <button type="button" class="dropdown-item text-dark mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#finalInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
-                                            <i class="bi bi-calendar-check me-1"></i> For Final Interview
-                                        </button>
-                                    </li>
-                                    <li class="mb-1">
-                                        <button type="submit" name="feedbackBtn" class="dropdown-item text-primary mb-1">
-                                            <i class="bi bi-clock me-1"></i> Waiting for Feedback
-                                        </button>
-                                    </li>
-                                    <li class="mb-1">
-                                        <button type="submit" name="hiredBtn" class="dropdown-item text-success mb-1">
-                                            <i class="bi bi-check-square me-1"></i> Hired
-                                        </button>
-                                    </li>
-                                    <li class="mb-1">
-                                        <button type="button" class="dropdown-item text-warning mb-1" data-bs-toggle="modal"
-                                            data-bs-target="#backToPoolingModal" data-applicantId="<?php echo $row['id']; ?>">
-                                            <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
-                                        </button>
-                                    </li>
-                                    <li class="mb-1">
-                                        <button type="button" class="dropdown-item text-danger mb-1 failModalBtn"
-                                            data-bs-toggle="modal" data-bs-target="#failModal"
-                                            data-applicantId="<?php echo $row['id']; ?>">
-                                            <i class="bi bi-x-square"></i> Failed
-                                        </button>
-                                    </li>
+
+                                    <?php
+                                    if ($row['application_status'] == "For Initial Interview") {
+                                        ?>
+                                        <li class="mb-1">
+                                            <button type="button" class="dropdown-item text-info mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#initialInterviewAssessModal"
+                                                data-applicantId="<?php echo $row['id']; ?>">
+                                                <i class="bi bi-calendar-check me-1"></i> Initial Interview Assessment
+                                            </button>
+                                        </li>
+                                    <?php
+                                    } else {
+                                        ?>
+                                        <li class="mb-1">
+                                            <button type="button" class="dropdown-item text-info mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#initialInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
+                                                <i class="bi bi-calendar-check me-1"></i> For Initial Interview
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="button" class="dropdown-item text-dark mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#finalInterviewModal" data-applicantId="<?php echo $row['id']; ?>">
+                                                <i class="bi bi-calendar-check me-1"></i> For Final Interview
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="submit" name="feedbackBtn" class="dropdown-item text-primary mb-1">
+                                                <i class="bi bi-clock me-1"></i> Waiting for Feedback
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="submit" name="hiredBtn" class="dropdown-item text-success mb-1">
+                                                <i class="bi bi-check-square me-1"></i> Hired
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="button" class="dropdown-item text-warning mb-1" data-bs-toggle="modal"
+                                                data-bs-target="#backToPoolingModal" data-applicantId="<?php echo $row['id']; ?>">
+                                                <i class="bi bi-exclamation-diamond-fill me-1"></i> Back to Pooling
+                                            </button>
+                                        </li>
+                                        <li class="mb-1">
+                                            <button type="button" class="dropdown-item text-danger mb-1 failModalBtn"
+                                                data-bs-toggle="modal" data-bs-target="#failModal"
+                                                data-applicantId="<?php echo $row['id']; ?>">
+                                                <i class="bi bi-x-square"></i> Failed
+                                            </button>
+                                        </li>
+                                    <?php
+                                    }
+                                    ?>
+
                                 </ul>
                             <?php
                             //For Identified Appplicants Sidebar
@@ -1819,6 +1837,342 @@
     </div>
 </div>
 
+<!-- Initial Interview Assessment Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" id="initialInterviewAssessModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content rounded-4 shadow">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+                <h1 class="fw-bold mb-0 fs-2">Initial Interview Assessment</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-5 pt-0">
+                <form action="../admin/applicant_process.php" method="POST" class="">
+                    <input type="hidden" name="applicant_id" id="assessment_applicant_id">
+
+                    <!-- Appearance -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Appearance </span> (How did the candidate came for the interview,
+                                check grooming, dessed
+                                appropriately, eye contact, clarity and concision)</p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="appearance_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="appearance_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="appearance_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="appearance_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="appearance_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Communication Skills -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Communication Skiils</span> (Observe canditate's active listening,
+                                confidence, clarity and concision)</p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="communication_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="communication_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="communication_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="communication_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="communication_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Personal Relations -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Personal Relations</span> (Explore and observe the candidate's
+                                attitude towards his superior/co-workers/clients/customer)</p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="personal_relations_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="personal_relations_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="personal_relations_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="personal_relations_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="personal_relations_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Behavior and Habits -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Behavior and Habits</span> (Assess candidates goal orientation,
+                                ability to tihnk and act independently, gage responsiveness in changes and tolerance for
+                                stress/ambiguity; Review potential to fit in the environment)
+                            </p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="behavior_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="behavior_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="behavior_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="behavior_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="behavior_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Integrity -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Integrity</span> (Does the candidate demonstrate personal
+                                awareness, sensitivity to others and accountability? Assess candidate's truthfulness to
+                                his own moral and ethical conviction)
+                            </p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="integrity_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="integrity_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="integrity_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="integrity_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="integrity_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Job Specific Skills & Knowledge -->
+                    <div class="row">
+                        <div class="col">
+                            <p><span class="fw-bold">Job Specific Skills & Knowledge</span> (Does the candidate
+                                demonstrate job relevant knowledge and essential skills)
+                            </p>
+                        </div>
+
+                        <div class="col">
+                            <div class="row">
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="job_skill_grade"
+                                        id="flexRadioDefault4" value="4">
+                                    <label class="form-check-label" for="flexRadioDefault4">
+                                        4
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="job_skill_grade"
+                                        id="flexRadioDefault3" value="3">
+                                    <label class="form-check-label" for="flexRadioDefault3">
+                                        3
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="job_skill_grade"
+                                        id="flexRadioDefault2" value="2">
+                                    <label class="form-check-label" for="flexRadioDefault2">
+                                        2
+                                    </label>
+                                </div>
+                                <div class="col form-check">
+                                    <input class="form-check-input" type="radio" name="job_skill_grade"
+                                        id="flexRadioDefault1" value="1">
+                                    <label class="form-check-label" for="flexRadioDefault1">
+                                        1
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                    name="job_skill_comments"></textarea>
+                                <label for="floatingTextarea">Comments</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="assessmentBtn"
+                        type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Schedule Final Interview Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="finalInterviewModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -1875,6 +2229,7 @@
     populateApplicantId('failModal', 'fail_applicant_id');
     populateApplicantId('backToPoolingModal', 'back_applicant_id');
     populateApplicantId('initialInterviewModal', 'initial_applicant_id');
+    populateApplicantId("initialInterviewAssessModal", 'assessment_applicant_id')
     populateApplicantId('finalInterviewModal', 'final_applicant_id');
 
 

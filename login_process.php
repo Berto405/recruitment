@@ -24,7 +24,7 @@ if ($result->num_rows == 1) {
             $_SESSION['user_resume'] = $row['resume'];
 
             // Redirect based on user role
-            if ($_SESSION['user_role'] === 'admin') {
+            if ($_SESSION['user_role'] !== 'user') {
                 header("Location: /recruitment/admin/home.php");
                 exit();
             } else {
