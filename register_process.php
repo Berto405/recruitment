@@ -9,6 +9,17 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
+$inputs[] = null;
+$errors[] = null;
+
+//User wont be able to access register page when logged in
+// Check if user is not logged in
+if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
+    // Redirect users who are not logged in to the login page
+    header("Location: /recruitment/index.php");
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fName = $_POST['fName'];
     $lName = $_POST['lName'];

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 05:29 AM
+-- Generation Time: Apr 22, 2024 at 11:17 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -163,7 +163,19 @@ INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`, `created_at`) VALUES
 (200, 39, 'Berto Berto changed status to Placed', '2024-04-16 08:28:34'),
 (201, 43, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-04-16 08:28:37'),
 (202, 39, 'Berto Berto changed status to Passed', '2024-04-22 01:50:16'),
-(203, 39, 'Berto Berto scheduled an interview on 09:52AM Apr 23, 2024', '2024-04-22 01:52:30');
+(203, 39, 'Berto Berto scheduled an interview on 09:52AM Apr 23, 2024', '2024-04-22 01:52:30'),
+(204, 45, 'Berto Berto assigned MRF: Crew', '2024-04-22 05:54:30'),
+(205, 45, 'Berto Berto changed status to Passed', '2024-04-22 05:54:33'),
+(206, 39, 'Berto Berto scheduled an interview on 01:54PM Apr 25, 2024', '2024-04-22 05:54:40'),
+(207, 45, 'Berto Berto scheduled an interview on 01:55PM May 01, 2024', '2024-04-22 05:55:21'),
+(208, 39, 'Berto Berto scheduled an interview on 01:57PM Apr 27, 2024', '2024-04-22 05:57:17'),
+(209, 39, 'Berto Berto changed status to Failed', '2024-04-22 05:59:09'),
+(210, 45, 'Berto Berto scheduled an interview on 02:25PM Apr 26, 2024', '2024-04-22 06:25:47'),
+(211, 45, 'Berto Berto changed status to Hired', '2024-04-22 06:31:50'),
+(212, 45, 'Berto Berto changed status to Placed', '2024-04-22 06:33:07'),
+(213, 45, 'Berto Berto changed status to  Failed', '2024-04-22 06:33:41'),
+(214, 39, 'Berto Berto changed status to Hired', '2024-04-22 06:34:35'),
+(215, 39, 'Berto Berto changed status to Backout', '2024-04-22 06:34:43');
 
 -- --------------------------------------------------------
 
@@ -333,7 +345,8 @@ CREATE TABLE `initial_interview_assessments` (
 --
 
 INSERT INTO `initial_interview_assessments` (`id`, `job_applicant_id`, `appearance_grade`, `appearance_comment`, `communication_grade`, `communication_comment`, `personal_relation_grade`, `personal_relation_comment`, `behavior_grade`, `behavior_comment`, `integrity_grade`, `integrity_comment`, `job_skill_grade`, `job_skill_comment`) VALUES
-(1, 39, 4, 'dsa', 3, 'dsa', 2, 'das', 1, 'dasd', 2, 'dsa', 3, 'das');
+(11, 39, 1, 'qweqweqwe', 1, 'ewqewqe', 2, 'ewqeqwewq', 3, 'ewqeqwe', 4, 'qweqweqw', 3, 'dsaqweqwe'),
+(12, 45, 4, 'fdsf', 4, 'dgefgfd', 1, 'fdsf', 1, 'dfadsf', 1, 'sdasdasd', 1, 'fadsfa');
 
 -- --------------------------------------------------------
 
@@ -356,8 +369,8 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(39, 20, 2, 'For Initial Interview', '2024-04-23 09:52:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto', 2),
-(45, 9, 0, 'Pooling', NULL, '', 0);
+(39, 20, 2, 'Backout', '2024-04-27 13:57:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, asdas.  <br> Remark by: Berto Berto', 2),
+(45, 9, 4, 'Failed', '2024-04-26 14:25:00', '.  <br> Remark by: Berto Berto', 2);
 
 -- --------------------------------------------------------
 
@@ -605,7 +618,7 @@ ALTER TABLE `user_resumes`
 -- AUTO_INCREMENT for table `applicant_logs`
 --
 ALTER TABLE `applicant_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT for table `character_references`
@@ -629,7 +642,7 @@ ALTER TABLE `employment_background`
 -- AUTO_INCREMENT for table `initial_interview_assessments`
 --
 ALTER TABLE `initial_interview_assessments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`

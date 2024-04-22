@@ -1,15 +1,7 @@
 <?php
-session_start();
+include ('register_process.php');
 include ('components/header.php');
-include ('dbconn.php');
 
-//User wont be able to access register page when logged in
-// Check if user is not logged in
-if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
-    // Redirect users who are not logged in to the login page
-    header("Location: /recruitment/index.php");
-    exit();
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">

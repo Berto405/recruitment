@@ -1,14 +1,7 @@
 <?php
-session_start();
-include ('dbconn.php');
+include ("login_process.php");
 include ('components/header.php');
-//User wont be able to access login page when logged in
-// Check if user is not logged in
-if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
-    // Redirect users who are not logged in to the login page
-    header("Location: /recruitment/index.php");
-    exit();
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,27 +22,41 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
                     <h2>LOGIN</h2>
                 </div>
                 <div class="card-body">
-                    <form action="login_process.php" method="POST">
+                    <form action="" method="POST">
                         <div class="col w-100 ">
                             <div class="mb-2">
                                 <label for="email" class="form-label mt-3">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="Email" name="email"
-                                    required>
+                                <input type="email"
+                                    class="form-control bg-transparent <?php echo isset($errors['email']) ? 'border border-danger' : ''; ?>"
+                                    id="email" placeholder="Email" name="email"
+                                    value="<?php echo isset($emailInput) ? $emailInput : '' ?>">
+                                <div class="text-danger">
+                                    <small>
+                                        <?php
+                                        echo isset($errors['email']) ? $errors['email'] : '';
+                                        ?>
+                                    </small>
+                                </div>
                             </div>
+
                         </div>
                         <div class="col w-100 ">
                             <div class="mb-2">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" class="form-control bg-transparent "
-                                    placeholder="Password" name="password" required>
+                                <input type="password" id="password "
+                                    class="form-control bg-transparent <?php echo isset($errors['password']) ? 'border border-danger' : ''; ?>"
+                                    placeholder="Password" name="password">
+                                <div class="text-danger">
+                                    <small>
+                                        <?php
+                                        echo isset($errors['password']) ? $errors['password'] : '';
+                                        ?>
+                                    </small>
+                                </div>
                             </div>
                         </div>
-                        <!-- Error message -->
-                        <?php if (isset($_GET['error'])) { ?>
-                            <div class="text-danger">
-                                <?php echo $_GET['error']; ?>
-                            </div>
-                        <?php } ?>
+
+
                         <div class="mb-2 d-flex justify-content-center mt-3">
                             <button class="btn btn-danger btn-fluid rounded-1 w-100 text-light" type="submit">
                                 Login
