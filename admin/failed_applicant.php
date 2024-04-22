@@ -42,6 +42,10 @@ $query =
 
 $result = mysqli_query($conn, $query);
 
+//For showing Assessment
+$assessQuery = "SELECT * FROM initial_interview_assessments WHERE job_applicant_id = ?";
+$assessStmt = $conn->prepare($assessQuery);
+
 //Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
 include ('../components/header.php');
 ?>
@@ -132,6 +136,7 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Location</th>
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Assessment</th>
                                     <th class="bg-danger text-white text-center">Remarks</th>
                                     <th class="bg-danger text-white text-center">Logs</th>
                                     <th class="bg-danger text-white text-center">Action</th>

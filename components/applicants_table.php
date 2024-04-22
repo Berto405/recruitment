@@ -23,6 +23,7 @@
         $resumeResult = $resumeStmt->get_result();
         $resumeRow = $resumeResult->fetch_assoc();
 
+
         ?>
         <tr>
             <!-- Checkbox -->
@@ -105,6 +106,13 @@
                         ?>
                         <span class=" badge badge border border-info text-info ">
                             <i class="bi bi-calendar-check-fill me-1"></i>For Initial Interview
+                        </span>
+                        <?php
+                        break;
+                    case 'Assessed':
+                        ?>
+                        <span class=" badge badge border border-info text-info ">
+                            <i class="bi bi-calendar-check-fill me-1"></i>Assessed
                         </span>
                         <?php
                         break;
@@ -211,6 +219,29 @@
                 </button>
             </td>
 
+            <!-- Assessment -->
+            <td>
+                <?php
+                $assessStmt->bind_param("i", $row['id']);
+                $assessStmt->execute();
+                $assessResult = $assessStmt->get_result();
+                $assessRow = $assessResult->fetch_assoc();
+
+                if ($assessRow) {
+                    ?>
+                    <button type="button" class="btn btn-success badge " data-bs-toggle="modal"
+                        data-bs-target="#viewAssessmentModal<?php echo $row['id']; ?>">
+                        View Assessment
+                    </button>
+                    <?php
+                } else {
+                    ?>
+                    No Assessment yet
+                    <?php
+                }
+                ?>
+            </td>
+
             <!-- Remarks -->
             <td>
                 <button type="button" class="btn btn-primary badge " data-bs-toggle="modal"
@@ -266,7 +297,7 @@
                             <?php
 
                         } //Actions for Shortlisted Applicants Sidebar
-                        else if ($row['application_status'] == 'Passed' || $row['application_status'] == 'For Initial Interview' || $row['application_status'] == 'For Final Interview' || $row['application_status'] == 'Waiting for Feedback') {
+                        else if ($row['application_status'] == 'Passed' || $row['application_status'] == 'For Initial Interview' || $row['application_status'] == 'For Final Interview' || $row['application_status'] == 'Waiting for Feedback' || $row['application_status'] == 'Assessed') {
                             ?>
 
                                 <ul class="dropdown-menu text-center shadow" aria-labelledby="dropdownUser2">
@@ -388,6 +419,167 @@
         </tr>
 
 
+        <!-- View Initial Interview Assessment Modal -->
+        <div class="modal fade" tabindex="-1" role="dialog" id="viewAssessmentModal<?php echo $row['id']; ?>"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content rounded-4 shadow">
+                    <div class="modal-header p-5 pb-4 border-bottom-0">
+                        <h1 class="fw-bold mb-0 fs-2">Initial Interview Assessment</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body p-5 pt-0">
+
+                        <!-- Appearance -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Appearance </span> (How did the candidate came for the
+                                    interview,
+                                    check grooming, dessed
+                                    appropriately, eye contact, clarity and concision)</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['appearance_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="appearance_comments"
+                                        disabled><?php echo $assessRow['appearance_comment'] ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Communication Skills -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Communication Skiils</span> (Observe canditate's active
+                                    listening,
+                                    confidence, clarity and concision)</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['communication_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="communication_comments"
+                                        disabled><?php echo $assessRow['communication_comment']; ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Personal Relations -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Personal Relations</span> (Explore and observe the candidate's
+                                    attitude towards his superior/co-workers/clients/customer)</p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['personal_relation_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="personal_relations_comments"
+                                        disabled><?php echo $assessRow['personal_relation_comment']; ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Behavior and Habits -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Behavior and Habits</span> (Assess candidates goal orientation,
+                                    ability to tihnk and act independently, gage responsiveness in changes and tolerance
+                                    for
+                                    stress/ambiguity; Review potential to fit in the environment)
+                                </p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['behavior_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="behavior_comments"
+                                        disabled><?php echo $assessRow['behavior_comment']; ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Integrity -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Integrity</span> (Does the candidate demonstrate personal
+                                    awareness, sensitivity to others and accountability? Assess candidate's truthfulness
+                                    to
+                                    his own moral and ethical conviction)
+                                </p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['integrity_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="integrity_comments"
+                                        disabled><?php echo $assessRow['integrity_comment']; ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <!-- Job Specific Skills & Knowledge -->
+                        <div class="row">
+                            <div class="col">
+                                <p><span class="fw-bold">Job Specific Skills & Knowledge</span> (Does the candidate
+                                    demonstrate job relevant knowledge and essential skills)
+                                </p>
+                            </div>
+
+                            <div class="col-md-2">
+                                <span class="fw-bold">Grade: </span> <?php echo $assessRow['job_skill_grade']; ?>
+                            </div>
+
+                            <div class="col">
+                                <div class="form-floating">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+                                        name="job_skill_comments"
+                                        disabled><?php echo $assessRow['job_skill_comment']; ?></textarea>
+                                    <label for="floatingTextarea">Comments</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <!-- View Log Modal -->
@@ -2173,6 +2365,7 @@
     </div>
 </div>
 
+
 <!-- Schedule Final Interview Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="finalInterviewModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -2229,7 +2422,7 @@
     populateApplicantId('failModal', 'fail_applicant_id');
     populateApplicantId('backToPoolingModal', 'back_applicant_id');
     populateApplicantId('initialInterviewModal', 'initial_applicant_id');
-    populateApplicantId("initialInterviewAssessModal", 'assessment_applicant_id')
+    populateApplicantId("initialInterviewAssessModal", 'assessment_applicant_id');
     populateApplicantId('finalInterviewModal', 'final_applicant_id');
 
 

@@ -10,6 +10,7 @@ define("STATUS_POOLING", "Pooling");
 define("STATUS_WAITING_FEEDBACK", "Waiting for Feedback");
 define("STATUS_HIRED", "Hired");
 define("STATUS_INITIAL_INTERVIEW", "For Initial Interview");
+define("STATUS_ASSESSED", "Assessed");
 define("STATUS_FINAL_INTERVIEW", "For Final Interview");
 define("STATUS_ONGOING_REQUIREMENTS", "Ongoing Requirements");
 define("STATUS_ONBOARDING", "Onboarding");
@@ -118,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == 'POST' && isset($_POST['applicant_id'])) {
         updateMultiApplicants($conn, STATUS_BACKOUT);
 
     } else if (isset($_POST['assessmentBtn'])) {
-        initial_interview_assessment($conn);
+        initial_interview_assessment($conn, STATUS_ASSESSED);
     }
 
 }
@@ -379,9 +380,9 @@ function schedule_interview($conn, $status)
         exit();
     }
 }
-
-function initial_interview_assessment($conn)
+function initial_interview_assessment($conn, $status)
 {
+    // Retrieving assessment data from $_POST
     $applicant_id = $_POST["applicant_id"];
     $appearance_grade = $_POST["appearance_grade"];
     $appearance_comments = $_POST["appearance_comments"];
@@ -396,13 +397,23 @@ function initial_interview_assessment($conn)
     $job_skill_grade = $_POST["job_skill_grade"];
     $job_skill_comments = $_POST["job_skill_comments"];
 
-
+    // Prepare and execute the INSERT query
     $query = "INSERT INTO initial_interview_assessments (job_applicant_id, appearance_grade, appearance_comment, communication_grade, communication_comment, personal_relation_grade, personal_relation_comment, behavior_grade, behavior_comment, integrity_grade, integrity_comment, job_skill_grade, job_skill_comment) 
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("issssssssssss", $applicant_id, $appearance_grade, $appearance_comments, $communication_grade, $communication_comments, $personal_relations_grade, $personal_relations_comments, $behavior_grade, $behavior_comments, $integrity_grade, $integrity_comments, $job_skill_grade, $job_skill_comments);
 
-    if ($stmt->execute()) {
+    // Execute the INSERT query
+    $insertSuccess = $stmt->execute();
+
+    // Prepare and execute the UPDATE query
+    $query1 = "UPDATE job_applicants SET application_status = ? WHERE id = ?";
+    $stmt1 = $conn->prepare($query1);
+    $stmt1->bind_param("si", $status, $applicant_id);
+    $updateSuccess = $stmt1->execute();
+
+    // Check if both queries were successful
+    if ($insertSuccess && $updateSuccess) {
         $_SESSION['success_message'] = "You assessed this applicant.";
         redirectBack();
     } else {
@@ -410,6 +421,7 @@ function initial_interview_assessment($conn)
         redirectBack();
     }
 }
+
 
 // Function to redirect back
 function redirectBack()

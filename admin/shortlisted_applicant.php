@@ -36,12 +36,17 @@ $query =
     FROM ((job_applicants
     INNER JOIN mrfs ON job_applicants.job_id = mrfs.id)
     INNER JOIN user ON job_applicants.user_id = user.id)
-    WHERE job_applicants.application_status IN ('Passed', 'For Initial Interview', 'For Final Interview', 'Waiting for Feedback') 
+    WHERE job_applicants.application_status IN ('Passed', 'For Initial Interview', 'For Final Interview', 'Waiting for Feedback', 'Assessed') 
     AND job_applicants.employee_id = $empId
     AND (mrfs.industry IN ($industryAccessString) OR mrfs.industry IS NULL)
     ";
 
 $result = mysqli_query($conn, $query);
+
+//For showing Assessment
+$assessQuery = "SELECT * FROM initial_interview_assessments WHERE job_applicant_id = ?";
+$assessStmt = $conn->prepare($assessQuery);
+
 
 //Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
 include ('../components/header.php');
@@ -161,6 +166,7 @@ include ('../components/header.php');
                                     <th class="bg-danger text-white text-center">Location</th>
                                     <th class="bg-danger text-white text-center">Status</th>
                                     <th class="bg-danger text-white text-center">Automated Resume</th>
+                                    <th class="bg-danger text-white text-center">Assessment</th>
                                     <th class="bg-danger text-white text-center">Remarks</th>
                                     <th class="bg-danger text-white text-center">Logs</th>
                                     <th class="bg-danger text-white text-center">Action</th>
