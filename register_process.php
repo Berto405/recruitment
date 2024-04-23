@@ -9,8 +9,8 @@ use PHPMailer\PHPMailer\Exception;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 
-$inputs[] = null;
-$errors[] = null;
+$inputs = [];
+$errors = [];
 
 //User wont be able to access register page when logged in
 // Check if user is not logged in
@@ -21,59 +21,88 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $fName = $_POST['fName'];
-    $lName = $_POST['lName'];
-    $email = $_POST["email"];
+    $fName = sanitize($_POST['fName']);
+    $lName = sanitize($_POST['lName']);
+    $email = sanitize($_POST["email"]);
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPassword'];
     $verify_token = md5(rand());
 
 
-    $checkQuery = "SELECT email FROM user WHERE email = ? LIMIT 1";
-    $stmt = $conn->prepare($checkQuery);
-    $stmt->bind_param("s", $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    if ($result->num_rows > 0) {
-
-        $_SESSION['error_message'] = "Email already exist. Pick another.";
-        header("Location: " . $_SERVER['HTTP_REFERER']);
-        exit();
-
-    } else if ($password != $confirm_password) {
-
-        $_SESSION['error_message'] = "Password does not match. Try again.";
-        header("Location: register.php");
-        exit();
-
+    // Validate first name
+    if (empty($fName)) {
+        $errors['fName'] = "First name is required.";
     } else {
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        $role = "user";
-        $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, verify_token) VALUES (?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $verify_token);
-        $result = $stmt->execute();
-
-        if ($result) {
-            $name = $fName . ' ' . $lName;
-            send_email_verification($name, $email, $verify_token);
-
-
-            unset($_SESSION['first_name']);
-            unset($_SESSION['last_name']);
-            unset($_SESSION['email']);
-            unset($_SESSION['error']);
-
-            $_SESSION['success_message'] = "Registration Success. Please verify your email address.";
-            header("Location: login.php");
-            exit();
-        } else {
-            header("Location: register.php?error=Invalid email or password");
-            exit();
-        }
-
+        $inputs['fName'] = $fName;
     }
+
+    // Validate last name
+    if (empty($lName)) {
+        $errors['lName'] = "Last name is required.";
+    } else {
+        $inputs['lName'] = $lName;
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $errors['email'] = "Email is required.";
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid email format.";
+    } else {
+        $inputs['email'] = $email;
+    }
+
+    // Validate password and confirm password
+    if (empty($password)) {
+        $errors['password'] = "Password is required.";
+    } else if (strlen($password) < 8) {
+        $errors['password'] = "Password must be at least 8 characters long.";
+    } else if (empty($confirm_password)) {
+        $errors['confirmPassword'] = "Please confirm your password.";
+    } else if ($password !== $confirm_password) {
+        $errors['confirmPassword'] = "Passwords do not match.";
+    }
+
+    if (empty($errors)) {
+        $checkQuery = "SELECT email FROM user WHERE email = ? LIMIT 1";
+        $stmt = $conn->prepare($checkQuery);
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+
+            $errors['email'] = "Email already exist. Pick another.";
+
+        } else {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
+            $role = "user";
+            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, verify_token) VALUES (?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $verify_token);
+            $result = $stmt->execute();
+
+            if ($result) {
+                $name = $fName . ' ' . $lName;
+                send_email_verification($name, $email, $verify_token);
+
+
+                unset($_SESSION['first_name']);
+                unset($_SESSION['last_name']);
+                unset($_SESSION['email']);
+                unset($_SESSION['error']);
+
+                $_SESSION['success_message'] = "Registration Success. Please verify your email address.";
+                header("Location: login.php");
+                exit();
+            } else {
+                header("Location: register.php?error=Invalid email or password");
+                exit();
+            }
+
+        }
+    }
+
 }
 
 function send_email_verification($name, $email, $verify_token)
@@ -112,5 +141,10 @@ function send_email_verification($name, $email, $verify_token)
 
     $mail->send();
 
+}
+
+function sanitize($data)
+{
+    return htmlspecialchars(trim($data));
 }
 ?>

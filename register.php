@@ -20,23 +20,43 @@ include ('components/header.php');
                     <h2>REGISTER</h2>
                 </div>
                 <div class="card-body">
-                    <form action="register_process.php" method="POST">
+                    <form action="" method="POST">
 
                         <div class="row">
                             <div class="col-md-6">
                                 <!-- First Name -->
                                 <div class="mb-2">
                                     <label for="first_name" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" placeholder="First Name" name="fName"
-                                        required>
+                                    <input type="text"
+                                        class="form-control <?php echo isset($errors['fName']) ? 'border border-danger' : ''; ?>"
+                                        placeholder="First Name" name="fName"
+                                        value="<?php echo isset($inputs['fName']) ? $inputs['fName'] : ''; ?>">
+
+                                    <div class="text-danger">
+                                        <small>
+                                            <?php
+                                            echo isset($errors['fName']) ? $errors['fName'] : '';
+                                            ?>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <!-- Last Name -->
                                 <div class="mb-2">
                                     <label for="last_name" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" placeholder="Last Name" name="lName"
-                                        required>
+                                    <input type="text"
+                                        class="form-control <?php echo isset($errors['lName']) ? 'border border-danger' : ''; ?>"
+                                        placeholder="Last Name" name="lName"
+                                        value="<?php echo isset($inputs['lName']) ? $inputs['lName'] : '' ?>">
+
+                                    <div class="text-danger">
+                                        <small>
+                                            <?php
+                                            echo isset($errors['lName']) ? $errors['lName'] : '';
+                                            ?>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -44,27 +64,59 @@ include ('components/header.php');
                             <!-- Email -->
                             <div class="mb-2">
                                 <label for="email" class="form-label mt-3">Email</label>
-                                <input type="email" class="form-control" placeholder="Email" name="email" required>
+                                <input type="email"
+                                    class="form-control  <?php echo isset($errors['email']) ? 'border border-danger' : ''; ?>"
+                                    placeholder="Email" name="email"
+                                    value="<?php echo isset($inputs['email']) ? $inputs['email'] : '' ?>">
+
+                                <div class="text-danger">
+                                    <small>
+                                        <?php
+                                        echo isset($errors['email']) ? $errors['email'] : '';
+                                        ?>
+                                    </small>
+                                </div>
                             </div>
                         </div>
-                        <!-- Password -->
-                        <label for="password" class="form-label">Password</label>
-                        <div class="input-group mb-1 border rounded">
-                            <input type="password" id="password" class="form-control bg-transparent border-0"
-                                placeholder="Password" name="password" required>
+                        <div class="col w-100">
+                            <!-- Password -->
+                            <div class="mb-2">
+                                <label for="password" class="form-label mt-3">Password</label>
+
+                                <input type="password" id="password"
+                                    class="form-control <?php echo isset($errors['password']) ? 'border border-danger' : ''; ?>"
+                                    placeholder="Password" name="password"
+                                    value="<?php echo isset($inputs['password']) ? $inputs['password'] : '' ?>">
+
+                                <div class="text-danger">
+                                    <small>
+                                        <?php echo isset($errors['password']) ? $errors['password'] : ''; ?>
+                                    </small>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- Confirm Password -->
-                        <label for="password" class="form-label">Confirm Password</label>
-                        <div class="input-group mb-1 border rounded">
-                            <input type="password" id="confirmPassword" class="form-control bg-transparent border-0"
-                                placeholder="Confirm Password" name="confirmPassword" required>
+
+                        <div class="col w-100">
+                            <!-- Confirm Password -->
+                            <div class="mb-2">
+                                <label for="password" class="form-label">Confirm Password</label>
+
+                                <input type="password" id="confirmPassword"
+                                    class="form-control <?php echo isset($errors['confirmPassword']) ? 'border border-danger' : ''; ?>"
+                                    placeholder="Confirm Password" name="confirmPassword"
+                                    value="<?php echo isset($inputs['confirmPassword']) ? $inputs['confirmPassword'] : '' ?>">
+
+                                <div class="text-danger">
+                                    <small>
+                                        <?php echo isset($errors['confirmPassword']) ? $errors['confirmPassword'] : ''; ?>
+                                    </small>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- Error message -->
-                        <?php if (isset($_GET['error'])) { ?>
-                            <p class="text-danger">
-                                <?php echo $_GET['error']; ?>
-                            </p>
-                        <?php } ?>
+
+
                         <div class="mb-1 d-flex justify-content-center mt-3">
                             <button class="btn btn-danger rounded-1 w-100 text-light" type="submit">
                                 Register

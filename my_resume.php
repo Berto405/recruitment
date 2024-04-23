@@ -68,7 +68,7 @@ include ("components/header.php");
 <body style="background-color: #F4F4F4; ">
     <div class="container mt-5 bg-white">
 
-        <form action="my_resume_process.php" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data">
             <hr style="border-width: 3px;">
             <h4 class="fw-bold text-center">Personal Information</h4>
             <hr style="border-width: 3px;">
@@ -104,29 +104,50 @@ include ("components/header.php");
                         <div class="row">
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control rounded-3 fw-bold" placeholder="Juan"
-                                        name="lName"
-                                        value="<?php echo !empty($row['last_name']) ? $row['last_name'] : ''; ?>"
-                                        required>
+                                    <input type="text"
+                                        class="form-control rounded-3 fw-bold <?php echo isset($errors['last_name']) ? 'border border-danger' : ''; ?>"
+                                        placeholder="Juan" name="lName"
+                                        value="<?php echo (isset($inputs['last_name']) ? $inputs['last_name'] : (!empty($row['last_name']) ? $row['last_name'] : '')); ?>">
                                     <label for="floatingInput" class="fw-bold">Last Name</label>
+                                    <div class="text-danger">
+                                        <small>
+                                            <?php
+                                            echo isset($errors['last_name']) ? $errors['last_name'] : '';
+                                            ?>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control rounded-3 fw-bold" placeholder="Juan"
-                                        name="fName"
-                                        value="<?php echo !empty($row['first_name']) ? $row['first_name'] : ''; ?>"
-                                        required>
+                                    <input type="text"
+                                        class="form-control rounded-3 fw-bold <?php echo isset($errors['first_name']) ? 'border border-danger' : ''; ?>"
+                                        placeholder="Juan" name="fName"
+                                        value="<?php echo (isset($inputs['first_name']) ? $inputs['first_name'] : (!empty($row['first_name']) ? $row['first_name'] : '')); ?>">
                                     <label for="floatingInput" class="fw-bold">FIrst Name</label>
+                                    <div class="text-danger">
+                                        <small>
+                                            <?php
+                                            echo isset($errors['first_name']) ? $errors['first_name'] : '';
+                                            ?>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-4">
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control rounded-3 fw-bold" placeholder="Juan"
-                                        name="mName"
-                                        value="<?php echo !empty($row['middle_name']) ? $row['middle_name'] : ''; ?>"
-                                        required>
+                                    <input type="text"
+                                        class="form-control rounded-3 fw-bold  <?php echo isset($errors['mid_name']) ? 'border border-danger' : ''; ?>"
+                                        placeholder="Juan" name="mName"
+                                        value="<?php echo (isset($inputs['mid_name']) ? $inputs['mid_name'] : (!empty($row['middle_name']) ? $row['middle_name'] : '')); ?>">
                                     <label for="floatingInput" class="fw-bold">Middle Name</label>
+                                    <div class="text-danger">
+                                        <small>
+                                            <?php
+                                            echo isset($errors['mid_name']) ? $errors['mid_name'] : '';
+                                            ?>
+                                        </small>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -139,28 +160,52 @@ include ("components/header.php");
 
                 <div class="col-sm-12 col-md-4">
                     <div class="form-floating mb-3">
-                        <input type="email" class="form-control rounded-3 fw-bold" placeholder="12" name="emailAddress"
-                            value="<?php echo !empty($row['email']) ? $row['email'] : ''; ?>" required>
+                        <input type="email"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['email']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="emailAddress"
+                            value="<?php echo (isset($inputs['email']) ? $inputs['email'] : (!empty($row['email']) ? $row['email'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Email Address</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['email']) ? $errors['email'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12" name="presentAddress"
-                            value="<?php echo !empty($row['present_address']) ? $row['present_address'] : ''; ?>"
-                            required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold  <?php echo isset($errors['presentAddress']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="presentAddress"
+                            value="<?php echo (isset($inputs['presentAddress']) ? $inputs['presentAddress'] : (!empty($row['present_address']) ? $row['present_address'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Present Address</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['presentAddress']) ? $errors['presentAddress'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12"
-                            name="permanentAddress"
-                            value="<?php echo !empty($row['permanent_address']) ? $row['permanent_address'] : ''; ?>"
-                            required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold  <?php echo isset($errors['permanentAddress']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="permanentAddress"
+                            value="<?php echo !empty($row['permanent_address']) ? $row['permanent_address'] : (isset($inputs['permanentAddress']) ? $inputs['permanentAddress'] : ''); ?>">
                         <label for="floatingInput" class="fw-bold">Permanent Address</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['permanentAddress']) ? $errors['permanentAddress'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -169,56 +214,106 @@ include ("components/header.php");
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12" name="height"
-                            value="<?php echo !empty($row['height']) ? $row['height'] : ''; ?>" required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['height']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="height"
+                            value="<?php echo (isset($inputs['height']) ? $inputs['height'] : (!empty($row['height']) ? $row['height'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Height</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['height']) ? $errors['height'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12" name="weight"
-                            value="<?php echo !empty($row['weight']) ? $row['weight'] : ''; ?>" required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['weight']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="weight"
+                            value="<?php echo (isset($inputs['weight']) ? $inputs['weight'] : (!empty($row['weight']) ? $row['weight'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Weight</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['weight']) ? $errors['weight'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12" name="nationality"
-                            value="<?php echo !empty($row['nationality']) ? $row['nationality'] : ''; ?>" required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['nationality']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="nationality"
+                            value="<?php echo (isset($inputs['nationality']) ? $inputs['nationality'] : (!empty($row['nationality']) ? $row['nationality'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Nationality</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['nationality']) ? $errors['nationality'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3 fw-bold" placeholder="12" name="religion"
-                            value="<?php echo !empty($row['religion']) ? $row['religion'] : ''; ?>" required>
+                        <input type="text"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['religion']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="religion"
+                            value="<?php echo (isset($inputs['religion']) ? $inputs['religion'] : (!empty($row['religion']) ? $row['religion'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Religion</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php
+                                echo isset($errors['religion']) ? $errors['religion'] : '';
+                                ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="col-sm-12 col-md-4 col-lg">
                     <div class="form-group">
-                        <label for="birthDate" class="fw-bold">Birth Date:</label>
-                        <input class="form-control fw-bold" type="date" id="birthDate" name="birthDate"
-                            value="<?php echo !empty($row['birthdate']) ? $row['birthdate'] : ''; ?>">
+                        <label for="birthDate" class="fw-bold">Religion:</label>
+                        <input type="date"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['birthDate']) ? 'border border-danger' : ''; ?>"
+                            placeholder="Enter birth date" name="birthDate"
+                            value="<?php echo (isset($inputs['birthDate']) ? $inputs['birthDate'] : (!empty($row['birthDate']) ? $row['birthDate'] : '')); ?>">
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['birthDate']) ? $errors['birthDate'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg">
                     <div class="form-group">
                         <label for="genderSelect" class="fw-bold">Gender:</label>
-                        <select class="form-control fw-bold" id="genderSelect" name="gender" required>
-                            <option <?php echo (empty($row['civil_status']) ? 'selected' : ''); ?> disabled>
-                                Choose...</option>
+                        <select
+                            class="form-control fw-bold <?php echo isset($errors['gender']) ? 'border border-danger' : ''; ?>"
+                            id="genderSelect" name="gender">
+                            <option <?php echo (empty($row['gender']) ? 'selected' : ''); ?> disabled>Choose...</option>
                             <option value="Male" <?php echo (!empty($row['gender']) && $row['gender'] == 'Male') ? 'selected' : ''; ?>>Male</option>
                             <option value="Female" <?php echo (!empty($row['gender']) && $row['gender'] == 'Female') ? 'selected' : ''; ?>>Female</option>
                         </select>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['gender']) ? $errors['gender'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
-
                 </div>
+
 
             </div>
 
@@ -226,54 +321,86 @@ include ("components/header.php");
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-3 fw-bold" placeholder="12" name="sssNumber"
-                            value="<?php echo !empty($row['sss_number']) ? $row['sss_number'] : ''; ?>" required>
+                        <input type="number"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['sssNumber']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="sssNumber"
+                            value="<?php echo (isset($inputs['sssNumber']) ? $inputs['sssNumber'] : (!empty($row['sss_number']) ? $row['sss_number'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">SSS Number</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['sssNumber']) ? $errors['sssNumber'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
+
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
-                            name="philhealthNumber"
-                            value="<?php echo !empty($row['philhealth_number']) ? $row['philhealth_number'] : ''; ?>"
-                            required>
+                        <input type="number"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['philhealthNumber']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="philhealthNumber"
+                            value="<?php echo (isset($inputs['philhealthNumber']) ? $inputs['philhealthNumber'] : (!empty($row['philhealth_number']) ? $row['philhealth_number'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">PhilHealth Number</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['philhealthNumber']) ? $errors['philhealthNumber'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
-                            name="pagibigNumber"
-                            value="<?php echo !empty($row['pagibig_number']) ? $row['pagibig_number'] : ''; ?>"
-                            required>
-                        <label for="floatingInput" class="fw-bold">Pagibig Number</label>
+                        <input type="number"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['pagibigNumber']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="pagibigNumber"
+                            value="<?php echo (isset($inputs['pagibigNumber']) ? $inputs['pagibigNumber'] : (!empty($row['pagibig_number']) ? $row['pagibig_number'] : '')); ?>">
+                        <label for=" floatingInput" class="fw-bold">Pagibig Number</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['pagibigNumber']) ? $errors['pagibigNumber'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-3 fw-bold" placeholder="12" name="tinNumber"
-                            value="<?php echo !empty($row['tin_number']) ? $row['tin_number'] : ''; ?>" required>
+                        <input type="number"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['tinNumber']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="tinNumber"
+                            value="<?php echo (isset($inputs['tinNumber']) ? $inputs['tinNumber'] : (!empty($row['tin_number']) ? $row['tin_number'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">TIN Number</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['tinNumber']) ? $errors['tinNumber'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg mt-2">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control rounded-3 fw-bold" placeholder="12"
-                            name="contactNumber"
-                            value="<?php echo !empty($row['contact_number']) ? $row['contact_number'] : ''; ?>"
-                            required>
+                        <input type="number"
+                            class="form-control rounded-3 fw-bold <?php echo isset($errors['contactNumber']) ? 'border border-danger' : ''; ?>"
+                            placeholder="12" name="contactNumber"
+                            value="<?php echo (isset($inputs['contactNumber']) ? $inputs['contactNumber'] : (!empty($row['contact_number']) ? $row['contact_number'] : '')); ?>">
                         <label for="floatingInput" class="fw-bold">Contact Number</label>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['contactNumber']) ? $errors['contactNumber'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
                 </div>
 
                 <div class="col-sm-12 col-md-4 col-lg">
                     <div class="form-group">
                         <label for="civilStatusSelect" class="fw-bold ">Civil Status:</label>
-                        <select class="form-control fw-bold " id="civilStatusSelect" name="civilStatus" required>
+                        <select
+                            class="form-control fw-bold  <?php echo isset($errors['civilStatus']) ? 'border border-danger' : ''; ?>"
+                            id="civilStatusSelect" name="civilStatus" required>
                             <option <?php echo (empty($row['civil_status']) ? 'selected' : ''); ?> disabled>
                                 Choose...</option>
                             <option value="Single" <?php echo (!empty($row['civil_status']) && $row['civil_status'] == 'Single') ? 'selected' : ''; ?>>Single</option>
@@ -281,6 +408,11 @@ include ("components/header.php");
                             <option value="Widowed" <?php echo (!empty($row['civil_status']) && $row['civil_status'] == 'Widowed') ? 'selected' : ''; ?>>Widowed</option>
                             <option value="Separated" <?php echo (!empty($row['civil_status']) && $row['civil_status'] == 'Separated') ? 'selected' : ''; ?>>Separated</option>
                         </select>
+                        <div class="text-danger">
+                            <small>
+                                <?php echo isset($errors['civilStatus']) ? $errors['civilStatus'] : ''; ?>
+                            </small>
+                        </div>
                     </div>
 
                 </div>

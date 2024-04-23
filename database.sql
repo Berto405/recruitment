@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 22, 2024 at 11:17 AM
+-- Generation Time: Apr 23, 2024 at 10:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -234,7 +234,8 @@ INSERT INTO `character_references` (`id`, `user_id`, `name_one`, `name_one_posit
 (31, 9, 'das', 'asd', 'asd', 42, 'asd', 'ae', 'ewq', 0),
 (32, 9, 'das', 'asd', 'asd', 42, 'asd', 'ae', 'ewq', 0),
 (33, 9, 'das', 'asd', 'asd', 42, 'asd', 'ae', 'ewq', 0),
-(34, 20, 'asda', 'asda', 'dasd', 312, '', '', '', 0);
+(34, 20, 'asda', 'asda', 'dasd', 312, '', '', '', 0),
+(35, 18, '', '', '', 0, '', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -269,7 +270,8 @@ CREATE TABLE `educational_attainment` (
 
 INSERT INTO `educational_attainment` (`id`, `user_id`, `college`, `college_from`, `college_to`, `college_degree`, `vocational`, `vocational_from`, `vocational_to`, `vocational_diploma`, `high_school`, `high_school_from`, `high_school_to`, `high_school_level`, `elementary`, `elementary_from`, `elementary_to`, `elementary_level`) VALUES
 (33, 9, 'dasd', '2024-03-14', '0000-00-00', 'asd', 'da', '0000-00-00', '0000-00-00', 'a', 'asd', '0000-00-00', '0000-00-00', 'adad', 'asd', '0000-00-00', '0000-00-00', 'asd'),
-(34, 20, 'asd', '2024-04-01', '2024-04-16', 'asd', 'das', '2024-04-26', '2024-04-15', 'ad', 'asd', '2024-04-26', '2024-04-15', 'asd', 'asd', '2024-04-24', '2024-04-23', 'asd');
+(34, 20, 'asd', '2024-04-01', '2024-04-16', 'asd', 'das', '2024-04-26', '2024-04-15', 'ad', 'asd', '2024-04-26', '2024-04-15', 'asd', 'asd', '2024-04-24', '2024-04-23', 'asd'),
+(35, 18, '123', '2024-05-01', '2024-04-30', '123', 'asd', '2024-04-18', '2024-04-15', 'asd', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -315,7 +317,8 @@ CREATE TABLE `employment_background` (
 
 INSERT INTO `employment_background` (`id`, `user_id`, `company_one`, `company_one_position`, `company_one_from`, `company_one_to`, `company_one_status`, `company_one_responsibilities`, `company_one_reason_for_leaving`, `company_one_last_salary`, `company_two`, `company_two_position`, `company_two_from`, `company_two_to`, `company_two_status`, `company_two_responsibilities`, `company_two_reason_for_leaving`, `company_two_last_salary`, `company_three`, `company_three_position`, `company_three_from`, `company_three_to`, `company_three_status`, `company_three_responsibilities`, `company_three_reason_for_leaving`, `company_three_last_salary`, `recent_employment_contact_person`, `recent_employment_position`, `recent_employment_contact_number`) VALUES
 (34, 9, 'das', 'asd', '0000', '0000', '', 'asd', 'asd', 0, 'asd', 'asd', '0000', '0000', '', 'asd', 'asd', 0, 'asd', 'w3eq', '0000', '0000', '', 'ewq', 'trtr', 0, 'das', 'asd', 321),
-(35, 20, 'asd', 'asd', '2024', '2024', 'asd', 'asda', 'asda', 231, '', '', '0000', '0000', '', '', '', 0, '', '', '0000', '0000', '', '', '', 0, 'asd', 'asda', 213);
+(35, 20, 'asd', 'asd', '2024', '2024', 'asd', 'asda', 'asda', 231, '', '', '0000', '0000', '', '', '', 0, '', '', '0000', '0000', '', '', '', 0, 'asd', 'asda', 213),
+(36, 18, 'dasd', 'asdasd', '2024', '2024', '321', 'asasd', 'asd', 213, '', '', '0000', '0000', '', '', '', 0, '', '', '0000', '0000', '', '', '', 0, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -409,7 +412,8 @@ CREATE TABLE `lectures_and_seminars_attended` (
 
 INSERT INTO `lectures_and_seminars_attended` (`id`, `user_id`, `title_one`, `title_one_from`, `title_one_to`, `title_one_venue`, `title_two`, `title_two_from`, `title_two_to`, `title_two_venue`, `title_three`, `title_three_from`, `title_three_to`, `title_three_venue`, `title_four`, `title_four_from`, `title_four_to`, `title_four_venue`, `title_five`, `title_five_from`, `title_five_to`, `title_five_venue`) VALUES
 (31, 9, 'das', '2024-03-26', '2024-03-26', '2024-03-26', 'asd', '2024-03-26', '2024-03-26', '2024-03-26', 'da', '2024-03-26', '2024-03-26', '2024-03-26', '', '2024-04-10', '0000-00-00', '', '', '2024-04-15', '0000-00-00', ''),
-(32, 20, 'asas', '0000-00-00', '2024-04-09', '2024-04-24', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '');
+(32, 20, 'asas', '0000-00-00', '2024-04-09', '2024-04-24', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', ''),
+(33, 18, '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '', '', '0000-00-00', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -486,10 +490,10 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`, `industry_access`, `verify_token`, `verify_status`) VALUES
 (2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila', 'Retail, Maintenance & Services', '', 1),
 (9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', '', '', '', 1),
-(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', '', '', 0),
-(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', '', '', 0),
-(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', '', '', 0),
-(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', '', '', 0),
+(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', '', '', 1),
+(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', '', '', 1),
+(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', '', '', 1),
+(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', '', '', 1),
 (27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati', '', '', 0),
 (28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati', 'Food Services', '', 0),
 (29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati', 'Retail, Logistics, Maintenance & Services', '', 0),
@@ -543,7 +547,7 @@ CREATE TABLE `user_resumes` (
 --
 
 INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `phone_verified`, `otp`, `otp_timestamp`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'eq@gmail.com', 'ds', 'wq', 'eqw', 'asdqwe', 'sad', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-19 15:11:15', 'Job Fair: ', 'das', 'dasd', 'agreed', ''),
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'aw@asd.comdsadas', 'abc', 'wq', 'dasd', 'asdqwe', 'asd', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-19 15:11:15', 'Job Fair: ', 'asdasd', 'dsa', 'agreed', ''),
 (6, 20, '660a232e498ef_default-profile-picture1.jpg', 'askdj@gmail.com', 'Seesshh', 'asdhh', 'aksjdh', 'askduhg', 'sadhgkjg', '2024-04-24', 'Male', 231, 312, 'dkjashf', 'asd', 'Single', 321, 31232, 13123, 312, '132', 0, 0, '2024-04-18 14:17:17', 'Job Fair, Newspaper / Magazines, Walk-in: ', 'adas', 'asd', 'agreed', '');
 
 --
@@ -624,19 +628,19 @@ ALTER TABLE `applicant_logs`
 -- AUTO_INCREMENT for table `character_references`
 --
 ALTER TABLE `character_references`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `educational_attainment`
 --
 ALTER TABLE `educational_attainment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `employment_background`
 --
 ALTER TABLE `employment_background`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `initial_interview_assessments`
@@ -654,7 +658,7 @@ ALTER TABLE `job_applicants`
 -- AUTO_INCREMENT for table `lectures_and_seminars_attended`
 --
 ALTER TABLE `lectures_and_seminars_attended`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `mrfs`
@@ -666,7 +670,7 @@ ALTER TABLE `mrfs`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `user_resumes`

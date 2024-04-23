@@ -29,7 +29,7 @@ include ('components/header.php');
                                 <input type="email"
                                     class="form-control bg-transparent <?php echo isset($errors['email']) ? 'border border-danger' : ''; ?>"
                                     id="email" placeholder="Email" name="email"
-                                    value="<?php echo isset($emailInput) ? $emailInput : '' ?>">
+                                    value="<?php echo isset($inputs['email']) ? $inputs['email'] : '' ?>">
                                 <div class="text-danger">
                                     <small>
                                         <?php

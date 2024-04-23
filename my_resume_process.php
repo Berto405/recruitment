@@ -2,6 +2,10 @@
 session_start();
 include ("dbconn.php");
 
+
+$inputs = [];
+$errors = [];
+
 if (!isset($_SESSION["user_id"])) {
     header('Location: login.php');
     exit();
@@ -9,17 +13,15 @@ if (!isset($_SESSION["user_id"])) {
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-
         personalInfo($conn);
+
         educationAttainment($conn);
         employmentBackground($conn);
         lecturesAndSeminar($conn);
         characterReference($conn);
 
 
-        $_SESSION['success_message'] = "Resume Submitted.";
-        header('Location: my_resume.php');
-        exit();
+
     }
 
 }
@@ -29,73 +31,81 @@ function personalInfo($conn)
 {
     $userId = $_SESSION['user_id'];
 
+
     //Personal Info Inputs
-    $last_name = $_POST['lName'];
-    $first_name = $_POST['fName'];
-    $mid_name = $_POST['mName'];
-    $email = $_POST['emailAddress'];
-    $presentAddress = $_POST['presentAddress'];
-    $permanentAddress = $_POST['permanentAddress'];
-    $height = $_POST['height'];
-    $weight = $_POST['weight'];
-    $nationality = $_POST['nationality'];
-    $religion = $_POST['religion'];
+    $last_name = sanitize($_POST['lName']);
+    $first_name = sanitize($_POST['fName']);
+    $mid_name = sanitize($_POST['mName']);
+    $email = sanitize($_POST['emailAddress']);
+    $presentAddress = sanitize($_POST['presentAddress']);
+    $permanentAddress = sanitize($_POST['permanentAddress']);
+    $height = sanitize($_POST['height']);
+    $weight = sanitize($_POST['weight']);
+    $nationality = sanitize($_POST['nationality']);
+    $religion = sanitize($_POST['religion']);
     $birthDate = $_POST['birthDate'];
-    $gender = $_POST['gender'];
-    $sssNumber = $_POST['sssNumber'];
-    $philhealthNumber = $_POST['philhealthNumber'];
-    $pagibigNumber = $_POST['pagibigNumber'];
-    $tinNumber = $_POST['tinNumber'];
-    $contactNumber = $_POST['contactNumber'];
-    $civilStatus = $_POST['civilStatus'];
+    $gender = sanitize($_POST['gender']);
+    $sssNumber = sanitize($_POST['sssNumber']);
+    $philhealthNumber = sanitize($_POST['philhealthNumber']);
+    $pagibigNumber = sanitize($_POST['pagibigNumber']);
+    $tinNumber = sanitize($_POST['tinNumber']);
+    $contactNumber = sanitize($_POST['contactNumber']);
+    $civilStatus = sanitize($_POST['civilStatus']);
 
 
-    $stmt = $conn->prepare('SELECT * FROM user_resumes WHERE user_id = ?');
-    $stmt->bind_param('i', $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $personalInfoErrors = validatePersonalInfo($last_name, $first_name, $mid_name, $email, $presentAddress, $permanentAddress, $height, $weight, $nationality, $religion, $birthDate, $gender, $sssNumber, $philhealthNumber, $pagibigNumber, $tinNumber, $contactNumber, $civilStatus);
 
 
-    //check if user changed his phone number
-    if ($contactNumber != $row['contact_number']) {
+    if (empty($personalInfoErrors)) {
 
-        $phone_verify = 0;
-        $stmt = $conn->prepare("UPDATE user_resumes SET phone_verified = ? WHERE user_id = ?");
-        $stmt->bind_param("ii", $phone_verify, $userId);
+
+
+        $stmt = $conn->prepare('SELECT * FROM user_resumes WHERE user_id = ?');
+        $stmt->bind_param('i', $userId);
         $stmt->execute();
-    }
+        $result = $stmt->get_result();
+        $row = $result->fetch_assoc();
 
-    // Check if there's an uploaded image
-    if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-        // Generate a unique filename for the new image
-        $uniqueFilename = uniqid() . '_' . $_FILES["image"]["name"];
-        $targetFile = "./img/applicant/" . $uniqueFilename;
 
-        // Delete previous image file if it exists
-        if (!empty($row['picture'])) {
-            $previousImage = "./img/applicant/" . $row['picture'];
-            if (file_exists($previousImage)) {
-                unlink($previousImage);
+        //check if user changed his phone number
+        if ($contactNumber != $row['contact_number']) {
+
+            $phone_verify = 0;
+            $stmt = $conn->prepare("UPDATE user_resumes SET phone_verified = ? WHERE user_id = ?");
+            $stmt->bind_param("ii", $phone_verify, $userId);
+            $stmt->execute();
+        }
+
+        // Check if there's an uploaded image
+        if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
+            // Generate a unique filename for the new image
+            $uniqueFilename = uniqid() . '_' . $_FILES["image"]["name"];
+            $targetFile = "./img/applicant/" . $uniqueFilename;
+
+            // Delete previous image file if it exists
+            if (!empty($row['picture'])) {
+                $previousImage = "./img/applicant/" . $row['picture'];
+                if (file_exists($previousImage)) {
+                    unlink($previousImage);
+                }
             }
-        }
 
-        // Move the uploaded file to the specified directory
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            $imageData = $uniqueFilename; // Store the unique filename in the database
+            // Move the uploaded file to the specified directory
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                $imageData = $uniqueFilename; // Store the unique filename in the database
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+                return; // Stop execution if file upload fails
+            }
         } else {
-            echo "Sorry, there was an error uploading your file.";
-            return; // Stop execution if file upload fails
+            $imageData = ""; // No image uploaded
         }
-    } else {
-        $imageData = ""; // No image uploaded
-    }
 
-    if ($result->num_rows > 0) {
+        if ($result->num_rows > 0) {
 
-        if (empty($imageData)) {
-            //If image input is empty or user did not want to change his picture
-            $stmt = $conn->prepare("UPDATE user_resumes SET 
+            if (empty($imageData)) {
+                //If image input is empty or user did not want to change his picture
+                $stmt = $conn->prepare("UPDATE user_resumes SET 
                 email = ?,
                 last_name = ?,
                 first_name = ?,
@@ -115,34 +125,34 @@ function personalInfo($conn)
                 tin_number = ?,
                 contact_number = ?
                 WHERE user_id = ?"
-            );
+                );
 
-            // Bind parameters
-            $stmt->bind_param(
-                'ssssssssssssssssssi',
-                $email,
-                $last_name,
-                $first_name,
-                $mid_name,
-                $presentAddress,
-                $permanentAddress,
-                $birthDate,
-                $gender,
-                $height,
-                $weight,
-                $nationality,
-                $religion,
-                $civilStatus,
-                $sssNumber,
-                $pagibigNumber,
-                $philhealthNumber,
-                $tinNumber,
-                $contactNumber,
-                $userId
-            );
-        } else {
-            //Update if it already exist on user_resumes table and update the picture
-            $stmt = $conn->prepare("UPDATE user_resumes SET 
+                // Bind parameters
+                $stmt->bind_param(
+                    'ssssssssssssssssssi',
+                    $email,
+                    $last_name,
+                    $first_name,
+                    $mid_name,
+                    $presentAddress,
+                    $permanentAddress,
+                    $birthDate,
+                    $gender,
+                    $height,
+                    $weight,
+                    $nationality,
+                    $religion,
+                    $civilStatus,
+                    $sssNumber,
+                    $pagibigNumber,
+                    $philhealthNumber,
+                    $tinNumber,
+                    $contactNumber,
+                    $userId
+                );
+            } else {
+                //Update if it already exist on user_resumes table and update the picture
+                $stmt = $conn->prepare("UPDATE user_resumes SET 
             picture = ?,
             email = ?,
             last_name = ?,
@@ -163,9 +173,39 @@ function personalInfo($conn)
             tin_number = ?,
             contact_number = ?
             WHERE user_id = ?"
-            );
+                );
+                $stmt->bind_param(
+                    'sssssssssssssssssssi',
+                    $imageData,
+                    $email,
+                    $last_name,
+                    $first_name,
+                    $mid_name,
+                    $presentAddress,
+                    $permanentAddress,
+                    $birthDate,
+                    $gender,
+                    $height,
+                    $weight,
+                    $nationality,
+                    $religion,
+                    $civilStatus,
+                    $sssNumber,
+                    $pagibigNumber,
+                    $philhealthNumber,
+                    $tinNumber,
+                    $contactNumber,
+                    $userId
+                );
+            }
+
+        } else {
+            // Insert personal info into the user_resumes table if user still not have uploaded a resume
+            $stmt = $conn->prepare('INSERT INTO user_resumes (user_id, picture, email, last_name, first_name, middle_name,  present_address, permanent_address, birthdate, gender, height, weight, nationality, religion, civil_status,  sss_number, pagibig_number, philhealth_number,  tin_number, contact_number) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
             $stmt->bind_param(
-                'sssssssssssssssssssi',
+                'isssssssssssssssssss',
+                $userId,
                 $imageData,
                 $email,
                 $last_name,
@@ -184,87 +224,58 @@ function personalInfo($conn)
                 $pagibigNumber,
                 $philhealthNumber,
                 $tinNumber,
-                $contactNumber,
-                $userId
+                $contactNumber
             );
+
         }
 
-    } else {
-        // Insert personal info into the user_resumes table if user still not have uploaded a resume
-        $stmt = $conn->prepare('INSERT INTO user_resumes (user_id, picture, email, last_name, first_name, middle_name,  present_address, permanent_address, birthdate, gender, height, weight, nationality, religion, civil_status,  sss_number, pagibig_number, philhealth_number,  tin_number, contact_number) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
-        $stmt->bind_param(
-            'isssssssssssssssssss',
-            $userId,
-            $imageData,
-            $email,
-            $last_name,
-            $first_name,
-            $mid_name,
-            $presentAddress,
-            $permanentAddress,
-            $birthDate,
-            $gender,
-            $height,
-            $weight,
-            $nationality,
-            $religion,
-            $civilStatus,
-            $sssNumber,
-            $pagibigNumber,
-            $philhealthNumber,
-            $tinNumber,
-            $contactNumber
-        );
-
-    }
-
-    $stmt->execute();
-
-    // Prepare a SQL statement to update the reference column for the user's resume
-    if (isset($_POST['source']) && !empty($_POST['source'])) {
-        // Concatenate the selected checkboxes and referral name (if provided)
-        $reference = implode(', ', $_POST['source']);
-        if (isset($_POST['referralName'])) {
-            $reference .= ': ' . $_POST['referralName'];
-        }
-
-        // Update the reference column
-        $stmt = $conn->prepare('UPDATE user_resumes SET reference = ? WHERE user_id = ?');
-        $stmt->bind_param('si', $reference, $userId);
         $stmt->execute();
-        $stmt->close();
-    }
 
-    //Additional Info Inputs
-    $addInfoFirstQuestion = $_POST['addInfoFirstQuestion'];
-    $addInfoSecondQuestion = $_POST['addInfoSecondQuestion'];
+        // Prepare a SQL statement to update the reference column for the user's resume
+        if (isset($_POST['source']) && !empty($_POST['source'])) {
+            // Concatenate the selected checkboxes and referral name (if provided)
+            $reference = implode(', ', $_POST['source']);
+            if (isset($_POST['referralName'])) {
+                $reference .= ': ' . $_POST['referralName'];
+            }
 
-    //Declaration checkbox
-    $declaration = $_POST['declaration'];
-
-    //Authority to Process and Disclosure of Information Input
-
-
-    if (isset($_FILES["applicantSignature"]) && $_FILES["applicantSignature"]["error"] == 0) {
-        // Generate a unique filename
-        $uniqueFilename = uniqid() . '_' . $_FILES["applicantSignature"]["name"];
-        $targetFile = "./img/esignature/" . $uniqueFilename;
-
-        // Move the uploaded file to the specified directory
-        if (move_uploaded_file($_FILES["applicantSignature"]["tmp_name"], $targetFile)) {
-            $applicantSignature = $uniqueFilename; // Store the unique filename in the database
-        } else {
-            echo "Sorry, there was an error uploading your file.";
-            return; // Stop execution if file upload fails
+            // Update the reference column
+            $stmt = $conn->prepare('UPDATE user_resumes SET reference = ? WHERE user_id = ?');
+            $stmt->bind_param('si', $reference, $userId);
+            $stmt->execute();
+            $stmt->close();
         }
-    } else {
-        $applicantSignature = ""; // No image uploaded
-    }
 
-    $stmt = $conn->prepare('UPDATE user_resumes SET additional_info_q1 = ?, additional_info_q2 = ?, declaration = ?, authorization = ? WHERE user_id = ?');
-    $stmt->bind_param('ssssi', $addInfoFirstQuestion, $addInfoSecondQuestion, $declaration, $applicantSignature, $userId);
-    $stmt->execute();
+        //Additional Info Inputs
+        $addInfoFirstQuestion = $_POST['addInfoFirstQuestion'];
+        $addInfoSecondQuestion = $_POST['addInfoSecondQuestion'];
+
+        //Declaration checkbox
+        $declaration = $_POST['declaration'];
+
+        //Authority to Process and Disclosure of Information Input
+
+
+        if (isset($_FILES["applicantSignature"]) && $_FILES["applicantSignature"]["error"] == 0) {
+            // Generate a unique filename
+            $uniqueFilename = uniqid() . '_' . $_FILES["applicantSignature"]["name"];
+            $targetFile = "./img/esignature/" . $uniqueFilename;
+
+            // Move the uploaded file to the specified directory
+            if (move_uploaded_file($_FILES["applicantSignature"]["tmp_name"], $targetFile)) {
+                $applicantSignature = $uniqueFilename; // Store the unique filename in the database
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+                return; // Stop execution if file upload fails
+            }
+        } else {
+            $applicantSignature = ""; // No image uploaded
+        }
+
+        $stmt = $conn->prepare('UPDATE user_resumes SET additional_info_q1 = ?, additional_info_q2 = ?, declaration = ?, authorization = ? WHERE user_id = ?');
+        $stmt->bind_param('ssssi', $addInfoFirstQuestion, $addInfoSecondQuestion, $declaration, $applicantSignature, $userId);
+        $stmt->execute();
+    }
 }
 
 function educationAttainment($conn)
@@ -675,5 +686,164 @@ function characterReference($conn)
     $stmt->execute();
 }
 
+
+function validatePersonalInfo($last_name, $first_name, $mid_name, $email, $presentAddress, $permanentAddress, $height, $weight, $nationality, $religion, $birthDate, $gender, $sssNumber, $philhealthNumber, $pagibigNumber, $tinNumber, $contactNumber, $civilStatus)
+{
+
+    global $inputs, $errors;
+    $errors = [];
+
+    // Validate last name
+    if (empty($last_name)) {
+        $errors['last_name'] = "Last name is required.";
+    } else {
+        $inputs['last_name'] = $last_name;
+    }
+
+    // Validate first name
+    if (empty($last_name)) {
+        $errors['first_name'] = "First name is required.";
+    } else {
+        $inputs['first_name'] = $first_name;
+    }
+
+    // Validate mid name
+    if (empty($mid_name)) {
+        $errors['mid_name'] = "First name is required.";
+    } else {
+        $inputs['mid_name'] = $mid_name;
+    }
+
+    // Validate email
+    if (empty($email)) {
+        $errors['email'] = "Email is required.";
+    } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid email format.";
+    } else {
+        $inputs['email'] = $email;
+    }
+
+    // Validate present address
+    if (empty($presentAddress)) {
+        $errors['presentAddress'] = "Present address is required.";
+    } else {
+        $inputs['presentAddress'] = $presentAddress;
+    }
+
+    // Validate permanent address
+    if (empty($permanentAddress)) {
+        $errors['permanentAddress'] = "Permanent address is required.";
+    } else {
+        $inputs['permanentAddress'] = $permanentAddress;
+    }
+
+    // Validate height
+    if (empty($height)) {
+        $errors['height'] = "Height is required.";
+    } else if (!is_numeric($height)) {
+        $errors['height'] = "Height must be numeric.";
+    } else {
+        $inputs['height'] = $height;
+    }
+
+    // Validate height
+    if (empty($weight)) {
+        $errors['weight'] = "Weight is required.";
+    } else if (!is_numeric($weight)) {
+        $errors['weight'] = "Weight must be numeric.";
+    } else {
+        $inputs['weight'] = $weight;
+    }
+
+    // Validate nationality
+    if (empty($nationality)) {
+        $errors['nationality'] = "Nationality is required.";
+    } else {
+        $inputs['nationality'] = $nationality;
+    }
+
+    // Validate religion
+    if (empty($religion)) {
+        $errors['religion'] = "Religion is required.";
+    } else {
+        $inputs['religion'] = $religion;
+    }
+
+    // Validate birth date
+    if (empty($birthDate)) {
+        $errors['birthDate'] = "Birtdate is required.";
+    } else {
+        $inputs['birthDate'] = $birthDate;
+    }
+
+    // Validate birth date
+    if (empty($gender)) {
+        $errors['gender'] = "Gender is required.";
+    } else {
+        $inputs['gender'] = $gender;
+    }
+
+    // Validate SSS number
+    if (empty($sssNumber)) {
+        $errors['sssNumber'] = "SSS number is required.";
+    } else if (!is_numeric($sssNumber)) {
+        $errors['sssNumber'] = "SSS number must be numeric.";
+    } else {
+        $inputs['sssNumber'] = $sssNumber;
+    }
+
+    // Validate PhilHealth number
+    if (empty($philhealthNumber)) {
+        $errors['philhealthNumber'] = "PhilHealth number is required.";
+    } else if (!is_numeric($philhealthNumber)) {
+        $errors['philhealthNumber'] = "PhilHealth number must be numeric.";
+    } else {
+        $inputs['philhealthNumber'] = $philhealthNumber;
+    }
+
+    // Validate Pag-ibig number
+    if (empty($pagibigNumber)) {
+        $errors['pagibigNumber'] = "Pag-ibig number is required.";
+    } else if (!is_numeric($pagibigNumber)) {
+        $errors['pagibigNumber'] = "Pag-ibig number must be numeric.";
+    } else {
+        $inputs['pagibigNumber'] = $pagibigNumber;
+    }
+
+    // Validate Pag-ibig number
+    if (empty($tinNumber)) {
+        $errors['tinNumber'] = "Tin number is required.";
+    } else if (!is_numeric($tinNumber)) {
+        $errors['tinNumber'] = "Tin number must be numeric.";
+    } else {
+        $inputs['tinNumber'] = $tinNumber;
+    }
+
+    // Validate contact number
+    if (empty($contactNumber)) {
+        $errors['contactNumber'] = "Contact number is required.";
+    } else if (!is_numeric($contactNumber)) {
+        $errors['contactNumber'] = "Contact number must be numeric.";
+    } else if (!preg_match("/^[0-9]{11}$/", $contactNumber)) {
+        $errors['contactNumber'] = "Contact number must be an 11-digit numeric value.";
+    } else {
+        $inputs['contactNumber'] = $contactNumber;
+    }
+
+    // Validate birth date
+    if (empty($civilStatus)) {
+        $errors['civilStatus'] = "Civil Status is required.";
+    } else {
+        $inputs['civilStatus'] = $civilStatus;
+    }
+
+    return $errors;
+}
+
+function sanitize($data)
+{
+
+    return htmlspecialchars(trim($data));
+}
 
 ?>
