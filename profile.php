@@ -1,6 +1,7 @@
 <?php
 session_start();
 include ("dbconn.php");
+$pageTitle = "My Profile";
 include ("components/header.php");
 
 if (isset($_SESSION['user_id'])) {

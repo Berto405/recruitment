@@ -1,6 +1,7 @@
 <?php
 include ('my_resume_process.php');
 
+$pageTitle = "My Resume";
 
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');

@@ -1,5 +1,6 @@
 <?php
 include ("index_process.php");
+$pageTitle = "Jobs List";
 include ("components/header.php");
 ?>
 <!DOCTYPE html>

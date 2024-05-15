@@ -2,6 +2,7 @@
 include ('my_jobs_process.php');
 
 
+$pageTitle = "My Jobs";
 include ("components/header.php");
 ?>
 <!DOCTYPE html>

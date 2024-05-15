@@ -2,6 +2,8 @@
 session_start();
 include ('../dbconn.php');
 
+$pageTitle = "Interview Calendar";
+
 // Check if user is not logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
     // Redirect users who are not logged in to the login page
@@ -64,124 +66,100 @@ $events_json = json_encode($events);
 include ('../components/header.php');
 ?>
 
-<!DOCTYPE html>
 
-<html lang="en">
+<style>
+    .fc-daygrid-day:hover {
+        cursor: pointer;
+        background-color: #f0f0f0;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview Calendar</title>
+    .fc-event {
+        cursor: default;
+    }
 
-    <style>
-        .fc-daygrid-day:hover {
-            cursor: pointer;
-            background-color: #f0f0f0;
-        }
+    .fc-main-container {
+        background-color: #f8d7da;
+        /* Change background color */
+    }
+</style>
 
-        .fc-event {
-            cursor: default;
-        }
+<h4 class=" mt-1 mb-5 ">Interview Schedules</h4>
+<div class="container bg-white">
 
-        .fc-main-container {
-            background-color: #f8d7da;
-            /* Change background color */
-        }
-    </style>
-
-</head>
-
-<body style="background-color: #F4F4F4; ">
-
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow" style="min-height: 91vh;">
-                <?php include ("../admin/admin_sidebar.php"); ?>
+    <div id="calendar" class=""></div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger">
+                    Scheduled Interviews
+                </h5>
             </div>
-            <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
-                <h4 class=" mt-1 mb-5 ">Interview Schedules</h4>
-                <div class="container bg-white">
+            <div class="modal-body">
+                <div class="mb-3">
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div id="interviewList">
 
-                    <div id="calendar" class=""></div>
-                </div>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title text-danger">
-                                    Scheduled Interviews
-                                </h5>
-                            </div>
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                    <div class="row mb-3">
-                                        <div class="col">
-                                            <div id="interviewList">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
-
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Displaying Interviews of the day when clicked -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                events: <?php echo $events_json; ?>,
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                },
-                dateClick: function (info) {
-                    var clickedDate = info.dateStr;
-                    var events = calendar.getEvents();
-                    var interviews = events.filter(event => event.startStr.includes(clickedDate));
-                    var interviewList = document.getElementById('interviewList');
-                    interviewList.innerHTML = '';
 
-                    if (interviews.length > 0) {
-                        interviews.forEach(function (interview, index) {
-                            var div = document.createElement('div');
-                            div.classList.add('p-3', 'mb-2', 'bg-danger', 'text-white', 'border', 'border-secondary', 'rounded', 'me-2', 'mb-2');
+<!-- Displaying Interviews of the day when clicked -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: <?php echo $events_json; ?>,
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+            dateClick: function (info) {
+                var clickedDate = info.dateStr;
+                var events = calendar.getEvents();
+                var interviews = events.filter(event => event.startStr.includes(clickedDate));
+                var interviewList = document.getElementById('interviewList');
+                interviewList.innerHTML = '';
 
-                            var statement = document.createElement('span');
-                            statement.textContent = interview.title;
-                            div.appendChild(statement);
-                            interviewList.appendChild(div);
+                if (interviews.length > 0) {
+                    interviews.forEach(function (interview, index) {
+                        var div = document.createElement('div');
+                        div.classList.add('p-3', 'mb-2', 'bg-danger', 'text-white', 'border', 'border-secondary', 'rounded', 'me-2', 'mb-2');
 
-                            // Add a divider if it's not the last interview
-                            if (index < interviews.length - 1) {
-                                interviewList.appendChild(document.createElement('hr'));
-                            }
-                        });
-                    } else {
-                        interviewList.textContent = 'No interviews scheduled for this day/time.';
-                    }
+                        var statement = document.createElement('span');
+                        statement.textContent = interview.title;
+                        div.appendChild(statement);
+                        interviewList.appendChild(div);
 
-                    $('#myModal').modal('show');
+                        // Add a divider if it's not the last interview
+                        if (index < interviews.length - 1) {
+                            interviewList.appendChild(document.createElement('hr'));
+                        }
+                    });
+                } else {
+                    interviewList.textContent = 'No interviews scheduled for this day/time.';
                 }
-            });
-            calendar.render();
+
+                $('#myModal').modal('show');
+            }
         });
-    </script>
+        calendar.render();
+    });
+</script>
 
 
-</body>
-
-</html>
 
 <?php include ('../components/footer.php'); ?>

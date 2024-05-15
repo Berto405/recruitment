@@ -1,6 +1,7 @@
 <?php
 session_start();
 include ('../dbconn.php');
+$pageTitle = "Identified Applicants";
 
 // Check if user is not logged in
 if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
@@ -52,193 +53,176 @@ $assessStmt = $conn->prepare($assessQuery);
 include ('../components/header.php');
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
+<style>
+    #imagePreview {
+        width: 1in;
+        height: 1in;
+        border: 1px solid #ccc;
+        margin-top: 10px;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Identified Applicants</title>
-    <style>
-        #imagePreview {
-            width: 1in;
-            height: 1in;
-            border: 1px solid #ccc;
-            margin-top: 10px;
-        }
-
-        #imagePreview img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
+    #imagePreview img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+</style>
 </head>
 
-<body style="background-color: #F4F4F4; ">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2 col-lg-3 col-xl-2 bg-white  p-0 m-0 d-lg-block shadow " style="min-height: 91vh;">
-                <?php include ("../admin/admin_sidebar.php"); ?>
-            </div>
-            <div class="col-md-10 col-lg-9 col-xl-10  mt-3">
-                <h4 class=" mt-1 mb-5 ">Identified Applicants</h4>
 
-                <div class="row">
-                    <div class="col-md-6 col-lg-9">
-                        <div class="float-start mb-2">
-                            <form action="../components/export_to_excel.php" method="post">
-                                <button type="submit" class="btn btn-success" name="identifiedExportBtn"
-                                    style="border-radius: 0;">
-                                    <i class="bi bi-file-earmark-arrow-down"></i> Export
+<h4 class=" mt-1 mb-5 ">Identified Applicants</h4>
+
+<div class="row">
+    <div class="col-md-6 col-lg-9">
+        <div class="float-start">
+            <form action="../components/export_to_excel.php" method="post">
+                <button type="submit" class="btn btn-success" name="identifiedExportBtn" style="border-radius: 0;">
+                    <i class="bi bi-file-earmark-arrow-down"></i> Export
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="card border-light shadow-sm">
+    <div class="card-body">
+        <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+        <div class="table-responsive">
+            <form action="../admin/applicant_process.php" method="post">
+
+                <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
+                    <thead class="bg-danger ">
+                        <tr>
+                            <th class="bg-danger text-white text-center">
+
+                                <div class="dropdown">
+                                    <a href="#" class="link-dark text-decoration-none dropdown-toggle text-white"
+                                        id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-list"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
+                                        <li>
+                                            <button type="submit" name="multiOngoingBtn"
+                                                class="dropdown-item text-warning mb-1">
+                                                <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiOnbaordingBtn"
+                                                class="dropdown-item text-info mb-1">
+                                                <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiStartDateBtn"
+                                                class="dropdown-item text-primary mb-1">
+                                                <i class="bi bi-clock me-1"></i> Waiting for Start Date
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiPlacedBtn"
+                                                class="dropdown-item text-success mb-1">
+                                                <i class="bi bi-check-square me-1"></i> Placed
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiPlacedWithOngoingBtn"
+                                                class="dropdown-item text-success mb-1">
+                                                <i class="bi bi-arrow-clockwise me-1"></i> Placed with Ongoing
+                                                Req
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiPlacedWithOnboardingBtn"
+                                                class="dropdown-item  text-success mb-1">
+                                                <i class="bi bi-hand-thumbs-up me-1"></i> Placed with Onboarding
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="button" id="failedBtn" class="dropdown-item text-danger mb-1"
+                                                data-bs-toggle="modal" data-bs-target="#remarkModal">
+                                                <i class="bi bi-x-square"></i> Failed
+                                            </button>
+                                        </li>
+                                        <li>
+                                            <button type="submit" name="multiBackoutBtn"
+                                                class="dropdown-item  text-danger  mb-1">
+                                                <i class="bi bi-back me-1"></i> Backout
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </th>
+                            <th class="bg-danger text-white text-center">Applicant Name</th>
+                            <th class="bg-danger text-white text-center">Job Position</th>
+                            <th class="bg-danger text-white text-center">Location</th>
+                            <th class="bg-danger text-white text-center">Status</th>
+                            <th class="bg-danger text-white text-center">Automated Resume</th>
+                            <th class="bg-danger text-white text-center">Assessment</th>
+                            <th class="bg-danger text-white text-center">Remarks</th>
+                            <th class="bg-danger text-white text-center">Logs</th>
+                            <th class="bg-danger text-white text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
+                    <?php include ('../components/applicants_table.php'); ?>
+                </table>
+                <!-- Remark Modal -->
+                <div class="modal fade" tabindex="-1" role="dialog" id="remarkModal" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content rounded-4 shadow">
+                            <div class="modal-header p-5 pb-4 border-bottom-0">
+                                <h4 class="modal-title fw-bold" id="exampleModalLabel">
+                                    Remark
+                                </h4>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+
+                            <div class="modal-body p-5 pt-0">
+
+                                <div class="mb-3">
+                                    <div class="row mb-3">
+                                        <div class="col">
+
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" placeholder="rekamr" id="remark"
+                                                    name="remark">
+                                                <label class=" form-label fw-bold">Remark</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="multiFailBtn"
+                                    type="submit">
+                                    Submit
                                 </button>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
-                <div class="table-responsive">
-                    <form action="../admin/applicant_process.php" method="post">
+                <script>
+                    // JavaScript to the put required on input in modal 
+                    document.getElementById('failedBtn').addEventListener('click', function () {
+                        document.getElementById('remark').setAttribute('required', 'required');
+                    });
 
-                        <table id="applicantTable" class="table text-center table-hover table-bordered bg-white border">
-                            <thead class="bg-danger ">
-                                <tr>
-                                    <th class="bg-danger text-white text-center">
+                    // Add event listeners to other buttons to remove the "required" attribute
+                    var otherButtons = document.querySelectorAll('.dropdown-item:not(#failedBtn)');
+                    otherButtons.forEach(function (button) {
+                        button.addEventListener('click', function () {
+                            document.getElementById('remark').removeAttribute('required');
+                        });
+                    });
 
-                                        <div class="dropdown">
-                                            <a href="#"
-                                                class="link-dark text-decoration-none dropdown-toggle text-white"
-                                                id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="bi bi-list"></i>
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser2">
-                                                <li>
-                                                    <button type="submit" name="multiOngoingBtn"
-                                                        class="dropdown-item text-warning mb-1">
-                                                        <i class="bi bi-arrow-clockwise me-1"></i>Ongoing Requirements
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiOnbaordingBtn"
-                                                        class="dropdown-item text-info mb-1">
-                                                        <i class="bi bi-hand-thumbs-up me-1"></i> Onboarding
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiStartDateBtn"
-                                                        class="dropdown-item text-primary mb-1">
-                                                        <i class="bi bi-clock me-1"></i> Waiting for Start Date
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiPlacedBtn"
-                                                        class="dropdown-item text-success mb-1">
-                                                        <i class="bi bi-check-square me-1"></i> Placed
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiPlacedWithOngoingBtn"
-                                                        class="dropdown-item text-success mb-1">
-                                                        <i class="bi bi-arrow-clockwise me-1"></i> Placed with Ongoing
-                                                        Req
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiPlacedWithOnboardingBtn"
-                                                        class="dropdown-item  text-success mb-1">
-                                                        <i class="bi bi-hand-thumbs-up me-1"></i> Placed with Onboarding
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="button" id="failedBtn"
-                                                        class="dropdown-item text-danger mb-1" data-bs-toggle="modal"
-                                                        data-bs-target="#remarkModal">
-                                                        <i class="bi bi-x-square"></i> Failed
-                                                    </button>
-                                                </li>
-                                                <li>
-                                                    <button type="submit" name="multiBackoutBtn"
-                                                        class="dropdown-item  text-danger  mb-1">
-                                                        <i class="bi bi-back me-1"></i> Backout
-                                                    </button>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </th>
-                                    <th class="bg-danger text-white text-center">Applicant Name</th>
-                                    <th class="bg-danger text-white text-center">Job Position</th>
-                                    <th class="bg-danger text-white text-center">Location</th>
-                                    <th class="bg-danger text-white text-center">Status</th>
-                                    <th class="bg-danger text-white text-center">Automated Resume</th>
-                                    <th class="bg-danger text-white text-center">Assessment</th>
-                                    <th class="bg-danger text-white text-center">Remarks</th>
-                                    <th class="bg-danger text-white text-center">Logs</th>
-                                    <th class="bg-danger text-white text-center">Action</th>
-                                </tr>
-                            </thead>
-                            <!-- Makes the table as component so that in can be reuse on Pooling, Shortlisted and Identified Applicants Sidebar -->
-                            <?php include ('../components/applicants_table.php'); ?>
-                        </table>
-                        <!-- Remark Modal -->
-                        <div class="modal fade" tabindex="-1" role="dialog" id="remarkModal" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                <div class="modal-content rounded-4 shadow">
-                                    <div class="modal-header p-5 pb-4 border-bottom-0">
-                                        <h4 class="modal-title fw-bold" id="exampleModalLabel">
-                                            Remark
-                                        </h4>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-
-                                    <div class="modal-body p-5 pt-0">
-
-                                        <div class="mb-3">
-                                            <div class="row mb-3">
-                                                <div class="col">
-
-                                                    <div class="form-floating">
-                                                        <input type="text" class="form-control" placeholder="rekamr"
-                                                            id="remark" name="remark">
-                                                        <label class=" form-label fw-bold">Remark</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-danger" name="multiFailBtn"
-                                            type="submit">
-                                            Submit
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <script>
-                            // JavaScript to the put required on input in modal 
-                            document.getElementById('failedBtn').addEventListener('click', function () {
-                                document.getElementById('remark').setAttribute('required', 'required');
-                            });
-
-                            // Add event listeners to other buttons to remove the "required" attribute
-                            var otherButtons = document.querySelectorAll('.dropdown-item:not(#failedBtn)');
-                            otherButtons.forEach(function (button) {
-                                button.addEventListener('click', function () {
-                                    document.getElementById('remark').removeAttribute('required');
-                                });
-                            });
-
-                        </script>
-                    </form>
-                </div>
-            </div>
+                </script>
+            </form>
         </div>
     </div>
+</div>
 
-</body>
 
-</html>
 
 <?php include ('../components/footer.php'); ?>
