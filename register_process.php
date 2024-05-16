@@ -23,6 +23,7 @@ if (isset($_SESSION['user_id']) || isset($_SESSION['user_role'])) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fName = sanitize($_POST['fName']);
     $lName = sanitize($_POST['lName']);
+    $address = sanitize($_POST['address']);
     $email = sanitize($_POST["email"]);
     $password = $_POST["password"];
     $confirm_password = $_POST['confirmPassword'];
@@ -41,6 +42,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['lName'] = "Last name is required.";
     } else {
         $inputs['lName'] = $lName;
+    }
+
+    // Validate Address
+    if (empty($lName)) {
+        $errors['address'] = "Address is required.";
+    } else {
+        $inputs['address'] = $address;
     }
 
     // Validate email
@@ -78,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
             $role = "user";
-            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, email, password, role, verify_token) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->bind_param("ssssss", $fName, $lName, $email, $hashedPassword, $role, $verify_token);
+            $stmt = $conn->prepare("INSERT INTO user (first_name, last_name, address, email, password, role, verify_token) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssssss", $fName, $lName, $address, $email, $hashedPassword, $role, $verify_token);
             $result = $stmt->execute();
 
             if ($result) {

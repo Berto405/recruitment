@@ -3,7 +3,32 @@
 <!-- DataTable JS - CDN Link -->
 <script src="https://cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
 
+<style>
+    .timeline {
+        border-left: 1px solid hsl(0, 70%, 50%);
+        position: relative;
+        list-style: none;
+    }
 
+    .timeline .timeline-item {
+        position: relative;
+    }
+
+    .timeline .timeline-item:after {
+        position: absolute;
+        display: block;
+        top: 0;
+    }
+
+    .timeline .timeline-item:after {
+        background-color: hsl(0, 70%, 50%);
+        left: -38px;
+        border-radius: 50%;
+        height: 11px;
+        width: 11px;
+        content: "";
+    }
+</style>
 <tbody style="height: 250px;">
     <?php
     while ($row = mysqli_fetch_assoc($result)) {
@@ -597,7 +622,7 @@
                         <div class="mb-3">
                             <div class="row mb-3">
                                 <div class="col">
-                                    <ul class="list-group list-group-flush">
+                                    <ul class="timeline">
                                         <?php
                                         $logQuery = "SELECT * FROM applicant_logs WHERE applicant_id = ? ORDER BY created_at DESC";
                                         $logStmt = $conn->prepare($logQuery);
@@ -611,14 +636,22 @@
                                             // Format the DateTime object
                                             $logTime = $created_at->format('h:iA M d, Y');
                                             ?>
-                                            <li class="list-group-item">
-                                                <p>
-                                                    <i class="bi bi-exclamation-square-fill text-danger"></i>
-                                                    <span class="fw-bold">
-                                                        <?php echo $logTime; ?>
-                                                    </span>
-                                                    <?php echo ': ' . $logRow['log']; ?>
-                                                </p>
+                                            <li class="timeline-item mt-4">
+                                                <div class="timeline-body">
+                                                    <div class="timeline-content">
+                                                        <div class="card border-0">
+                                                            <div class="card-body p-0">
+                                                                <span class="card-subtitle mb-1 fw-bold"
+                                                                    style="font-size: 18px;">
+                                                                    <?php echo $logTime; ?>
+                                                                </span>
+                                                                <p class="card-text m-0">
+                                                                    <?php echo $logRow['log']; ?>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </li>
                                             <?php
                                         }

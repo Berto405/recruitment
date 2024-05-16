@@ -97,7 +97,7 @@
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="navbar-brand " href="index.php">
+                <a class="navbar-brand " href="/recruitment/index.php">
                     <h3 class="text-danger">Recruitment</h3>
                 </a>
 
@@ -183,7 +183,10 @@
                                             id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
                                             <?php echo $user; ?>
                                         </a>
-                                        <ul class="dropdown-menu text-small shadow">
+                                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile "
+                                            style="position: absolute; inset: 0px -100px auto auto; margin: 0px; transform: translate3d(-16px, 38px, 0px);"
+                                            data-popper-placement="bottom-end">
+
                                             <li>
                                                 <a class="dropdown-item" href="/recruitment/profile.php">
                                                     <i class="bi bi-person-circle"></i> Profile

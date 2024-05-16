@@ -6,7 +6,7 @@ $conn->query("SET time_zone = '+08:00'");
 
 // SQL query to create the event
 $query = "CREATE EVENT calculate_aging_days
-    ON SCHEDULE EVERY 1 DAY
+    ON SCHEDULE EVERY 1 MINUTE
     DO
     BEGIN
         -- Update the aging_days column for records where mrf_status is not 'Close'

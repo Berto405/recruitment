@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 10:56 AM
+-- Generation Time: May 16, 2024 at 11:13 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -175,7 +175,30 @@ INSERT INTO `applicant_logs` (`id`, `applicant_id`, `log`, `created_at`) VALUES
 (212, 45, 'Berto Berto changed status to Placed', '2024-04-22 06:33:07'),
 (213, 45, 'Berto Berto changed status to  Failed', '2024-04-22 06:33:41'),
 (214, 39, 'Berto Berto changed status to Hired', '2024-04-22 06:34:35'),
-(215, 39, 'Berto Berto changed status to Backout', '2024-04-22 06:34:43');
+(215, 39, 'Berto Berto changed status to Backout', '2024-04-22 06:34:43'),
+(216, 39, 'Berto Berto changed status to  Pooling', '2024-04-26 01:11:29'),
+(217, 45, 'Berto Berto changed status to  Pooling', '2024-04-26 01:11:35'),
+(218, 39, 'Berto Berto assigned MRF: Crew', '2024-04-26 01:11:45'),
+(219, 39, 'Berto Berto changed status to Passed', '2024-05-15 01:10:55'),
+(220, 45, 'Berto Berto assigned MRF: Waiter', '2024-05-15 06:44:11'),
+(221, 45, 'Berto Berto changed status to Passed', '2024-05-15 06:44:43'),
+(222, 39, 'Berto Berto scheduled an interview on 02:55PM May 20, 2024', '2024-05-15 06:57:39'),
+(223, 39, 'Berto Berto scheduled an interview on 02:59PM May 15, 2024', '2024-05-15 06:59:58'),
+(224, 39, 'Berto Berto scheduled an interview on 03:03PM May 28, 2024', '2024-05-15 07:03:04'),
+(225, 39, 'Berto Berto scheduled an interview on 03:03PM May 22, 2024', '2024-05-15 07:03:43'),
+(226, 39, 'Berto Berto changed status to Waiting for Feedback', '2024-05-15 07:04:13'),
+(227, 39, 'Berto Berto changed status to Hired', '2024-05-15 07:04:29'),
+(228, 45, 'Berto Berto changed status to Hired', '2024-05-16 03:20:15'),
+(229, 39, 'Berto Berto changed status to Ongoing Requirements', '2024-05-16 05:48:05'),
+(230, 39, 'Berto Berto changed status to Onboarding', '2024-05-16 05:49:33'),
+(231, 39, 'Berto Berto changed status to Waiting for Start Date', '2024-05-16 05:49:58'),
+(232, 39, 'Berto Berto changed status to Placed with Ongoing Req.', '2024-05-16 05:50:33'),
+(233, 39, 'Berto Berto changed status to Failed', '2024-05-16 05:51:18'),
+(234, 39, 'Berto Berto changed status to  Pooling', '2024-05-16 05:51:26'),
+(235, 39, 'Berto Berto assigned MRF: Waiter', '2024-05-16 05:53:25'),
+(236, 39, 'Berto Berto changed status to Passed', '2024-05-16 05:53:34'),
+(237, 39, 'Berto Berto changed status to Waiting for Feedback', '2024-05-16 05:53:39'),
+(238, 45, 'Berto Berto changed status to Ongoing Requirements', '2024-05-16 05:55:42');
 
 -- --------------------------------------------------------
 
@@ -349,7 +372,9 @@ CREATE TABLE `initial_interview_assessments` (
 
 INSERT INTO `initial_interview_assessments` (`id`, `job_applicant_id`, `appearance_grade`, `appearance_comment`, `communication_grade`, `communication_comment`, `personal_relation_grade`, `personal_relation_comment`, `behavior_grade`, `behavior_comment`, `integrity_grade`, `integrity_comment`, `job_skill_grade`, `job_skill_comment`) VALUES
 (11, 39, 1, 'qweqweqwe', 1, 'ewqewqe', 2, 'ewqeqwewq', 3, 'ewqeqwe', 4, 'qweqweqw', 3, 'dsaqweqwe'),
-(12, 45, 4, 'fdsf', 4, 'dgefgfd', 1, 'fdsf', 1, 'dfadsf', 1, 'sdasdasd', 1, 'fadsfa');
+(12, 45, 4, 'fdsf', 4, 'dgefgfd', 1, 'fdsf', 1, 'dfadsf', 1, 'sdasdasd', 1, 'fadsfa'),
+(13, 39, 3, 'dsa', 3, 'era', 3, 'dsa', 3, 'asd', 3, 'dsa', 3, 'asd'),
+(14, 39, 4, 'asd', 4, 'sad', 4, 'asd', 4, 'sad', 4, 'asd', 4, 'dsa');
 
 -- --------------------------------------------------------
 
@@ -372,8 +397,8 @@ CREATE TABLE `job_applicants` (
 --
 
 INSERT INTO `job_applicants` (`id`, `user_id`, `job_id`, `application_status`, `interview_date`, `remark`, `employee_id`) VALUES
-(39, 20, 2, 'Backout', '2024-04-27 13:57:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, asdas.  <br> Remark by: Berto Berto', 2),
-(45, 9, 4, 'Failed', '2024-04-26 14:25:00', '.  <br> Remark by: Berto Berto', 2);
+(39, 20, 2, 'Waiting for Feedback', '2024-05-22 15:03:00', 'sad.  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, .  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, sad.  <br> Remark by: Berto Berto, dasda.  <br> Remark by: Berto Berto, das123.  <br> Remark by: Berto Berto, das.  <br> Remark by: Berto Berto, asdas.  <br> Remark by: Berto Berto, dsa.  <br> Remark by: Berto Berto', 2),
+(45, 9, 2, 'Ongoing Requirements', '2024-04-26 14:25:00', '.  <br> Remark by: Berto Berto', 2);
 
 -- --------------------------------------------------------
 
@@ -449,19 +474,19 @@ CREATE TABLE `mrfs` (
 --
 
 INSERT INTO `mrfs` (`id`, `industry`, `mrf_status`, `closed_date`, `request_date`, `client`, `location`, `aging_days`, `mrf_number`, `new_request`, `head_count`, `job_position`, `contract_type`, `classification`, `placed`, `variance`, `cancel`, `job_description`, `qualification`, `remarks`) VALUES
-(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Makati', '15', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
-(2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '16', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
-(3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', '0', 'Additional', 23, 'asdas', 'Fixed Term', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
-(4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '15', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
+(1, 'Maintenance & Services', 'Post', '0000-00-00', '2024-04-04', 'McDoasd', 'Makati', '42', '0', 'Replacement', 103, 'Waitersa', 'Project-based', 'Skilled', 0, 0, 0, '                                                                                                                                                                        <ul><li>dsasdasdasd</li></ul>                                                                                                                                                                ', '                                                                                    0asdasdsadsa', ''),
+(2, 'Retail', 'Post', '0000-00-00', '2024-04-03', 'McDo', 'Makati', '43', '0', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '                                                                                    <ol><li>asdasdsa</li></ol>                                                                                ', '                                                                                    <ul><li>asdasdasda</li></ul>                                                                                ', ''),
+(3, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'asda', 'Makati', '42', '0', 'Additional', 23, 'asdas', 'Fixed Term', 'Skilled', 0, 0, 0, '<ol><li>asdsa</li></ol>', '<ol><li>asdasd</li></ol>', ''),
+(4, 'Retail', 'Post', '0000-00-00', '2024-04-04', 'KFC', 'Makati', '42', '0', 'Additional', 10, 'Crew', 'Probationary', 'Skilled', 0, 0, 0, '<ol><li>32</li></ol>', '<ol><li>3asdasdas</li></ol>', ''),
 (5, 'Retail', 'Close', '2024-04-04', '2024-04-01', 'Accenture', 'Makati', '2', '0', 'Additional', 12, 'Tech Support', 'Probationary', 'Non-skilled', 0, 0, 0, '<ol><li>asdasda</li></ol>', '<ul><li>asdasdasd</li></ul>', ''),
 (6, 'Retail', 'Close', '2024-04-04', '2024-04-04', 'McDo', 'Makati', '0', 're_6', 'Additional', 10, 'Waiter', 'Probationary', 'Non-skilled', 0, 0, 0, '<ul><li>asdsadsa</li></ul>', '<ul><li>asdasdasdas</li></ul>', ''),
-(8, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'iuo', 'Makati', '15', 're_8', 'Replacement', 67, 'jyh', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>kjhk</p>', '<p>hgjh</p>', ''),
-(10, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', 're_10', 'Replacement', 32, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdasd</p>', '<p><br></p>aasdasd', ''),
+(8, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'iuo', 'Makati', '42', 're_8', 'Replacement', 67, 'jyh', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>kjhk</p>', '<p>hgjh</p>', ''),
+(10, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '42', 're_10', 'Replacement', 32, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdasd</p>', '<p><br></p>aasdasd', ''),
 (11, 'Retail', 'Close', '2024-04-05', '2024-04-04', 'asdasd', 'Logistics', '1', 're_11', 'Replacement', 2, 'asd', 'Project-based', 'Skilled', 0, 0, 0, '<p>sadda</p>', '<p>sadasdasdfgds</p>', ''),
-(12, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asdasda', 'Logistics', '15', 're_12', 'Additional', 2, 'asda', 'Project-based', 'Non-skilled', 0, 0, 0, '<p>asdasdas</p>', '<p>asdasda</p>', ''),
-(13, 'Maintenance', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '15', 'main_13', 'Replacement', 23, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdas</p>', '<p>asdas</p>', ''),
-(14, 'Logistics', 'Hold', '0000-00-00', '2024-04-04', 'sdsada', 'Food Services', '15', 'log_14', 'Replacement', 2, 'sada', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>hvcbcvb</p>', '<p>asdasdas</p>', ''),
-(15, 'Logistics', 'Hold', '0000-00-00', '2024-04-05', 'Popeyes', 'Makati', '14', 'log_15', 'Additional', 5, 'Seller', 'Probationary', 'Skilled', 0, 0, 0, '<p>asdassdadsaa</p>', '<p>dsatretertreterter</p>', '');
+(12, 'Retail', 'Hold', '0000-00-00', '2024-04-04', 'asdasda', 'Logistics', '42', 're_12', 'Additional', 2, 'asda', 'Project-based', 'Non-skilled', 0, 0, 0, '<p>asdasdas</p>', '<p>asdasda</p>', ''),
+(13, 'Maintenance', 'Hold', '0000-00-00', '2024-04-04', 'asda', 'Makati', '42', 'main_13', 'Replacement', 23, 'asd', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>asdas</p>', '<p>asdas</p>', ''),
+(14, 'Logistics', 'Hold', '0000-00-00', '2024-04-04', 'sdsada', 'Food Services', '42', 'log_14', 'Replacement', 2, 'sada', 'Probationary', 'Non-skilled', 0, 0, 0, '<p>hvcbcvb</p>', '<p>asdasdas</p>', ''),
+(15, 'Logistics', 'Hold', '0000-00-00', '2024-04-05', 'Popeyes', 'Makati', '41', 'log_15', 'Additional', 5, 'Seller', 'Probationary', 'Skilled', 0, 0, 0, '<p>asdassdadsaa</p>', '<p>dsatretertreterter</p>', '');
 
 -- --------------------------------------------------------
 
@@ -473,6 +498,7 @@ CREATE TABLE `user` (
   `id` int(11) NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
+  `address` text NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(255) NOT NULL,
@@ -487,22 +513,24 @@ CREATE TABLE `user` (
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`, `resume`, `branch`, `industry_access`, `verify_token`, `verify_status`) VALUES
-(2, 'Berto', 'Berto', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila', 'Retail, Maintenance & Services', '', 1),
-(9, 'Roberto', 'Advincula', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', '', '', '', 1),
-(18, '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', '', '', 1),
-(19, 'aa', 'bb', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', '', '', 1),
-(20, 'd', 'd', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', '', '', 1),
-(26, 'Henard', 'Cueto', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', '', '', 1),
-(27, 'test', 'ops', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati', '', '', 0),
-(28, 'test', 'emp', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati', 'Food Services', '', 0),
-(29, 'test', 'admin', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati', 'Retail, Logistics, Maintenance & Services', '', 0),
-(31, 'test', 'super', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati', 'Retail, Maintenance & Services', '', 0),
-(32, 'djhab', 'sfbdj', 'gagokka@gmail.com', '$2y$10$xhhOxk.YHAcyw8C2pKy5o.Um.Q8XrejX36tLXz0kgiX0FDXij8/8K', 'user', '', '', '', '', 0),
-(33, 'test', 'access', 'access@gmail.com', '$2y$10$C1SmDPAHs2/A408krSR8R.WCQLJmlMj7.oG3ZGfPHaX.M1/u7v.Vq', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
-(35, 'test', 'test', 'tes@gmail.com', '$2y$10$p80/I6gIzQf3d9aIna8eJuk2IApIhlSZ/EcPirDkzHpPoESBn7qza', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
-(36, 'Test', 'Berto', 'advinculaberto@gmail.com', '$2y$10$mRv2GspaNOfi6kEitrHgs.3lc//O4mq60pNshyVHlDXUhri6f.zbi', 'user', '', '', '', '08fb62f296fd5ade363a884e56c343e0', 1),
-(37, 'test', 'one', 'one@gmail.com', '$2y$10$eEDjbZQmjzJX0dw69yYcyO4i1PbDsvYCmC5a8OF0munNzNctPOh9i', 'Admin', '', 'Makati', 'Retail, Logistics', '', 1);
+INSERT INTO `user` (`id`, `first_name`, `last_name`, `address`, `email`, `password`, `role`, `resume`, `branch`, `industry_access`, `verify_token`, `verify_status`) VALUES
+(2, 'Berto', 'Berto', '', 'berto@gmail.com', '$2y$10$cHP0Rr5QD2L8..KYYw3ao.z/01SHqzGVhnKhbSbM06ofWssF4Yqzu', 'Super Admin', '65f3ac7f2912c_01_Handout_1.pdf', 'Manila', 'Retail, Maintenance & Services', '', 1),
+(9, 'Test', '2', '', 'nm@gmail.com', '$2y$10$lxK4sVaAKJD6Ve0LQ/HuZuhqClGEtjHImwwI3i4wvLMXm9/6C2ZrW', 'user', '65f7de46cd506_01_Handout_1.pdf', '', '', '', 1),
+(18, '', '', '', 'sad@gmail.com', '$2y$10$OPaAG1EdUfy6U0lr8ZH.yO5J/wpvYa3nEhBVKyse1WxPmQV1TLq22', 'user', '', '', '', '', 1),
+(19, 'aa', 'bb', '', 'b@gmail.com', '$2y$10$jpqXcvqygRo4ZkH6FqHsGeIvCI3nkynDVEWpq7Y6azYLx2yLvTVyW', 'user', '65f107749a2a8_01_Handout_1.pdf', '', '', '', 1),
+(20, 'd', 'd', '', 'd@gmail.com', '$2y$10$tYhqLWhl6uLjp1xxOXYLAOtb3/ArLYweILH.V79T2Tq7K0Nx2fORm', 'user', '', '', '', '', 1),
+(26, 'Henard', 'Cueto', '', 'henard@gmail.com', '$2y$10$hyUOGhYAlB/2YOUnpMhn7eq.1PqdReVHnrt0.z31msIcRtyNbEPQS', 'user', '', '', '', '', 1),
+(27, 'test', 'ops', '', 'ops@gmail.com', '$2y$10$BqCbeZ2vlVjZylEdwfJjseiYEsvhzIyc9MxnIo6xS9UlfIqYJzXeC', 'Operations', '', 'Makati', '', '', 0),
+(28, 'test', 'emp', '', 'emp@gmail.com', '$2y$10$RPnzrLQRrFJmJMJ2stNs0.Jdcr7Pkidf8hzdVVG6RRUiNdtJloLAK', 'Employee', '', 'Makati', 'Food Services', '', 0),
+(29, 'test', 'admin', '', 'admiN@gmail.com', '$2y$10$g6QPzL3LoqMmcwZsisOPB.0YFVAndZGPZCaba8h3Fkc/78ywax5/W', 'Admin', '', 'Makati', 'Retail, Logistics, Maintenance & Services', '', 0),
+(31, 'test', 'super', '', 'super@gmail.com', '$2y$10$K38Delw1Nktpm3PxyLeEnOQspPqO8hOe3tCQOBVerL7w3Zb1ccvx6', 'Super Admin', '', 'Makati', 'Retail, Maintenance & Services', '', 0),
+(32, 'djhab', 'sfbdj', '', 'gagokka@gmail.com', '$2y$10$xhhOxk.YHAcyw8C2pKy5o.Um.Q8XrejX36tLXz0kgiX0FDXij8/8K', 'user', '', '', '', '', 0),
+(33, 'test', 'access', '', 'access@gmail.com', '$2y$10$C1SmDPAHs2/A408krSR8R.WCQLJmlMj7.oG3ZGfPHaX.M1/u7v.Vq', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
+(35, 'test', 'test', '', 'tes@gmail.com', '$2y$10$p80/I6gIzQf3d9aIna8eJuk2IApIhlSZ/EcPirDkzHpPoESBn7qza', 'Admin', '', 'Makati', 'Retail, Logistics', '', 0),
+(36, 'Test', 'Berto', '', 'advinculaberto@gmail.com', '$2y$10$mRv2GspaNOfi6kEitrHgs.3lc//O4mq60pNshyVHlDXUhri6f.zbi', 'user', '', '', '', '', 1),
+(37, 'test', 'one', '', 'one@gmail.com', '$2y$10$eEDjbZQmjzJX0dw69yYcyO4i1PbDsvYCmC5a8OF0munNzNctPOh9i', 'Admin', '', 'Makati', 'Retail, Logistics', '', 1),
+(39, 'dsa', 'sdah', '', 'asdkj@gmail.com', '$2y$10$5T32Di4ingifmIYZAhp9keC9uQpUsDuaCJhZorddkGFeIJXvHXNNy', 'Super Admin', '', 'Makati', 'Retail, Logistics, Food Services, Maintenance & Services', '', 1),
+(40, 'test', 'shesh', 'Makata Makate Makati Makato Makatu', 'makati@gmail.com', '$2y$10$H0H8C/uMqdb8pg0IYlm5CufZ387SN75Q9U1xvu/cVCHsJ9/QrRz9S', 'user', '', '', '', '04eb0328be03776cc0dcd97fc570a071', 0);
 
 -- --------------------------------------------------------
 
@@ -547,7 +575,7 @@ CREATE TABLE `user_resumes` (
 --
 
 INSERT INTO `user_resumes` (`id`, `user_id`, `picture`, `email`, `last_name`, `first_name`, `middle_name`, `present_address`, `permanent_address`, `birthdate`, `gender`, `height`, `weight`, `nationality`, `religion`, `civil_status`, `sss_number`, `pagibig_number`, `philhealth_number`, `tin_number`, `contact_number`, `phone_verified`, `otp`, `otp_timestamp`, `reference`, `additional_info_q1`, `additional_info_q2`, `declaration`, `authorization`) VALUES
-(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'aw@asd.comdsadas', 'abc', 'wq', 'dasd', 'asdqwe', 'asd', '2024-03-26', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 0, 0, '2024-04-19 15:11:15', 'Job Fair: ', 'asdasd', 'dsa', 'agreed', ''),
+(5, 9, '6602359b0104b_default-profile-picture1.jpg', 'aw@asd.comdsadas', 'abc', 'wq', 'dasd', 'asdqwe', 'asd', '2024-05-21', 'Male', 32, 32, 'hui', 'iu', 'Single', 765, 43, 53, 312, '09938934068', 1, 0, '2024-05-15 10:41:43', 'Job Fair: ', 'dsa', 'sad', 'agreed', ''),
 (6, 20, '660a232e498ef_default-profile-picture1.jpg', 'askdj@gmail.com', 'Seesshh', 'asdhh', 'aksjdh', 'askduhg', 'sadhgkjg', '2024-04-24', 'Male', 231, 312, 'dkjashf', 'asd', 'Single', 321, 31232, 13123, 312, '132', 0, 0, '2024-04-18 14:17:17', 'Job Fair, Newspaper / Magazines, Walk-in: ', 'adas', 'asd', 'agreed', '');
 
 --
@@ -622,7 +650,7 @@ ALTER TABLE `user_resumes`
 -- AUTO_INCREMENT for table `applicant_logs`
 --
 ALTER TABLE `applicant_logs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=239;
 
 --
 -- AUTO_INCREMENT for table `character_references`
@@ -646,7 +674,7 @@ ALTER TABLE `employment_background`
 -- AUTO_INCREMENT for table `initial_interview_assessments`
 --
 ALTER TABLE `initial_interview_assessments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `job_applicants`
@@ -670,7 +698,7 @@ ALTER TABLE `mrfs`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `user_resumes`
