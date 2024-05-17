@@ -468,7 +468,7 @@
             <?php
             if (isset($_SESSION['user_id']) && !empty($_SESSION['user_id']) && $_SESSION['user_role'] != "user") {
                 $current_page = basename($_SERVER['PHP_SELF']);
-                if ($current_page !== 'index.php' || rtrim($current_page, '/') === '/recruitment') {
+                if (($current_page !== 'index.php' && $current_page !== 'profile.php') || rtrim($current_page, '/') === '/recruitment') {
                     ?>
                     <!-- Sidebar -->
                     <nav class="col-md-2 col-lg-2 col-xl-2 bg-white  p-1 m-0 d-none d-lg-block sidebarMenu shadow-sm"
@@ -575,7 +575,12 @@
             ?>
 
             <!-- Main content -->
-            <main
-                class="<?php echo (empty($_SESSION['user_role']) || $_SESSION['user_role'] == "user") ? 'col-md-12 col-lg-12' : 'col-md-8 col-lg-10'; ?>"
-                style="margin-top: 100px">
+            <main class="<?php
+            $currentPage = basename($_SERVER['PHP_SELF']); // Get the current script's filename
+            if ($currentPage == 'index.php' || $currentPage == 'profile.php') {
+                echo 'col-md-12 col-lg-12';
+            } else {
+                echo (empty($_SESSION['user_role']) || $_SESSION['user_role'] == 'user') ? 'col-md-12 col-lg-12' : 'col-md-12 col-lg-10';
+            }
+            ?>" style="margin-top: 100px">
                 <!-- Main content goes here -->
