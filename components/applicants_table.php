@@ -290,7 +290,7 @@
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-list"></i>
                     </a>
-                    <form action="../admin/applicant_process.php" method="post">
+                    <form action="" method="post">
                         <input type="hidden" name="applicant_id" value="<?php echo $row['id']; ?>">
                         <?php
                         //Actions for Pooling Applicants Sidebar
@@ -1929,7 +1929,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="mrf_applicant_id" id="applicant_id">
                     <div class="form-floating mb-3">
                         <select class="form-select" name="jobSelect" id="jobSelect" required>
@@ -1973,7 +1973,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="applicant_id" id="fail_applicant_id">
                     <div class="mb-3">
                         <div class="row mb-3">
@@ -2007,7 +2007,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="applicant_id" id="back_applicant_id">
                     <div class="mb-3">
                         <div class="row mb-3">
@@ -2042,7 +2042,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="applicant_id" id="initial_applicant_id">
                     <div class="mb-3">
                         <div class="row mb-3">
@@ -2072,7 +2072,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="applicant_id" id="assessment_applicant_id">
 
                     <!-- Appearance -->
@@ -2411,7 +2411,7 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form action="../admin/applicant_process.php" method="POST" class="">
+                <form action="" method="POST" class="">
                     <input type="hidden" name="applicant_id" id="final_applicant_id">
                     <div class="mb-3">
                         <div class="row mb-3">

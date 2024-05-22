@@ -1,0 +1,277 @@
+<?php
+include ('src/admin/backend/dashboard_process.php');
+$pageTitle = "Dashboard";
+
+// Check if user is not logged in
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['user_role'])) {
+    // Redirect users who are not logged in to the login page
+    header("Location: /recruitment/login");
+    exit();
+}
+
+// Check if user is not admin
+if ($_SESSION['user_role'] == 'user' || $_SESSION['user_role'] == 'Operations') {
+    // Redirect non-admin users to index.php
+    $_SESSION['error_message'] = "Sorry. You don't have the permission to access this page.";
+    header("Location: /recruitment/home");
+    exit();
+}
+
+//Puts here to prevent ERROR: Cannot modify header information - headers already sent by..
+include ('components/header.php');
+?>
+
+
+<h4 class=" mt-1 mb-3 ">Dashboard</h4>
+
+<div class="container ">
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-success bg-opacity-50 border border-2  border-success shadow-sm">
+                <div class="card-body">
+
+                    <div class="container">
+                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                            <div>
+                                Registered Users
+                            </div>
+                            <div>
+                                <i class="bi bi-people h3"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2>
+                                    <?php echo '+' . $countReg; ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-warning  bg-opacity-50 border border-2  border-warning shadow-sm">
+                <div class="card-body">
+
+                    <div class="container">
+                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                            <div>
+                                Total Applicants
+                            </div>
+                            <div>
+                                <i class="bi bi-file-earmark-person h3"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2>
+                                    <?php echo '+' . $countApp; ?>
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-primary  bg-opacity-50 border border-2  border-primary shadow-sm">
+                <div class="card-body">
+
+                    <div class="container">
+                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                            <div>
+                                Registered Users
+                            </div>
+                            <div>
+                                <i class="bi bi-people h3"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2>+293</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-3">
+            <div class="card bg-danger  bg-opacity-50 border border-2  border-danger shadow-sm">
+                <div class="card-body">
+
+                    <div class="container">
+                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                            <div>
+                                Registered Users
+                            </div>
+                            <div>
+                                <i class="bi bi-people h3"></i>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h2>+293</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-lg-8 mb-3">
+            <div class="card border-light shadow-sm">
+                <div class="card-body" id="chart">
+                    <!-- CHART HERE -->
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 mb-3">
+            <div class="card h-100 border-light shadow-sm">
+                <div class="card-body">
+
+                    <div class="container">
+                        <div class="d-flex fw-bold justify-content-between align-items-center">
+                            <div class="mb-2">
+                                Today Interviews
+                            </div>
+                        </div>
+                        <?php
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $interviewDateTime = $row['interview_date'];
+                                $interviewDateTimeObj = new DateTime($interviewDateTime);
+                                $interviewTime = $interviewDateTimeObj->format('h:i A');
+                                ?>
+                                <div class="row-12">
+                                    <div class="col mb-2">
+                                        <div class="card bg-danger  bg-opacity-50 border border-2  border-danger">
+                                            <div class="card-body">
+
+                                                <div class="container">
+                                                    <div class="d-flex fw-bold justify-content-between align-items-center"
+                                                        style="height: 1px;">
+                                                        <div>
+                                                            <?php echo $row['first_name'] . ' ' . $row['last_name']; ?>
+                                                        </div>
+                                                        <div>
+                                                            <small>
+                                                                <?php echo $interviewTime; ?>
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
+                            }
+                        } else {
+                            ?>
+                                <div class="row">
+                                    <div class="col text-secondary">
+                                        No interviews scheduled today.
+                                    </div>
+                                </div>
+                                <?php
+                        }
+                        ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var dates = [
+        [1587640800000, 30], // Sample data: [timestamp, value]
+        [1587727200000, 40],
+        [1587813600000, 35],
+        // Add more data points as needed
+    ];
+
+    var options = {
+        series: [{
+            name: 'XYZ MOTORS',
+            data: dates,
+            color: '#dc3545'
+        }],
+        chart: {
+            type: 'area',
+            stacked: false,
+            height: 350,
+            zoom: {
+                type: 'x',
+                enabled: true,
+                autoScaleYaxis: true
+            },
+            toolbar: {
+                autoSelected: 'zoom'
+            }
+        },
+        dataLabels: {
+            enabled: false
+        },
+        markers: {
+            size: 0,
+        },
+        title: {
+            text: 'Chart Here',
+            align: 'left'
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0.4,
+                stops: [0, 90, 100]
+            },
+            colors: ['#dc3545']
+        },
+        stroke: {
+            curve: 'smooth',
+            width: 2, // Line width
+            colors: ['#dc3545'] // Line color
+        },
+        yaxis: {
+            labels: {
+                formatter: function (val) {
+                    return (val / 1000000).toFixed(0);
+                },
+            },
+            title: {
+                text: 'Price'
+            },
+        },
+        xaxis: {
+            type: 'datetime',
+        },
+        tooltip: {
+            shared: false,
+            y: {
+                formatter: function (val) {
+                    return (val / 1000000).toFixed(0)
+                }
+            }
+        }
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+
+</script>
+
+
+<?php include ('components/footer.php'); ?>

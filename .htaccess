@@ -1,2 +1,165 @@
 RewriteEngine On
-ErrorDocument 404 http://localhost/recruitment/404.php
+RewriteBase /recruitment/
+
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#SHARED
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/login.php to /recruitment/login
+RewriteRule ^login\.php$ /recruitment/login [R=301,L]
+
+# Redirect /recruitment/src/shared/frontend/login.php to /recruitment/login
+RewriteRule ^src/shared/frontend/login\.php$ /recruitment/login [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/register.php to /recruitment/register
+RewriteRule ^register\.php$ /recruitment/register [R=301,L]
+
+# Redirect /recruitment/src/shared/frontend/register.php to /recruitment/register
+RewriteRule ^src/shared/frontend/register\.php$ /recruitment/register [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/resend_verify_email.php to /recruitment/resend_verify_email
+RewriteRule ^resend_verify_email\.php$ /recruitment/resend_verify_email [R=301,L]
+
+# Redirect /recruitment/src/shared/frontend/resend_verify_email.php to /recruitment/resend_verify_email
+RewriteRule ^src/shared/frontend/resend_verify_email\.php$ /recruitment/resend_verify_email [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/home.php to /recruitment/home
+RewriteRule ^home\.php$ /recruitment/home [R=301,L]
+
+# Redirect /recruitment/src/shared/frontend/home.php to /recruitment/home
+RewriteRule ^src/shared/frontend/home\.php$ /recruitment/home [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/verify_phone.php to /recruitment/verify_phone
+RewriteRule ^verify_phone\.php$ /recruitment/verify_phone [R=301,L]
+
+# Redirect /recruitment/src/shared/frontend/verify_phone.php to /recruitment/verify_phone
+RewriteRule ^src/shared/frontend/verify_phone\.php$ /recruitment/verify_phone [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#USER
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/my_jobs.php to /recruitment/my_jobs
+RewriteRule ^my_jobs\.php$ /recruitment/my_jobs [R=301,L]
+
+# Redirect /recruitment/src/user/frontend/home.php to /recruitment/my_jobs
+RewriteRule ^src/user/frontend/my_jobs\.php$ /recruitment/my_jobs [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/my_resume.php to /recruitment/my_resume
+RewriteRule ^my_resume\.php$ /recruitment/my_resume [R=301,L]
+
+# Redirect /recruitment/src/user/frontend/my_resume.php to /recruitment/my_resume
+RewriteRule ^src/user/frontend/my_resume\.php$ /recruitment/my_resume [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/submit_application.php to /recruitment/submit_application
+RewriteRule ^submit_application\.php$ /recruitment/submit_application [R=301,L]
+
+# Redirect /recruitment/src/user/frontend/submit_application.php to /recruitment/submit_application
+RewriteRule ^src/user/frontend/submit_application\.php$ /recruitment/submit_application [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#ADMIN
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/dashboard.php to /recruitment/dashboard
+RewriteRule ^dashboard\.php$ /recruitment/admin/dashboard [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/dashboard.php to /recruitment/dashboard
+RewriteRule ^src/admin/frontend/dashboard\.php$ /recruitment/admin/dashboard [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+# Redirect /recruitment/pooling_applicant.php to /recruitment/pooling_applicant
+RewriteRule ^pooling_applicant\.php$ /recruitment/admin/pooling_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/pooling_applicant.php to /recruitment/pooling_applicant
+RewriteRule ^src/admin/frontend/pooling_applicant\.php$ /recruitment/admin/pooling_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/shortlisted_applicant.php to /recruitment/shortlisted_applicant
+RewriteRule ^shortlisted_applicant\.php$ /recruitment/admin/shortlisted_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/shortlisted_applicant.php to /recruitment/shortlisted_applicant
+RewriteRule ^src/admin/frontend/shortlisted_applicant\.php$ /recruitment/admin/shortlisted_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/identified_applicant.php to /recruitment/identified_applicant
+RewriteRule ^identified_applicant\.php$ /recruitment/admin/identified_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/identified_applicant.php to /recruitment/identified_applicant
+RewriteRule ^src/admin/frontend/identified_applicant\.php$ /recruitment/admin/identified_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/placed_applicant.php to /recruitment/placed_applicant
+RewriteRule ^placed_applicant\.php$ /recruitment/admin/placed_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/placed_applicant.php to /recruitment/placed_applicant
+RewriteRule ^src/admin/frontend/placed_applicant\.php$ /recruitment/admin/placed_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/failed_applicant.php to /recruitment/failed_applicant
+RewriteRule ^failed_applicant\.php$ /recruitment/admin/failed_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/failed_applicant.php to /recruitment/failed_applicant
+RewriteRule ^src/admin/frontend/failed_applicant\.php$ /recruitment/admin/failed_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/backout_applicant.php to /recruitment/backout_applicant
+RewriteRule ^backout_applicant\.php$ /recruitment/admin/backout_applicant [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/backout_applicant.php to /recruitment/backout_applicant
+RewriteRule ^src/admin/frontend/backout_applicant\.php$ /recruitment/admin/backout_applicant [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/mrf_list.php to /recruitment/mrf_list
+RewriteRule ^mrf_list\.php$ /recruitment/admin/mrf_list [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/mrf_list.php to /recruitment/mrf_list
+RewriteRule ^src/admin/frontend/mrf_list\.php$ /recruitment/admin/mrf_list [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/interview_calendar.php to /recruitment/interview_calendar
+RewriteRule ^interview_calendar\.php$ /recruitment/admin/interview_calendar [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/interview_calendar.php to /recruitment/interview_calendar
+RewriteRule ^src/admin/frontend/interview_calendar\.php$ /recruitment/admin/interview_calendar [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+
+# Redirect /recruitment/manage_user.php to /recruitment/manage_user
+RewriteRule ^manage_user\.php$ /recruitment/admin/manage_user [R=301,L]
+
+# Redirect /recruitment/src/admin/frontend/manage_user.php to /recruitment/manage_user
+RewriteRule ^src/admin/frontend/manage_user\.php$ /recruitment/admin/manage_user [R=301,L]
+
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------
+
+RewriteRule ^index\\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f 
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /recruitment/index.php [L]
+
+
+#ErrorDocument 404 http://localhost/recruitment/404.php

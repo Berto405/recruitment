@@ -26,30 +26,22 @@ if (isset($_GET["token"])) {
 
             if ($updateStmt->affected_rows > 0) {
                 $_SESSION['success_message'] = "Your account has been verified.";
-                header("Location: login.php");
-                exit();
             } else {
                 $_SESSION['error_message'] = "Verificaiton Failed.";
-                header("Location: login.php");
-                exit();
             }
-
 
         } else {
             $_SESSION['error_message'] = "This email is already verified. Please login.";
-            header("Location: login.php");
-            exit();
         }
 
     } else {
         $_SESSION['error_message'] = "Token does not exist.";
-        header("Location: login.php");
-        exit();
     }
 
 } else {
     $_SESSION['error_message'] = "Not allowed";
-    header("Location: login.php");
-    exit();
 }
+
+header("Location: /recruitment/login");
+exit();
 ?>
